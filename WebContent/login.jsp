@@ -17,7 +17,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</a>
-					<a class="brand" href="#">Discussion</a>
+					<a class="brand" href="#">Web诉讼系统</a>
 					<div class="nav-collapse collapse">
 						<ul class="nav">
 							<li class="active"><a href="index.jsp">首页</a></li>

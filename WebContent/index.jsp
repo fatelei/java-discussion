@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Insert title here</title>
+		<meta charset="utf8">
+		<title>Discussion</title>
 		<link type="text/css" href="css/bootstrap.min.css" rel="stylesheet"/>
 		<link type="text/css" href="css/base.css" rel="stylesheet"/>
 	</head>
@@ -17,19 +17,59 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</a>
-					<a class="brand" href="#">WEB诉求系统</a>
+					<a class="brand" href="#">Discussion</a>
 					<div class="nav-collapse collapse">
-						<p class="nav-text pull-right"></p>
 						<ul class="nav">
 							<li class="active"><a href="#">首页</a></li>
-							<li><a href="#">注册</a></li>
-							<li><a href="#">登录</a></li>
+							<!--If not login-->
+							<li><a href="login.jsp">登录</a></li>
+							<li><a href="register.jsp">注册</a></li>
+							<!--If login-->
+							<li><a href="#">注销</a></li>
 						</ul>
 					</div>
 				</div>
 			</div>
 		</div>
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span3">
+					<div class="well sidebar-nav">
+						<ul>
+							<li><a href="register.jsp" class="btn btn-info">现在注册</a></li>
+							<li>已注册用户，请<a href="login.jsp">登录</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="span9">
+					<div class="row-fluid">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th>编号</th>
+									<th>主题</th>
+									<th><a href="#">发布时间</a></th>
+									<th><a href="#">访问次数</a></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>1</td>
+									<td>1233123</td>
+									<td>123123</td>
+									<td>1312323123</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<hr>
+			<footer>
+				<p>&copy;Discussion 2012</p>
+			</footer>
+		</div>
+		<script type="text/javascript" src="js/jquery-1.8.1.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="js/jquery-1.8.1.min.js"></script>	
 	</body>
 </html>

@@ -30,7 +30,7 @@
 		</div>
 		<div class="container">
 			<div class="loginform">
-				<form class="form-horizontal">
+				<form class="form-horizontal" method="POST" action="">
 					<div class="control-group">
 						<label class="control-label">用户名:</label>
 						<div class="controls">

@@ -3,6 +3,8 @@ package com.discuss.bean;
 
 //user bean
 public class UserBean {
+	public static final String UserTable = "User";
+	
 	//”√ªß±‡∫≈
 	public static final String UserID = "user_id";
 	private  int  userId = 0;

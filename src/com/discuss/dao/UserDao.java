@@ -10,7 +10,7 @@ public class UserDao {
 	private SqlControl sqlCtrl = new SqlControl();
 	private ResultSet res = null;
 	
-	//µÇÂ¼ÅÐ¶Ï
+	//ï¿½ï¿½Â¼ï¿½Ð¶ï¿½
 	public boolean loginOk(String userName, String password){
 		String findUserSql = "select * from " + UserBean.UserTable + 
 										" where " + UserBean.UserName +" = '" + userName + "';";
@@ -26,7 +26,7 @@ public class UserDao {
 		}
 	}
 	
-	//Ìí¼ÓÓÃ»§
+	//ï¿½ï¿½ï¿½ï¿½Ã»ï¿½
 	public boolean addUsr(UserBean user){
 		String addUserSql = "insert into  " + UserBean.UserTable + " (" + UserBean.UserName +", " + UserBean.UserPassword + ", " + UserBean.UserRank + ") " +
 							"values ('" + user.getUserName()+"', '" + user.getUserPassword() +"', '" + String.valueOf(2) + "')";
@@ -36,7 +36,7 @@ public class UserDao {
 		return true;
 	}
 		
-	//»ñÈ¡ÓÃ»§ÁÐ±í
+	//ï¿½ï¿½È¡ï¿½Ã»ï¿½ï¿½Ð±ï¿½
 	public ArrayList<UserBean> findUserList(String sql){
 		ArrayList<UserBean> userList = new ArrayList<UserBean>();
 		res = sqlCtrl.queryResultSet(sql);

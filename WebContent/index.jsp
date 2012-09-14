@@ -66,7 +66,7 @@
 			</div>
 			<hr>
 			<footer>
-				<p>&copy;Discussion 2012</p>
+				<p>&copy;Web诉讼系统 2012</p>
 			</footer>
 		</div>
 		<script type="text/javascript" src="js/jquery-1.8.1.min.js"></script>

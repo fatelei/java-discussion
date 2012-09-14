@@ -44,17 +44,17 @@
 						</div>
 					</div>
 					<div class="form-action">
-						<input type="submit" class="btn btn-primary pull-right" value="登录"/>
+						<input type="submit" class="btn btn-primary pull-right" onclick="return check_login();" value="登录"/>
 						<input type="reset" class="btn" value="重置"/>
 					</div>
 				</form>
 			</div>
 			<hr>
 			<footer>
-				&copy;Discussion 2012
+				&copy;Web诉讼系统 2012
 			</footer>
 		</div>
 		<script type="text/javascript" src="js/jquery-1.8.1.min.js"></script>
-		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/check.js"></script>
 	</body>
 </html>

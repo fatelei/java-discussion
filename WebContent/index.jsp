@@ -23,12 +23,20 @@
 							<li class="active"><a href="#">首页</a></li>
 							<!--If not login-->
 							<%
-							    
+							    String authed = (String)session.getAttribute("loginState");
+								if (authed == null || authed.equals("false")) {
 							%>
-							<li><a href="login.jsp">登录</a></li>
-							<li><a href="register.jsp">注册</a></li>
-							<!--If login-->
-							<li><a href="#">注销</a></li>
+									<li><a href="login.jsp">登录</a></li>
+									<li><a href="register.jsp">注册</a></li>
+							<%	} else {%>
+							<% 
+									String level = (String)session.getAttribute("userRank");
+									if (Integer.parseInt(level) == 1) {
+							%>
+										<li><a href="#">用户管理</a></li>
+							<%		}	%>
+									<li><a href="#" onclick="logout();">注销</a></li>
+							<%	}	%>
 						</ul>
 					</div>
 				</div>
@@ -39,8 +47,14 @@
 				<div class="span3">
 					<div class="well sidebar-nav">
 						<ul>
-							<li><a href="register.jsp" class="btn btn-info">现在注册</a></li>
-							<li>已注册用户，请<a href="login.jsp">登录</a></li>
+							<%
+								if (authed == null || authed.equals("false")) {
+							%>
+									<li><a href="register.jsp" class="btn btn-info">现在注册</a></li>
+									<li>已注册用户，请<a href="login.jsp">登录</a></li>
+							<%	}else{	%>
+									<li>你好!<%=session.getAttribute("username")%></li>
+							<%  } %>
 						</ul>
 					</div>
 				</div>
@@ -74,5 +88,6 @@
 		</div>
 		<script type="text/javascript" src="js/jquery-1.8.1.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/check.js"></script>
 	</body>
 </html>

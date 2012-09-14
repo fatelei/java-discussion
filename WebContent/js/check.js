@@ -47,3 +47,13 @@ function check_delete() {
     }
     return false;
 }
+
+function logout() {
+	$.post('user', 
+			{
+				"userFunFlag": "5"
+			}, function(data) {
+				window.location.href = "index.jsp";
+			}
+	);
+}

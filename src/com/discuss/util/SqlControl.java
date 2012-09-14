@@ -9,11 +9,11 @@ import java.sql.Statement;
 
 public class SqlControl {
 	//Mysql url
-	public static final String mysqlURL = "jdbc:mysql://localhost/Discuss?useUnicode=true&characterEncoding=utf-8";
+	public static final String mysqlURL = "jdbc:mysql://localhost/discuss?useUnicode=true&characterEncoding=utf-8";
 	//User name
 	public static final String userName = "root";
 	//User password
-	public static final String userPassword = "haiquan1314V";
+	public static final String userPassword = "123456";
 	
 	//db variable
 	private Connection conn = null;
@@ -24,10 +24,11 @@ public class SqlControl {
 	//get connetion
 	public Connection getDbConnetion(){
 		try {
-			   Class.forName("com.mysql.jdbc.Driver");
-			   conn = DriverManager.getConnection(mysqlURL, userName, userPassword);
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection(mysqlURL, userName, userPassword);
 		} catch (ClassNotFoundException e) {
-			   e.printStackTrace();
+			System.out.println("ASd");
+			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

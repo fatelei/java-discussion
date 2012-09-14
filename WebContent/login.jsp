@@ -31,6 +31,11 @@
 		<div class="container">
 			<div class="loginform">
 				<form class="form-horizontal" method="POST" action="loginser">
+					<%String msg=(String)request.getAttribute("loginSta");
+						if (msg != null) {
+							out.print(msg);
+						}
+					%>
 					<div class="control-group">
 						<label class="control-label">用户名:</label>
 						<div class="controls">

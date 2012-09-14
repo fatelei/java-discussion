@@ -9,7 +9,6 @@ import com.discuss.util.SqlControl;
 public class UserDao {
 	private SqlControl sqlCtrl = new SqlControl();
 	private ResultSet res = null;
-	
 	//login	is	ok	?
 	public boolean loginOk(String userName, String password){
 		String findUserSql = "select * from " + UserBean.UserTable + 

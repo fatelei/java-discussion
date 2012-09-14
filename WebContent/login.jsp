@@ -32,8 +32,12 @@
 			<div class="loginform">
 				<form class="form-horizontal" method="POST" action="loginser">
 					<%String msg=(String)request.getAttribute("loginSta");
-						if (msg != null) {
-							out.print(msg);
+						if (msg != null && msg.equals("false")) {
+					%>
+					<div class="alert alert-error">
+						<p style="text-align:center;"><strong>用户名或密码错误</strong></p>
+					</div>
+					<%
 						}
 					%>
 					<div class="control-group">

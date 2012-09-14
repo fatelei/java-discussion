@@ -35,27 +35,6 @@ public class LoginServlet extends HttpServlet {
 			 de = request.getRequestDispatcher("login.jsp");
 		}
 		
-<<<<<<< HEAD
-//		//get session
-//		HttpSession session = request.getSession(true);
-//		
-//		//get application
-//		ServletContext application = this.getServletContext();
-
-	    System.out.println("local address："  + request.getLocalAddr());
-	    	    
-=======
-//		//��ȡsession
-//		HttpSession session = request.getSession(true);
-//		
-//		//��ȡapplication
-//		ServletContext application = this.getServletContext();
-
-	    //��ȡ���ص�ַ
-	    System.out.println("ip address"  + request.getLocalAddr());
-	    
-	    RequestDispatcher de = request.getRequestDispatcher("login.jsp");
->>>>>>> 139b2190ab1612699c2523e89b10c8895c567e7a
 	    de.forward(request, response);
 	}
 }

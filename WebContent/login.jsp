@@ -30,8 +30,8 @@
 		</div>
 		<div class="container">
 			<div class="loginform">
-				<form class="form-horizontal" method="POST" action="loginser">
-					<input type="hidden" name="usersFunFlag" value="1"/>
+				<form class="form-horizontal" method="POST" action="user">
+					<input type="hidden" name="userFunFlag" value="1"/>
 					<%String msg=(String)request.getAttribute("loginSta");
 						if (msg != null && msg.equals("false")) {
 					%>

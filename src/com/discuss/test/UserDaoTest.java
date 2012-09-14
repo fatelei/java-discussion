@@ -14,7 +14,7 @@ public class UserDaoTest {
 		user.setUserPassword("fate");
 		user.setUserRank(1);
 		
-		userD.addUsr(user);
+		System.out.println(userD.addUsr(user));
 		
 	}
 

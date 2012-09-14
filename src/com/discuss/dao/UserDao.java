@@ -10,7 +10,7 @@ public class UserDao {
 	private SqlControl sqlCtrl = new SqlControl();
 	private ResultSet res = null;
 	
-	//登录判断
+	//login	is	ok	?
 	public boolean loginOk(String userName, String password){
 		String findUserSql = "select * from " + UserBean.UserTable + 
 										" where " + UserBean.UserName +" = '" + userName + "';";
@@ -26,30 +26,31 @@ public class UserDao {
 		}
 	}
 	
-	//添加用户
+	//add new user
 	public boolean addUsr(UserBean user){
-		//判重复
+		//having the same user ?
 		String coutUserSql = "select count(*) from " + UserBean.UserTable + " where " 
-											+ UserBean.UserName + " = '" + user.getUserName() + "';";
+						+ UserBean.UserName + " = '" + user.getUserName() + "';";
 		if(sqlCtrl.count(coutUserSql) > 0){
-			//用户名重复
+			//have
 			return false;
 		}else{
-			//添加
+			//no	add
 			String addUserSql = "insert into  " + UserBean.UserTable + " (" + UserBean.UserName +", " + UserBean.UserPassword + ", " + UserBean.UserRank + ") " +
-					"values ('" + user.getUserName()+"', '" + user.getUserPassword() +"', '" + String.valueOf(2) + "')";
+					"values ('" + user.getUserName()+"', '" + user.getUserPassword() +"', '" + String.valueOf(user.getUserRank()) + "')";
 			System.out.println(addUserSql);
-			try {
-				System.out.println(sqlCtrl.update(addUserSql));
-			} catch (SQLException e) {
-				e.printStackTrace();
+			if(sqlCtrl.update(addUserSql)== -1){
 				return false;
 			}
 		}
 		return true;
 	}
 		
-	//获取用户列表
+//	public	boolean delUser(int ){
+//		
+//	} 
+	
+	//find user's list
 	public ArrayList<UserBean> findUserList(String sql){
 		ArrayList<UserBean> userList = new ArrayList<UserBean>();
 		res = sqlCtrl.queryResultSet(sql);

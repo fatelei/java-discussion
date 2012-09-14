@@ -63,12 +63,18 @@ public class SqlControl {
 	}
 	
 	//update
-	public int update(String sql) throws SQLException{
+	//error -1	ok ;	effect rows	number
+	public int update(String sql) {
 		int effectRows = 0;
 		if(sta == null){
 			createStatement();
 		}
-		effectRows = sta.executeUpdate(sql);
+		try {
+			effectRows = sta.executeUpdate(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}
 		return effectRows;
 	}
 	

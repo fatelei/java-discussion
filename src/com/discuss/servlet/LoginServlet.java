@@ -39,7 +39,7 @@ public class LoginServlet extends HttpServlet {
 //		ServletContext application = this.getServletContext();
 
 	    //获取本地地址
-	    System.out.println("本地地址是："  + request.getLocalAddr());
+	    System.out.println("local address："  + request.getLocalAddr());
 	    
 	    RequestDispatcher de = request.getRequestDispatcher("login.jsp");
 	    de.forward(request, response);

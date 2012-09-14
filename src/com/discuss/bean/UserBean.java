@@ -5,9 +5,9 @@ package com.discuss.bean;
 public class UserBean {
 	public static final String UserTable = "User";
 	
-	//user's id	number
 	public static final String UserID = "user_id";
 	private  int  userId = 0;
+	
 	//user's	name
 	public static final String UserName = "user_name";
 	private  String  userName = null;

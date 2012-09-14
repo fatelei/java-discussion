@@ -15,7 +15,7 @@ public class UserBean {
 	public static final String UserPassword = "user_password";
 	private  String  userPassword = null;
 	
-	//the rank of user,	1 administrator	; 2  
+	//the rank of user,	1 system	administrator	; 2	  department; 3		normal user( resident )
 	public static final String UserRank = "user_rank";
 	private  int  userRank = 0;
 	

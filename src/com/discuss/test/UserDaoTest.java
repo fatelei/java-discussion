@@ -1,7 +1,6 @@
 package com.discuss.test;
 
 import com.discuss.dao.UserDao;
-import com.discuss.util.SqlControl;
 
 public class UserDaoTest {
 
@@ -10,7 +9,7 @@ public class UserDaoTest {
 		//login user test
 		System.out.println(userD.loginOk("hai", "hai"));
 		
-		System.out.println(new SqlControl().count("select count(*) from User;"));
+//		System.out.println(new SqlControl().count("select count(*) from User;"));
 		
 		
 		//add user	test

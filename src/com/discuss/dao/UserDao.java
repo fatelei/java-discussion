@@ -10,18 +10,18 @@ public class UserDao {
 	private SqlControl sqlCtrl = new SqlControl();
 	private ResultSet res = null;
 	//login	is	ok	?
-	public boolean loginOk(String userName, String password){
+	public UserBean loginOk(String userName, String password){
 		String findUserSql = "select * from " + UserBean.UserTable + 
 										" where " + UserBean.UserName +" = '" + userName + "';";
 		ArrayList<UserBean> userList = findUserList(findUserSql);
 		if(userList.size() != 0){
 			if(userList.get(0).getUserPassword().equals(password)){
-				return true;
+				return userList.get(0);
 			}else{
-				return false;
+				return null;
 			}			
 		}else{
-			return false;
+			return null;
 		}
 	}
 	
@@ -55,11 +55,10 @@ public class UserDao {
 		return true;
 	} 
 	
-	//modif user
+	//modify user
 	public boolean modifyUser(UserBean user){
-		
-		
-		
+		String modifSql = "";
+				
 		
 		return true;
 	}

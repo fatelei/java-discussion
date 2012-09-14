@@ -22,6 +22,9 @@
 						<ul class="nav">
 							<li class="active"><a href="#">首页</a></li>
 							<!--If not login-->
+							<%
+							    
+							%>
 							<li><a href="login.jsp">登录</a></li>
 							<li><a href="register.jsp">注册</a></li>
 							<!--If login-->

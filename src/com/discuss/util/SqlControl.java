@@ -64,7 +64,8 @@ public class SqlControl {
 	}
 	
 	//update
-	public int update(String sql){
+	//error -1	ok ;	effect rows	number
+	public int update(String sql) {
 		int effectRows = 0;
 		if(sta == null){
 			createStatement();
@@ -73,6 +74,7 @@ public class SqlControl {
 			effectRows = sta.executeUpdate(sql);
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return -1;
 		}
 		return effectRows;
 	}
@@ -85,10 +87,12 @@ public class SqlControl {
 		int count = 0;
 		try {
 			res = sta.executeQuery(sql);
+			res.next();
 			count = res.getInt(1);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		closeCon();
 		return count;
 	}
 	
@@ -110,15 +114,19 @@ public class SqlControl {
 		try {
 		if(res != null){
 				res.close();
+				res = null;
 			}
 			if(sta != null){
 				sta.close();
+				sta = null;
 			}
 			if(preSta != null){
 				preSta.close();
+				preSta = null;
 			}
 			if(conn != null){
 				conn.close();
+				conn = null;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

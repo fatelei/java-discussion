@@ -7,11 +7,11 @@ public class SecondDiscussBean {
 	public static final String SecDisContent = "secdis_content";
 	private String secDisContent = null;
 	
-	//支持人数
+	//sustain user values
 	public static final String SecDisSupNum = "secdis_supnum";
 	private int secDisSupNum = 0;
 	
-	//反对人数
+	//oppose user values
 	public static final String SecDisOppNum = "secdis_oppnum";
 	private int secDisOppNum = 0;
 	

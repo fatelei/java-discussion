@@ -7,14 +7,15 @@ public class UserBean {
 	
 	public static final String UserID = "user_id";
 	private  int  userId = 0;
-	//�û���
+	
+	//user's	name
 	public static final String UserName = "user_name";
 	private  String  userName = null;
 	
 	public static final String UserPassword = "user_password";
 	private  String  userPassword = null;
 	
-	//�û��ȼ�
+	//the rank of user,	1 administrator	; 2  
 	public static final String UserRank = "user_rank";
 	private  int  userRank = 0;
 	

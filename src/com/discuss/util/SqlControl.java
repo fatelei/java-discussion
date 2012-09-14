@@ -13,7 +13,7 @@ public class SqlControl {
 	//User name
 	public static final String userName = "root";
 	//User password
-	public static final String userPassword = "haiquan1314V";
+	public static final String userPassword = "123456";
 	
 	//db variable
 	private Connection conn = null;
@@ -24,10 +24,11 @@ public class SqlControl {
 	//get connetion
 	public Connection getDbConnetion(){
 		try {
-			   Class.forName("com.mysql.jdbc.Driver");
-			   conn = DriverManager.getConnection(mysqlURL, userName, userPassword);
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection(mysqlURL, userName, userPassword);
 		} catch (ClassNotFoundException e) {
-			   e.printStackTrace();
+			System.out.println("ASd");
+			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

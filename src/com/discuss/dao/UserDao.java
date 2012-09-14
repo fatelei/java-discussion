@@ -26,6 +26,16 @@ public class UserDao {
 		}
 	}
 	
+	//添加用户
+	public boolean addUsr(UserBean user){
+		String addUserSql = "insert into  " + UserBean.UserTable + " (" + UserBean.UserName +", " + UserBean.UserPassword + ", " + UserBean.UserRank + ") " +
+							"values ('" + user.getUserName()+"', '" + user.getUserPassword() +"', '" + String.valueOf(2) + "')";
+		System.out.println(addUserSql);
+		System.out.println(sqlCtrl.update(addUserSql));
+		
+		return true;
+	}
+		
 	//获取用户列表
 	public ArrayList<UserBean> findUserList(String sql){
 		ArrayList<UserBean> userList = new ArrayList<UserBean>();
@@ -42,6 +52,7 @@ public class UserDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		sqlCtrl.closeCon();
 		return userList;
 	}
 }

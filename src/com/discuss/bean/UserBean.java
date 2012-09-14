@@ -5,17 +5,17 @@ package com.discuss.bean;
 public class UserBean {
 	public static final String UserTable = "User";
 	
-	//ÓÃ»§±àºÅ
+	//ç”¨æˆ·ç¼–å·
 	public static final String UserID = "user_id";
 	private  int  userId = 0;
-	//ÓÃ»§Ãû
+	//ç”¨æˆ·å
 	public static final String UserName = "user_name";
 	private  String  userName = null;
 	
 	public static final String UserPassword = "user_password";
 	private  String  userPassword = null;
 	
-	//ÓÃ»§µÈ¼¶
+	//ç”¨æˆ·ç­‰çº§
 	public static final String UserRank = "user_rank";
 	private  int  userRank = 0;
 	

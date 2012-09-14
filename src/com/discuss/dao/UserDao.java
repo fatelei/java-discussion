@@ -10,7 +10,7 @@ public class UserDao {
 	private SqlControl sqlCtrl = new SqlControl();
 	private ResultSet res = null;
 	
-	//µÇÂ¼ÅĞ¶Ï
+	//ç™»å½•åˆ¤æ–­
 	public boolean loginOk(String userName, String password){
 		String findUserSql = "select * from " + UserBean.UserTable + 
 										" where " + UserBean.UserName +" = '" + userName + "';";
@@ -26,17 +26,30 @@ public class UserDao {
 		}
 	}
 	
-	//Ìí¼ÓÓÃ»§
+	//æ·»åŠ ç”¨æˆ·
 	public boolean addUsr(UserBean user){
-		String addUserSql = "insert into  " + UserBean.UserTable + " (" + UserBean.UserName +", " + UserBean.UserPassword + ", " + UserBean.UserRank + ") " +
-							"values ('" + user.getUserName()+"', '" + user.getUserPassword() +"', '" + String.valueOf(2) + "')";
-		System.out.println(addUserSql);
-		System.out.println(sqlCtrl.update(addUserSql));
-		
+		//åˆ¤é‡å¤
+		String coutUserSql = "select count(*) from " + UserBean.UserTable + " where " 
+											+ UserBean.UserName + " = '" + user.getUserName() + "';";
+		if(sqlCtrl.count(coutUserSql) > 0){
+			//ç”¨æˆ·åé‡å¤
+			return false;
+		}else{
+			//æ·»åŠ 
+			String addUserSql = "insert into  " + UserBean.UserTable + " (" + UserBean.UserName +", " + UserBean.UserPassword + ", " + UserBean.UserRank + ") " +
+					"values ('" + user.getUserName()+"', '" + user.getUserPassword() +"', '" + String.valueOf(2) + "')";
+			System.out.println(addUserSql);
+			try {
+				System.out.println(sqlCtrl.update(addUserSql));
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
 		return true;
 	}
 		
-	//»ñÈ¡ÓÃ»§ÁĞ±í
+	//è·å–ç”¨æˆ·åˆ—è¡¨
 	public ArrayList<UserBean> findUserList(String sql){
 		ArrayList<UserBean> userList = new ArrayList<UserBean>();
 		res = sqlCtrl.queryResultSet(sql);

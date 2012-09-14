@@ -45,10 +45,21 @@ public class UserDao {
 		}
 		return true;
 	}
-		
-//	public	boolean delUser(int ){
-//		
-//	} 
+	
+	//delete user by user's id
+	public	boolean delUser(int userId ){
+		String delUserSql = "delete from " + UserBean.UserTable + " where " 
+				+ UserBean.UserID + " = '" + userId + "';";
+		if(sqlCtrl.update(delUserSql) == -1){
+			return false;
+		}
+		return true;
+	} 
+	
+	//modif user
+	public boolean modifyUser(UserBean user){
+		return true;
+	}
 	
 	//find user's list
 	public ArrayList<UserBean> findUserList(String sql){

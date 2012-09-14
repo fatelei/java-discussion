@@ -32,13 +32,12 @@ public class LoginServlet extends HttpServlet {
 			 request.setAttribute("loginSta", "false");
 		}
 		
-//		//获取session
+//		//get session
 //		HttpSession session = request.getSession(true);
 //		
-//		//获取application
+//		//get application
 //		ServletContext application = this.getServletContext();
 
-	    //获取本地地址
 	    System.out.println("local address："  + request.getLocalAddr());
 	    
 	    RequestDispatcher de = request.getRequestDispatcher("login.jsp");

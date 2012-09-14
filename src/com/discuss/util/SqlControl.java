@@ -63,17 +63,17 @@ public class SqlControl {
 	}
 	
 	//update
-	public boolean update(String sql){
-		boolean bool = false;
+	public int update(String sql){
+		int effectRows = 0;
 		if(sta == null){
 			createStatement();
 		}
 		try {
-			bool = sta.execute(sql);
+			effectRows = sta.executeUpdate(sql);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return bool;
+		return effectRows;
 	}
 	
 	//count

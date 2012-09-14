@@ -3,7 +3,13 @@ package com.discuss.bean;
 
 //user bean
 public class UserBean {
+<<<<<<< HEAD
 	//ï¿½Ã»ï¿½ï¿½ï¿½ï¿½
+=======
+	public static final String UserTable = "User";
+	
+	//ÓÃ»§±àºÅ
+>>>>>>> 1cdcbab96056799abe9d6a607bad9b389c420521
 	public static final String UserID = "user_id";
 	private  int  userId = 0;
 	//ï¿½Ã»ï¿½ï¿½ï¿½

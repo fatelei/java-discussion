@@ -24,12 +24,15 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String userName = request.getParameter("username");
 		String userPassword = request.getParameter("password");
-			
+		 
+		RequestDispatcher de = null;
 		if(userDao.loginOk(userName, userPassword)){
 			System.out.println("ok");
 			 request.setAttribute("loginSta", "true");
+			 de = request.getRequestDispatcher("index.jsp");
 		}else{
 			 request.setAttribute("loginSta", "false");
+			 de = request.getRequestDispatcher("login.jsp");
 		}
 		
 //		//get session
@@ -39,10 +42,7 @@ public class LoginServlet extends HttpServlet {
 //		ServletContext application = this.getServletContext();
 
 	    System.out.println("local address："  + request.getLocalAddr());
-	    
-	    RequestDispatcher de = request.getRequestDispatcher("login.jsp");
+	    	    
 	    de.forward(request, response);
-	    
 	}
-
 }

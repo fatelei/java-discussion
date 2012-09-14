@@ -9,7 +9,7 @@ import java.sql.Statement;
 
 public class SqlControl {
 	//Mysql url
-	public static final String mysqlURL = "jdbc:mysql://localhost/Discuss?useUnicode=true&characterEncoding=utf-8";
+	public static final String mysqlURL = "jdbc:mysql://localhost/discuss?useUnicode=true&characterEncoding=utf-8";
 	//User name
 	public static final String userName = "root";
 	//User password

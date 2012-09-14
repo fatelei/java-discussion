@@ -1,20 +1,31 @@
 package com.discuss.test;
 
-import com.discuss.bean.UserBean;
 import com.discuss.dao.UserDao;
+import com.discuss.util.SqlControl;
 
 public class UserDaoTest {
 
 	public static void main(String[] args) {
 		UserDao userD = new UserDao();
+		//login user test
+		System.out.println(userD.loginOk("hai", "hai"));
 		
-		//add user
-		UserBean user = new UserBean();
-		user.setUserName("fate");
-		user.setUserPassword("fate");
-		user.setUserRank(1);
+		System.out.println(new SqlControl().count("select count(*) from User;"));
 		
-		System.out.println(userD.addUsr(user));
+		
+		//add user	test
+//		UserBean user = new UserBean();
+//		user.setUserName("fate");
+//		user.setUserPassword("fate");
+//		user.setUserRank(1);
+//		
+//		System.out.println(userD.addUsr(user));
+		
+		//del user test
+//		System.out.println("delete user \t" + userD.delUser(5));
+		
+		//modify user test
+		
 		
 	}
 

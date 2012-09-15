@@ -1,12 +1,67 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-
-</body>
+<%
+	String authed = (String)session.getAttribute("loginState");
+	String path = request.getRequestURI();
+	if (authed == null || authed.equals("false")) {
+		response.sendRedirect("login.jsp?path=" + path);
+	} else {
+		String rank = (String)session.getAttribute("userRank");
+		if (Integer.parseInt(rank) != 1) {
+			response.sendRedirect("index.jsp");
+		}
+	}
+%>
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf8">
+		<title>Discussion</title>
+		<link type="text/css" href="css/bootstrap.min.css" rel="stylesheet"/>
+		<link type="text/css" href="css/base.css" rel="stylesheet"/>
+		<link type="text/css" href="css/login.css" rel="stylesheet"/>
+	</head>
+	<body>
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container-fluid">
+					<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</a>
+					<a class="brand" href="#">Web诉讼系统</a>
+					<div class="nav-collapse collapse">
+						<ul class="nav">
+							<li class="active"><a href="index.jsp">首页</a></li>
+							<li><a href="user_manage.jsp">用户管理</a></li>
+							<li><a href="#" onclick="logout();">注销</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<form class="form-horizontal" method="POST" action="user">
+					<input type="hidden" name="userFunFlag" value="3"/>
+					<div class="control-group">
+						<label class="control-label">用户名:</label>
+						<div class="controls">
+							<input type="text" name="username" value=""/>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label"></label>
+					</div>
+				</form>
+			</div>
+			<hr>
+			<footer>
+				&copy;Web诉讼系统 2012
+			</footer>
+		</div>
+		<script type="text/javascript" src="js/jquery-1.8.1.min.js"></script>
+		<script type="text/javascript" src="js/check.js"></script>
+	</body>
 </html>

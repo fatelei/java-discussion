@@ -33,7 +33,7 @@
 									String level = (String)session.getAttribute("userRank");
 									if (Integer.parseInt(level) == 1) {
 							%>
-										<li><a href="#">用户管理</a></li>
+										<li><a href="user_manage.jsp">用户管理</a></li>
 							<%		}	%>
 									<li><a href="#" onclick="logout();">注销</a></li>
 							<%	}	%>

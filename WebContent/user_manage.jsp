@@ -1,5 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String authed = (String)session.getAttribute("loginState");
+	String path = request.getRequestURI();
+	if (authed == null || authed.equals("false")) {
+		response.sendRedirect("login.jsp?path=" + path);
+	} else {
+		String rank = (String)session.getAttribute("userRank");
+		if (Integer.parseInt(rank) != 1) {
+			response.sendRedirect("index.jsp");
+		}
+	}
+%>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -22,8 +34,8 @@
 					<div class="nav-collapse collapse">
 						<ul class="nav">
 							<li class="active"><a href="index.jsp">首页</a></li>
-							<li><a href="login.jsp">登录</a></li>
-							<li><a href="register.jsp">注册</a></li>
+							<li><a href="user_manage.jsp">用户管理</a></li>
+							<li><a href="#" onclick="logout();">注销</a></li>
 						</ul>
 					</div>
 				</div>
@@ -41,8 +53,8 @@
 			        </thead>
 			        <tbody>
 			            <tr>
-			                <td>1</td>
-			                <td>test</td>
+			                <td><a href="#">1</a></td>
+			                <td><a href="#">test</a></td>
 			                <td>
 			                    <form method="POST" action="">
 			                        <input type="hidden" name="userFunFlag" value="4"/>

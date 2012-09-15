@@ -29,7 +29,9 @@ public class UserServlet extends HttpServlet {
 		Integer userFunFlag = Integer.valueOf(request.getParameter("userFunFlag"));
 		RequestDispatcher de = null;		//control forward
 		HttpSession session = request.getSession(true);
-		System.out.println(userFunFlag);
+		//System.out.println(userFunFlag);
+		String path = request.getParameter("path");
+		
 		switch(userFunFlag){
 		case 1:					//login
 			String userName = request.getParameter("username");
@@ -53,7 +55,11 @@ public class UserServlet extends HttpServlet {
 					 session.setAttribute(SesVaBean.UserRank, SesVaBean.UserRankResd);	
 					 break;					 
 				 }
-				 response.sendRedirect("index.jsp");
+				 if (path == null) {
+					 response.sendRedirect("index.jsp");
+				 } else {
+					 response.sendRedirect(path);
+				 }
 				 //de = request.getRequestDispatcher("index.jsp");
 			}else{
 				 request.setAttribute("loginSta", "false");

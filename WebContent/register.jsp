@@ -36,7 +36,7 @@
 					<input type="hidden" name="userFunFlag" value="2"/>
 					<% 
 						String addSta = (String)request.getAttribute("addSta");
-						if (addSta == null || addSta.equals("false")) {
+						if (addSta != null && addSta.equals("false")) {
 					%>
 					<div class="alert alert-error">
 						<p style="text-align:center"><strong>注册失败!</strong></p>

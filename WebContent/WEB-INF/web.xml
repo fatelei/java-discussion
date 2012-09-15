@@ -3,14 +3,27 @@
  xmlns="http://java.sun.com/xml/ns/javaee"
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
  <display-name>Discussion</display-name>
+ 
  <servlet>
   <servlet-name>userServlet</servlet-name>
   <servlet-class>com.discuss.servlet.UserServlet</servlet-class>
  </servlet>
+ 
+  <servlet>
+    <servlet-name>DisObjServlet</servlet-name>
+    <servlet-class>com.discuss.servlet.DisObjServlet</servlet-class>
+  </servlet>
+
  <servlet-mapping>
   <servlet-name>userServlet</servlet-name>
   <url-pattern>/user</url-pattern>
  </servlet-mapping>
+ 
+  <servlet-mapping>
+    <servlet-name>DisObjServlet</servlet-name>
+    <url-pattern>/disobj</url-pattern>
+  </servlet-mapping>
+  
  <welcome-file-list>
   <welcome-file>index.html</welcome-file>
   <welcome-file>index.htm</welcome-file>

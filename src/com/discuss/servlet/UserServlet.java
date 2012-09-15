@@ -27,14 +27,17 @@ public class UserServlet extends HttpServlet {
 			throws ServletException, IOException {
 		//function flags
 		Integer userFunFlag = Integer.valueOf(request.getParameter("userFunFlag"));
-		RequestDispatcher de = null;		//control forward
+		//control forward
+		RequestDispatcher de = null;
+		//session
 		HttpSession session = request.getSession(true);
+		
+		//parameter	values
+		String userName = request.getParameter("username");
+		String userPassword = request.getParameter("password");
 		
 		switch(userFunFlag){
 		case 1:					//login
-			String userName = request.getParameter("username");
-			String userPassword = request.getParameter("password");
-			 
 			UserBean user = userDao.loginOk(userName, userPassword);
 			if( user != null){
 				 System.out.println("ok");
@@ -61,10 +64,16 @@ public class UserServlet extends HttpServlet {
 			}
 			break;
 		case 2:					//add
+			
 			break;
 		case 3:					//modify
+			
 			break;
 		case 4:					//del
+			
+			break;
+		case 5:					//query
+			
 			break;
 		}
 		

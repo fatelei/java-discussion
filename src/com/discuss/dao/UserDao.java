@@ -57,11 +57,32 @@ public class UserDao {
 	
 	//modify user
 	public boolean modifyUser(UserBean user){
-		String modifSql = "";
-				
-		
+		String modifSql = "update " + UserBean.UserTable +" set " + UserBean.UserName +" = '" + user.getUserName() +"', "
+																  + UserBean.UserPassword + " = '" + user.getUserPassword() + "', "
+																  + UserBean.UserRank + " = '" + user.getUserRank() + "' where "
+																  + UserBean.UserID + " = '" + user.getUserId() + "';";
+		if(sqlCtrl.update(modifSql) == -1){
+			return false;
+		}		
 		return true;
 	}
+	
+	//query	split records	by	pages
+	public	ArrayList<UserBean> queryUser(int nowPage, int pageCount){
+		String splitSql = null;
+		int statrCount = (nowPage - 1) * pageCount;
+		//middle page
+		splitSql = "select * from " + UserBean.UserTable + " limit " + statrCount + " , " 
+																			+ pageCount + " ;";
+		return findUserList(splitSql);
+	} 
+	
+	//count all user's num
+	public int countUser(){
+		String countSql = "select count(*) from " + UserBean.UserTable + " ";
+		return sqlCtrl.count(countSql);
+	}
+	
 	
 	//find user's list
 	public ArrayList<UserBean> findUserList(String sql){

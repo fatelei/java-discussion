@@ -32,7 +32,18 @@
 		</div>
 		<div class="container">
 			<div class="loginform">
-				<form class="form-horizontal" method="POST" action="">
+				<form class="form-horizontal" method="POST" action="user">
+					<input type="hidden" name="userFunFlag" value="2"/>
+					<% 
+						String addSta = (String)request.getAttribute("addSta");
+						if (addSta == null || addSta.equals("false")) {
+					%>
+					<div class="alert alert-error">
+						<p style="text-align:center"><strong>注册失败!</strong></p>
+					</div>
+					<%
+						}
+					%>
 					<div class="control-group">
 						<label class="control-label">用户名:</label>
 						<div class="controls">

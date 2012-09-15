@@ -79,12 +79,12 @@ public class UserServlet extends HttpServlet {
 		case 4:					//del
 			
 			break;
-		case 5:					//query
-			
-			break;
 		case 5:					//logout
 			session.invalidate();
 			response.sendRedirect("index.jsp");
+			break;
+		case 6:					//query
+			
 			break;
 		}
 	    

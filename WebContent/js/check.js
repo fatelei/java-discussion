@@ -30,7 +30,7 @@ function check_register() {
 		return false;
 	}
 	var repassword = document.getElementsByName("repassword");
-	if (repassword[0].value.length == 0 || password != repassword) {
+	if (repassword[0].value.length == 0 || password[0].value != repassword[0].value) {
 		alert('密码不一致!');
 		return false;
 	}

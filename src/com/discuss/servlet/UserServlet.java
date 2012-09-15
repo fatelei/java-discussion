@@ -1,10 +1,8 @@
 package com.discuss.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +16,7 @@ import com.discuss.bean.SesVaBean;
 import com.discuss.bean.SystemConfBean;
 import com.discuss.bean.UserBean;
 import com.discuss.dao.UserDao;
+import com.discuss.util.JsonUtil;
 
 public class UserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -33,23 +32,21 @@ public class UserServlet extends HttpServlet {
 			throws ServletException, IOException {
 		//function flags
 		Integer userFunFlag = Integer.valueOf(request.getParameter("userFunFlag"));
-		//control forward
-		RequestDispatcher de = null;
 		//session
 		HttpSession session = request.getSession(true);
-		//System.out.println(userFunFlag);
 		
-		//directed to unlogin page
+		//directed to un login page
 		String path = request.getParameter("path");
 		
 		//parameter	values
 		String userName = request.getParameter("username");
 		String userPassword = request.getParameter("password");
 		String userResPassword = request.getParameter("repassword");
+		String userId = request.getParameter("userid");
+		String userRank = request.getParameter("userrank");
 		
 		//split page values
-//		Integer	nowPage = Integer.valueOf(request.getParameter("nowPage"));
-		int nowPage = 0;
+		String	nowPage = request.getParameter("nowPage");
 		
 		switch(userFunFlag){
 		case 1:					//login
@@ -78,8 +75,7 @@ public class UserServlet extends HttpServlet {
 				 }
 			}else{
 				 request.setAttribute("loginSta", "false");
-				 de = request.getRequestDispatcher("login.jsp");
-				 de.forward(request, response);
+				 response.sendRedirect("login.jsp");
 			}
 			break;
 		case 2:					//add
@@ -104,10 +100,31 @@ public class UserServlet extends HttpServlet {
 			}
 			break;
 		case 3:					//modify
-			
+			if(!userPassword.equals(userResPassword)){
+				//password is not the same
+				request.setAttribute("modfiySta", "false");
+				response.sendRedirect("user_manage.jsp");
+			}else{
+				UserBean newUser = new UserBean();
+				newUser.setUserId(Integer.valueOf(userId));
+				newUser.setUserName(userName);
+				newUser.setUserPassword(userPassword);
+				newUser.setUserRank(Integer.valueOf(userRank));
+				if(userDao.modifyUser(newUser)){
+					//add ok
+					request.setAttribute("modfiySta", "true");
+					response.sendRedirect("user_manage.jsp");
+				}else{
+					//name already in the database
+					request.setAttribute("modfiySta", "false");
+					response.sendRedirect("user_manage.jsp");
+				}
+			}
 			break;
 		case 4:					//del
-			
+			if(userDao.delUser(Integer.valueOf(userId))){
+				
+			}
 			break;
 		case 5:					//logout
 			session.invalidate();
@@ -115,7 +132,6 @@ public class UserServlet extends HttpServlet {
 			break;
 		case 6:					//query
 			int totalUser = userDao.countUser();
-			
 			int totalPage = 0;
 			if(totalUser % SystemConfBean.UserListPageNum == 0){
 				totalPage = totalUser / SystemConfBean.UserListPageNum;
@@ -123,7 +139,7 @@ public class UserServlet extends HttpServlet {
 				totalPage = totalUser / SystemConfBean.UserListPageNum + 1;
 			}
 			
-			ArrayList<UserBean> users = userDao.queryUser(nowPage, SystemConfBean.UserListPageNum);
+			ArrayList<UserBean> users = userDao.queryUser(Integer.valueOf(nowPage), SystemConfBean.UserListPageNum);
 			
 			//bulid	json oject
 			JSONObject json = new JSONObject();   
@@ -137,16 +153,11 @@ public class UserServlet extends HttpServlet {
 	        }     
 	        json.put("totalPage", totalPage);   
 	        json.put("users", useArray); 
-
-	        System.out.println(json);
-
-	        response.setCharacterEncoding("utf-8");
-	        PrintWriter out = response.getWriter();
-	        out.print(json);
-	        out.flush();
-	        out.close();
 	        
-			break;
+	        System.out.println(json);
+	        
+	        JsonUtil.sendJson(response, json.toString());
+	        break;
 		}
 	    
 	}

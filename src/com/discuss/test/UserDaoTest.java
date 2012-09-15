@@ -60,6 +60,7 @@ public class UserDaoTest {
         json.put("users", useArray); 
 
         System.out.println(json);
+        System.out.println(json.toString());
 	}
 
 }

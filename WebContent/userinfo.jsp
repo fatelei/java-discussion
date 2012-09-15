@@ -43,18 +43,37 @@
 		</div>
 		<div class="container">
 			<div class="row">
-				<form class="form-horizontal" method="POST" action="user">
-					<input type="hidden" name="userFunFlag" value="3"/>
-					<div class="control-group">
-						<label class="control-label">用户名:</label>
-						<div class="controls">
-							<input type="text" name="username" value=""/>
+				<div style="width: 600px; margin: 0 auto 0 auto;">
+					<form class="form-horizontal" method="POST" action="user">
+						<input type="hidden" name="userFunFlag" value="3"/>
+						<div class="control-group">
+							<label class="control-label">用户名:</label>
+							<div class="controls">
+								<input type="text" name="username" value="" disabled/>
+							</div>
 						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label"></label>
-					</div>
-				</form>
+						<div class="control-group">
+							<label class="control-label">密码:</label>
+							<div class="controls">
+								<input type="password" name="password" value="" disabled/>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">用户身份:</label>
+							<div class="controls">
+								<select name="rank" disabled>
+									<option value="1">系统管理员</option>
+									<option value="2">部门管理员</option>
+									<option value="3">市民</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-action">
+							<input type="button" class="btn" value="编辑" onclick="edit_user();"/>
+							<input type="submit" class="btn btn-primary pull-right" value="保存"/>
+						</div>
+					</form>
+				</div>
 			</div>
 			<hr>
 			<footer>

@@ -48,6 +48,9 @@ function check_delete() {
     return false;
 }
 
+/*
+ * 用户注销
+ */
 function logout() {
 	$.post('user', 
 			{
@@ -56,4 +59,16 @@ function logout() {
 				window.location.href = "index.jsp";
 			}
 	);
+}
+
+/*
+ * 编辑用户
+ */
+function edit_user() {
+	var username = document.getElementsByName("username");
+	var password = document.getElementsByName("password");
+	var rank = document.getElementsByName("rank");
+	username[0].disabled = false;
+	password[0].disabled = false;
+	rank[0].disabled = false;
 }

@@ -65,11 +65,11 @@
 			        </tbody>
 			    </table>
 			</div>
-			<hr>
-			<footer>
-				&copy;Web诉讼系统 2012
-			</footer>
 		</div>
+		<hr>
+		<footer>
+			&copy;Web诉讼系统 2012
+		</footer>
 		<script type="text/javascript" src="js/jquery-1.8.1.min.js"></script>
 		<script type="text/javascript" src="js/check.js"></script>
 	</body>

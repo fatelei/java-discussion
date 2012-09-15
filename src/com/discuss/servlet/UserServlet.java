@@ -32,11 +32,14 @@ public class UserServlet extends HttpServlet {
 		//session
 		HttpSession session = request.getSession(true);
 		//System.out.println(userFunFlag);
+		
+		//directed to unlogin page
 		String path = request.getParameter("path");
 		
 		//parameter	values
 		String userName = request.getParameter("username");
 		String userPassword = request.getParameter("password");
+		String userResPassword = request.getParameter("repassword");
 		
 		switch(userFunFlag){
 		case 1:					//login
@@ -63,7 +66,6 @@ public class UserServlet extends HttpServlet {
 				 } else {
 					 response.sendRedirect(path);
 				 }
-				 //de = request.getRequestDispatcher("index.jsp");
 			}else{
 				 request.setAttribute("loginSta", "false");
 				 de = request.getRequestDispatcher("login.jsp");
@@ -71,7 +73,25 @@ public class UserServlet extends HttpServlet {
 			}
 			break;
 		case 2:					//add
-			
+			if(!userPassword.equals(userResPassword)){
+				//password is not the same
+				request.setAttribute("addSta", "false");
+				response.sendRedirect("register.jsp");
+			}else{
+				UserBean newUser = new UserBean();
+				newUser.setUserName(userName);
+				newUser.setUserPassword(userPassword);
+				newUser.setUserRank(3);
+				if(userDao.addUsr(newUser)){
+					//add ok
+					request.setAttribute("addSta", "true");
+					response.sendRedirect("login.jsp");
+				}else{
+					//name already in the database
+					request.setAttribute("addSta", "false");
+					response.sendRedirect("register.jsp");
+				}
+			}
 			break;
 		case 3:					//modify
 			

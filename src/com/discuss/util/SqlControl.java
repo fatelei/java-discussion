@@ -13,7 +13,7 @@ public class SqlControl {
 	//User name
 	public static final String userName = "root";
 	//User password
-	public static final String userPassword = "haiquan1314V";
+	public static final String userPassword = "123456";
 	
 	//db variable
 	private Connection conn = null;

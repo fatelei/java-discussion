@@ -32,7 +32,16 @@
 			<div class="loginform">
 				<form class="form-horizontal" method="POST" action="user">
 					<input type="hidden" name="userFunFlag" value="1"/>
-					<%String msg=(String)request.getAttribute("loginSta");
+					<%
+						String path = request.getParameter("path");
+						if (path != null) {
+					%>
+							<input type="hidden" name="path" value="<%=path%>"/>
+					<%
+						}
+					%>
+					<%
+						String msg=(String)request.getAttribute("loginSta");
 						if (msg != null && msg.equals("false")) {
 					%>
 					<div class="alert alert-error">

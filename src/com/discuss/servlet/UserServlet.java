@@ -31,6 +31,8 @@ public class UserServlet extends HttpServlet {
 		RequestDispatcher de = null;
 		//session
 		HttpSession session = request.getSession(true);
+		//System.out.println(userFunFlag);
+		String path = request.getParameter("path");
 		
 		//parameter	values
 		String userName = request.getParameter("username");
@@ -42,7 +44,7 @@ public class UserServlet extends HttpServlet {
 			if( user != null){
 				 System.out.println("ok");
 				 request.setAttribute("loginSta", "true");
-				 				 
+				 session.setAttribute(SesVaBean.username, userName);
 				 //set login statue	in session
 				 session.setAttribute(SesVaBean.LoginState, SesVaBean.LoginStateLogin);
 				 switch(user.getUserRank()){
@@ -56,11 +58,16 @@ public class UserServlet extends HttpServlet {
 					 session.setAttribute(SesVaBean.UserRank, SesVaBean.UserRankResd);	
 					 break;					 
 				 }
-				 
-				 de = request.getRequestDispatcher("index.jsp");
+				 if (path == null) {
+					 response.sendRedirect("index.jsp");
+				 } else {
+					 response.sendRedirect(path);
+				 }
+				 //de = request.getRequestDispatcher("index.jsp");
 			}else{
 				 request.setAttribute("loginSta", "false");
 				 de = request.getRequestDispatcher("login.jsp");
+				 de.forward(request, response);
 			}
 			break;
 		case 2:					//add
@@ -75,8 +82,11 @@ public class UserServlet extends HttpServlet {
 		case 5:					//query
 			
 			break;
+		case 5:					//logout
+			session.invalidate();
+			response.sendRedirect("index.jsp");
+			break;
 		}
-		
-	    de.forward(request, response);
+	    
 	}
 }

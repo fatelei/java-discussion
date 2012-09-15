@@ -82,8 +82,7 @@ public class UserDao {
 		String countSql = "select count(*) from " + UserBean.UserTable + " ";
 		return sqlCtrl.count(countSql);
 	}
-	
-	
+		
 	//find user's list
 	public ArrayList<UserBean> findUserList(String sql){
 		ArrayList<UserBean> userList = new ArrayList<UserBean>();

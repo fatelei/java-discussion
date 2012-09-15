@@ -1,6 +1,8 @@
 package com.discuss.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,7 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 import com.discuss.bean.SesVaBean;
+import com.discuss.bean.SystemConfBean;
 import com.discuss.bean.UserBean;
 import com.discuss.dao.UserDao;
 
@@ -40,6 +46,10 @@ public class UserServlet extends HttpServlet {
 		String userName = request.getParameter("username");
 		String userPassword = request.getParameter("password");
 		String userResPassword = request.getParameter("repassword");
+		
+		//split page values
+//		Integer	nowPage = Integer.valueOf(request.getParameter("nowPage"));
+		int nowPage = 0;
 		
 		switch(userFunFlag){
 		case 1:					//login
@@ -104,7 +114,38 @@ public class UserServlet extends HttpServlet {
 			response.sendRedirect("index.jsp");
 			break;
 		case 6:					//query
+			int totalUser = userDao.countUser();
 			
+			int totalPage = 0;
+			if(totalUser % SystemConfBean.UserListPageNum == 0){
+				totalPage = totalUser / SystemConfBean.UserListPageNum;
+			} else {
+				totalPage = totalUser / SystemConfBean.UserListPageNum + 1;
+			}
+			
+			ArrayList<UserBean> users = userDao.queryUser(nowPage, SystemConfBean.UserListPageNum);
+			
+			//bulid	json oject
+			JSONObject json = new JSONObject();   
+			JSONArray useArray = new JSONArray();   
+	        JSONObject oneTemp = null;   
+	        for(UserBean oneUser : users){
+	        	oneTemp = new JSONObject();   
+	        	oneTemp.put("id", oneUser.getUserId());   
+	        	oneTemp.put("name", oneUser.getUserName());   
+	        	useArray.add(oneTemp); 
+	        }     
+	        json.put("totalPage", totalPage);   
+	        json.put("users", useArray); 
+
+	        System.out.println(json);
+
+	        response.setCharacterEncoding("utf-8");
+	        PrintWriter out = response.getWriter();
+	        out.print(json);
+	        out.flush();
+	        out.close();
+	        
 			break;
 		}
 	    

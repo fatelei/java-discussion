@@ -1,5 +1,11 @@
 package com.discuss.test;
 
+import java.util.ArrayList;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
+import com.discuss.bean.SystemConfBean;
 import com.discuss.bean.UserBean;
 import com.discuss.dao.UserDao;
 
@@ -35,7 +41,25 @@ public class UserDaoTest {
 //		System.out.println(userD.queryUser(1, 10).size());
 		
 		//count user test
-		System.out.println(userD.countUser());
+//		System.out.println(userD.countUser());
+		
+		//query user	json
+		ArrayList<UserBean> users = userD.queryUser(1, SystemConfBean.UserListPageNum);
+		
+		//bulid	json oject
+		JSONObject json = new JSONObject();   
+		JSONArray useArray = new JSONArray();   
+        JSONObject oneTemp = null;   
+        for(UserBean oneUser : users){
+        	oneTemp = new JSONObject();   
+        	oneTemp.put("id", oneUser.getUserId());   
+        	oneTemp.put("name", oneUser.getUserName());   
+        	useArray.add(oneTemp); 
+        }     
+        json.put("totalPage", 1);   
+        json.put("users", useArray); 
+
+        System.out.println(json);
 	}
 
 }

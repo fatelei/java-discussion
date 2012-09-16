@@ -36,6 +36,7 @@
 										<li><a href="user_manage.jsp">用户管理</a></li>
 							<%		}	%>
 									<li><a href="#" onclick="logout();">注销</a></li>
+									<li><a href="#">发表诉讼</a></li>
 							<%	}	%>
 						</ul>
 					</div>

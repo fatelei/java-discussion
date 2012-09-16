@@ -81,8 +81,30 @@ function logout() {
 function edit_user() {
 	var username = document.getElementsByName("username");
 	var password = document.getElementsByName("password");
-	var rank = document.getElementsByName("rank");
+	var rank = document.getElementsByName("userrank");
 	username[0].disabled = false;
 	password[0].disabled = false;
 	rank[0].disabled = false;
+}
+
+/*
+ * 检查编辑用户
+ */
+function check_modify_user() {
+	var username = document.getElementsByName("username");
+	var password = document.getElementsByName("password");
+	var rank = document.getElementsByName("userrank");
+	if (username[0].value.length == 0) {
+		alert("用户名不能为空!");
+		return false;
+	}
+	if (password[0].value.length == 0) {
+		alert("密码不能为空!");
+		return false;
+	}
+	if (rank[0].value.length == 0) {
+		alert("请选择用户身份!");
+		return false;
+	}
+	return true;
 }

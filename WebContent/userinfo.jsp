@@ -44,24 +44,24 @@
 		<div class="container">
 			<div class="row">
 				<div style="width: 600px; margin: 0 auto 0 auto;">
-					<form class="form-horizontal" method="POST" action="user">
+					<form class="form-horizontal" method="POST" action='user?userid=<%=request.getParameter("userId")%>'>
 						<input type="hidden" name="userFunFlag" value="3"/>
 						<div class="control-group">
 							<label class="control-label">用户名:</label>
 							<div class="controls">
-								<input type="text" name="username" value="" disabled/>
+								<input type="text" name="username" disabled/>
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label">密码:</label>
 							<div class="controls">
-								<input type="password" name="password" value="" disabled/>
+								<input type="password" name="password" disabled/>
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label">用户身份:</label>
 							<div class="controls">
-								<select name="rank" disabled>
+								<select name="userrank" disabled>
 									<option value="1">系统管理员</option>
 									<option value="2">部门管理员</option>
 									<option value="3">市民</option>
@@ -70,7 +70,7 @@
 						</div>
 						<div class="form-action">
 							<input type="button" class="btn" value="编辑" onclick="edit_user();"/>
-							<input type="submit" class="btn btn-primary pull-right" value="保存"/>
+							<input type="submit" class="btn btn-primary pull-right" value="保存" onclick="return check_modify_user();"/>
 						</div>
 					</form>
 				</div>
@@ -81,6 +81,26 @@
 			</footer>
 		</div>
 		<script type="text/javascript" src="js/jquery-1.8.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery.json-2.3.min.js"></script>
 		<script type="text/javascript" src="js/check.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$.post("user",
+					{
+						"userFunFlag": "7",
+						"userid": <%=request.getParameter("userId")%>
+					},
+					function(data) {
+						data = $.evalJSON(data);
+						var nameObj = document.getElementsByName("username");
+						var passwordObj = document.getElementsByName("password");
+						var rankObj = document.getElementsByName("userrank");
+						nameObj[0].value = data.name;
+						passwordObj[0].value = data.password;
+						rankObj[0].value = data.rank;
+					}
+				);
+			});
+		</script>
 	</body>
 </html>

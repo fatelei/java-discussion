@@ -36,6 +36,7 @@
 							<li class="active"><a href="index.jsp">首页</a></li>
 							<li><a href="user_manage.jsp">用户管理</a></li>
 							<li><a href="#" onclick="logout();">注销</a></li>
+							<li><a href="#">发表诉讼</a></li>
 						</ul>
 					</div>
 				</div>
@@ -43,6 +44,23 @@
 		</div>
 		<div class="container">
 			<div class="row">
+				<%
+					String modifySta = (String)request.getSession().getAttribute("modifySta");
+					if (modifySta != null && modifySta.equals("false")) {
+				%>
+				<div class="alert alert-error">
+					<p style="text-align:center"><strong>修改用户信息失败!</strong></p>
+				</div>
+				<%
+					} else if (modifySta != null && modifySta.equals("true")){
+				%>
+				<div class="alert alert-success">
+					<p style="text-align:center"><strong>修改用户信息成功!</strong></p>
+				</div>
+				<%
+					}
+					request.getSession().removeAttribute("modifySta");
+				%>
 			    <table id="usertable" class="table table-hover">
 			        <thead>
 			            <tr>

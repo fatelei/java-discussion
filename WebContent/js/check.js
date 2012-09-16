@@ -40,9 +40,23 @@ function check_register() {
 /*
  * 删除用户
  */
-function check_delete() {
+function check_delete(userid) {
     var msg = "是否删除该用户?";
     if (confirm(msg)) {
+        $.post("user", 
+        	{
+        		"userFunFlag": "4",
+        		"userid": userid
+        	}, function(data) {
+        		data = $.evalJSON(data);
+        		if (data.delSta == "false") {
+        			alert("删除失败!");
+        		} else {
+        			alert("删除成功!");
+        			window.location.reload();
+        		}
+        	}
+        );
         return true;
     }
     return false;

@@ -52,16 +52,6 @@
 			            </tr>
 			        </thead>
 			        <tbody>
-			            <tr>
-			                <td><a href="#">1</a></td>
-			                <td><a href="#">test</a></td>
-			                <td>
-			                    <form method="POST" action="">
-			                        <input type="hidden" name="userFunFlag" value="4"/>
-			                        <input type="submit" class="btn btn-success" onclick="return check_delete();" value="删除"/> 
-			                    </form>
-			                </td>
-			            </tr>
 			        </tbody>
 			    </table>
 			</div>
@@ -71,6 +61,20 @@
 			&copy;Web诉讼系统 2012
 		</footer>
 		<script type="text/javascript" src="js/jquery-1.8.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery.json-2.3.min.js"></script>
 		<script type="text/javascript" src="js/check.js"></script>
+		<script type="text/javascript" src="js/generate.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$.post("user",
+					{"userFunFlag": "6",
+					 "nowPage": "1"},
+					function(data) {
+						data = $.evalJSON(data);
+						$("#usertable tbody").html(generate_userlist(data.users));
+					 }
+				);
+			});
+		</script>
 	</body>
 </html>

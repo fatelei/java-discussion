@@ -52,7 +52,7 @@
 		<div class="container">
 			<div style="width:800px; margin:0 auto 0 auto;">
 				<form class="form-horizontal" method="POST" action="user">
-					<input type="hidden" name="userFunFlag" value="1"/>
+					<input type="hidden" name="disFunFlag" value="1"/>
 					<%
 						String msg=(String)request.getSession().getAttribute("loginSta");
 						if (msg != null && msg.equals("false")) {

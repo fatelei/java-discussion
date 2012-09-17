@@ -13,7 +13,7 @@ public class AnswerBean {
 	
 	public static final String AnsObjID = "answer_object";
 	private int ansObjID = 0;
-	private DiscussObjectBean ansObj = null;
+	private DisObjBean ansObj = null;
 	
 	public static final String AnsObjRelTime = "answer_reltime";
 	private String ansObjRelTime = null;
@@ -52,10 +52,10 @@ public class AnswerBean {
 	public void setAnsObjID(int ansObjID) {
 		this.ansObjID = ansObjID;
 	}
-	public DiscussObjectBean getAnsObj() {
+	public DisObjBean getAnsObj() {
 		return ansObj;
 	}
-	public void setAnsObj(DiscussObjectBean ansObj) {
+	public void setAnsObj(DisObjBean ansObj) {
 		this.ansObj = ansObj;
 	}
 

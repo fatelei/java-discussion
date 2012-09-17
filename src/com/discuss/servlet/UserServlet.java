@@ -13,7 +13,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import com.discuss.bean.SesVaBean;
-import com.discuss.bean.SystemConfBean;
+import com.discuss.bean.SysConfBean;
 import com.discuss.bean.UserBean;
 import com.discuss.dao.UserDao;
 import com.discuss.util.JsonUtil;
@@ -133,13 +133,13 @@ public class UserServlet extends HttpServlet {
 		case 6:					//query
 			int totalUser = userDao.countUser();
 			int totalPage = 0;
-			if(totalUser % SystemConfBean.UserListPageNum == 0){
-				totalPage = totalUser / SystemConfBean.UserListPageNum;
+			if(totalUser % SysConfBean.UserListPageNum == 0){
+				totalPage = totalUser / SysConfBean.UserListPageNum;
 			} else {
-				totalPage = totalUser / SystemConfBean.UserListPageNum + 1;
+				totalPage = totalUser / SysConfBean.UserListPageNum + 1;
 			}
 			
-			ArrayList<UserBean> users = userDao.queryUser(Integer.valueOf(nowPage), SystemConfBean.UserListPageNum);
+			ArrayList<UserBean> users = userDao.queryUser(Integer.valueOf(nowPage), SysConfBean.UserListPageNum);
 			
 			//bulid	json oject
 			JSONObject json = new JSONObject();   

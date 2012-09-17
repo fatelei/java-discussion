@@ -1,6 +1,8 @@
 package com.discuss.bean;
 
-public class DiscussObjectBean {
+public class DisObjBean {
+	public static final String DisTableName = "discussobject";
+	
 	public static final String DisObjID = "disobj_id";
 	private int disObjID = 0;
 	

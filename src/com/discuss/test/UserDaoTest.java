@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-import com.discuss.bean.SystemConfBean;
+import com.discuss.bean.SysConfBean;
 import com.discuss.bean.UserBean;
 import com.discuss.dao.UserDao;
 
@@ -44,7 +44,7 @@ public class UserDaoTest {
 //		System.out.println(userD.countUser());
 		
 		//query user	json
-		ArrayList<UserBean> users = userD.queryUser(1, SystemConfBean.UserListPageNum);
+		ArrayList<UserBean> users = userD.queryUser(1, SysConfBean.UserListPageNum);
 		
 		//bulid	json oject
 		JSONObject json = new JSONObject();   

@@ -31,6 +31,7 @@ public class UserServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		//function flags
+		//System.out.println(request.getParameter("userFunFlag"));
 		Integer userFunFlag = Integer.valueOf(request.getParameter("userFunFlag"));
 		//session
 		HttpSession session = request.getSession(true);
@@ -43,16 +44,20 @@ public class UserServlet extends HttpServlet {
 		String userPassword = request.getParameter("password");
 		String userResPassword = request.getParameter("repassword");
 		String userId = request.getParameter("userid");
+		
 		String userRank = request.getParameter("userrank");
 		
 		//split page values
 		String	nowPage = request.getParameter("nowPage");
 		
+		//Json
+		JSONObject json = null;
+		
 		switch(userFunFlag){
 		case 1:					//login
 			UserBean user = userDao.loginOk(userName, userPassword);
 			if( user != null){
-				 System.out.println("ok");
+				 //System.out.println("ok");
 				 request.setAttribute("loginSta", "true");
 				 session.setAttribute(SesVaBean.username, userName);
 				 //set login statue	in session
@@ -74,14 +79,14 @@ public class UserServlet extends HttpServlet {
 					 response.sendRedirect(path);
 				 }
 			}else{
-				 request.setAttribute("loginSta", "false");
+				 session.setAttribute("loginSta", "false");
 				 response.sendRedirect("login.jsp");
 			}
 			break;
 		case 2:					//add
 			if(!userPassword.equals(userResPassword)){
 				//password is not the same
-				request.setAttribute("addSta", "false");
+				session.setAttribute("addSta", "false");
 				response.sendRedirect("register.jsp");
 			}else{
 				UserBean newUser = new UserBean();
@@ -90,41 +95,41 @@ public class UserServlet extends HttpServlet {
 				newUser.setUserRank(3);
 				if(userDao.addUsr(newUser)){
 					//add ok
-					request.setAttribute("addSta", "true");
+					session.setAttribute("addSta", "true");
 					response.sendRedirect("login.jsp");
 				}else{
 					//name already in the database
-					request.setAttribute("addSta", "false");
+					session.setAttribute("addSta", "false");
 					response.sendRedirect("register.jsp");
 				}
 			}
 			break;
 		case 3:					//modify
-			if(!userPassword.equals(userResPassword)){
-				//password is not the same
-				request.setAttribute("modfiySta", "false");
+			UserBean newUser = new UserBean();
+			newUser.setUserId(Integer.valueOf(userId));
+			newUser.setUserName(userName);
+			newUser.setUserPassword(userPassword);
+			newUser.setUserRank(Integer.valueOf(userRank));
+			if(userDao.modifyUser(newUser)){
+				//modify ok
+				//System.out.println("modify ok");
+				session.setAttribute("modifySta", "true");
 				response.sendRedirect("user_manage.jsp");
 			}else{
-				UserBean newUser = new UserBean();
-				newUser.setUserId(Integer.valueOf(userId));
-				newUser.setUserName(userName);
-				newUser.setUserPassword(userPassword);
-				newUser.setUserRank(Integer.valueOf(userRank));
-				if(userDao.modifyUser(newUser)){
-					//add ok
-					request.setAttribute("modfiySta", "true");
-					response.sendRedirect("user_manage.jsp");
-				}else{
-					//name already in the database
-					request.setAttribute("modfiySta", "false");
-					response.sendRedirect("user_manage.jsp");
-				}
+				//name already in the database
+				//System.out.println("modify error");
+				session.setAttribute("modifySta", "false");
+				response.sendRedirect("user_manage.jsp");
 			}
 			break;
 		case 4:					//del
+			json = new JSONObject();
 			if(userDao.delUser(Integer.valueOf(userId))){
-				
+				json.put("delSta", "true");
+			} else {
+				json.put("delSta", "false");
 			}
+			JsonUtil.sendJson(response, json.toString());
 			break;
 		case 5:					//logout
 			session.invalidate();
@@ -142,7 +147,7 @@ public class UserServlet extends HttpServlet {
 			ArrayList<UserBean> users = userDao.queryUser(Integer.valueOf(nowPage), SysConfBean.UserListPageNum);
 			
 			//bulid	json oject
-			JSONObject json = new JSONObject();   
+			json = new JSONObject();   
 			JSONArray useArray = new JSONArray();   
 	        JSONObject oneTemp = null;   
 	        for(UserBean oneUser : users){
@@ -154,10 +159,22 @@ public class UserServlet extends HttpServlet {
 	        json.put("totalPage", totalPage);   
 	        json.put("users", useArray); 
 	        
-	        System.out.println(json);
+	        //System.out.println(json);
 	        
 	        JsonUtil.sendJson(response, json.toString());
 	        break;
+		case 7:
+			String queryUser = "select * from " + UserBean.UserTable + " where " + UserBean.UserID + "='" + userId + "'";
+			ArrayList<UserBean> curUser = userDao.findUserList(queryUser);
+			json = new JSONObject();
+			for (UserBean cuser: curUser) {
+				json.put("id", cuser.getUserId());
+				json.put("name", cuser.getUserName());
+				json.put("password", cuser.getUserPassword());
+				json.put("rank", cuser.getUserRank());
+			}
+			JsonUtil.sendJson(response, json.toString());
+			break;
 		}
 	    
 	}

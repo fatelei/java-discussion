@@ -35,6 +35,7 @@
 						<ul class="nav">
 							<li class="active"><a href="index.jsp">首页</a></li>
 							<li><a href="user_manage.jsp">用户管理</a></li>
+							<li><a href="#">发表诉讼</a></li>
 							<li><a href="#" onclick="logout();">注销</a></li>
 						</ul>
 					</div>
@@ -43,6 +44,23 @@
 		</div>
 		<div class="container">
 			<div class="row">
+				<%
+					String modifySta = (String)request.getSession().getAttribute("modifySta");
+					if (modifySta != null && modifySta.equals("false")) {
+				%>
+				<div class="alert alert-error">
+					<p style="text-align:center"><strong>修改用户信息失败!</strong></p>
+				</div>
+				<%
+					} else if (modifySta != null && modifySta.equals("true")){
+				%>
+				<div class="alert alert-success">
+					<p style="text-align:center"><strong>修改用户信息成功!</strong></p>
+				</div>
+				<%
+					}
+					request.getSession().removeAttribute("modifySta");
+				%>
 			    <table id="usertable" class="table table-hover">
 			        <thead>
 			            <tr>
@@ -52,16 +70,6 @@
 			            </tr>
 			        </thead>
 			        <tbody>
-			            <tr>
-			                <td><a href="#">1</a></td>
-			                <td><a href="#">test</a></td>
-			                <td>
-			                    <form method="POST" action="">
-			                        <input type="hidden" name="userFunFlag" value="4"/>
-			                        <input type="submit" class="btn btn-success" onclick="return check_delete();" value="删除"/> 
-			                    </form>
-			                </td>
-			            </tr>
 			        </tbody>
 			    </table>
 			</div>
@@ -71,6 +79,20 @@
 			&copy;Web诉讼系统 2012
 		</footer>
 		<script type="text/javascript" src="js/jquery-1.8.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery.json-2.3.min.js"></script>
 		<script type="text/javascript" src="js/check.js"></script>
+		<script type="text/javascript" src="js/generate.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$.post("user",
+					{"userFunFlag": "6",
+					 "nowPage": "1"},
+					function(data) {
+						data = $.evalJSON(data);
+						$("#usertable tbody").html(generate_userlist(data.users));
+					 }
+				);
+			});
+		</script>
 	</body>
 </html>

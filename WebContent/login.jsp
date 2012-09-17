@@ -41,7 +41,7 @@
 						}
 					%>
 					<%
-						String msg=(String)request.getAttribute("loginSta");
+						String msg=(String)request.getSession().getAttribute("loginSta");
 						if (msg != null && msg.equals("false")) {
 					%>
 					<div class="alert alert-error">
@@ -49,6 +49,7 @@
 					</div>
 					<%
 						}
+						request.getSession().removeAttribute("loginSta");
 					%>
 					<div class="control-group">
 						<label class="control-label">用户名:</label>

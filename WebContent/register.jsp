@@ -35,7 +35,7 @@
 				<form class="form-horizontal" method="POST" action="user">
 					<input type="hidden" name="userFunFlag" value="2"/>
 					<% 
-						String addSta = (String)request.getAttribute("addSta");
+						String addSta = (String)request.getSession().getAttribute("addSta");
 						if (addSta != null && addSta.equals("false")) {
 					%>
 					<div class="alert alert-error">
@@ -43,6 +43,7 @@
 					</div>
 					<%
 						}
+						request.getSession().removeAttribute("addSta");
 					%>
 					<div class="control-group">
 						<label class="control-label">用户名:</label>

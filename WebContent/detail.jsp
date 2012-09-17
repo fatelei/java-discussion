@@ -107,6 +107,52 @@
 				</div>
 			</div>
 		</div>
+		<div id="post-modal" class="modal fade hide">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h3></h3>
+			</div>
+			<form method="POST" action="">
+				<div class="modal-body">
+					<div class="control-group">
+						<label class="control-label">标题:</label>
+						<div class="controls">
+							<input type="text" name="title" class="input-xxlarge"/>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">诉讼内容:</label>
+						<div class="controls">
+							<textarea name="content" style="width:500px;" rows="5"></textarea>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="reset" class="btn" value="重置"/>
+					<input type="submit" class="btn btn-primary" onclick="return check_post();" value="发表"/>
+				</div>
+			</form>
+		</div>
+		<div id="replay-modal" class="modal fade hide">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h3></h3>
+			</div>
+			<form method="POST" action="">
+				<div class="modal-body">
+					<div class="control-group">
+						<label class="control-label">回复内容:</label>
+						<div class="controls">
+							<textarea name="content" style="width:500px;" rows="5"></textarea>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="reset" class="btn" value="重置"/>
+					<input type="submit" class="btn btn-primary" onclick="return check_post();" value="发表"/>
+				</div>
+			</form>
+		</div>
 		<script type="text/javascript" src="js/jquery-1.8.1.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/jquery.json-2.3.min.js"></script>

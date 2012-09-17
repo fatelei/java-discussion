@@ -35,9 +35,15 @@
 						<ul class="nav">
 							<li class="active"><a href="index.jsp">首页</a></li>
 							<li><a href="user_manage.jsp">用户管理</a></li>
-							<li><a href="#">发表诉讼</a></li>
+							<li><a href="post.jsp">发表诉讼</a></li>
 							<li><a href="#" onclick="logout();">注销</a></li>
 						</ul>
+						<div class="btn-group pull-right">
+							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                            	<i class="icon-user"></i>
+                            	<%=(String)request.getSession().getAttribute("username")%>
+                        	</a>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -73,11 +79,11 @@
 			        </tbody>
 			    </table>
 			</div>
+			<hr>
+			<footer>
+				&copy;Web诉讼系统 2012
+			</footer>
 		</div>
-		<hr>
-		<footer>
-			&copy;Web诉讼系统 2012
-		</footer>
 		<script type="text/javascript" src="js/jquery-1.8.1.min.js"></script>
 		<script type="text/javascript" src="js/jquery.json-2.3.min.js"></script>
 		<script type="text/javascript" src="js/check.js"></script>

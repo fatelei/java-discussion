@@ -108,3 +108,20 @@ function check_modify_user() {
 	}
 	return true;
 }
+
+/*
+ * 发帖内容检查
+ */
+function check_post() {
+	var titleObj = document.getElementsByName("title");
+	if (titleObj[0].value.length == 0) {
+		alert("标题不能为空!");
+		return false;
+	}
+	var contentObj = document.getElementsByName("content");
+	if (contentObj[0].value.length == 0) {
+		alert("诉讼内容不能为空!");
+		return false;
+	}
+	return true;
+}

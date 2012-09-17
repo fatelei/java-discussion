@@ -35,52 +35,49 @@
 							%>
 										<li><a href="user_manage.jsp">用户管理</a></li>
 							<%		}	%>
-									<li><a href="#">发表诉讼</a></li>
+									<li><a href="post.jsp">发表诉讼</a></li>
 									<li><a href="#" onclick="logout();">注销</a></li>
 							<%	}	%>
 						</ul>
+						<%
+							if (authed != null && authed.equals("true")) {
+						%>
+						<div class="btn-group pull-right">
+							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                            	<i class="icon-user"></i>
+                            	<%=(String)request.getSession().getAttribute("username")%>
+                        	</a>
+						</div>
+						<%
+							}
+						%>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="container-fluid">
-			<div class="row-fluid">
-				<div class="span3">
-					<div class="well sidebar-nav">
-						<ul>
-							<%
-								if (authed == null || authed.equals("false")) {
-							%>
-									<li><a href="register.jsp" class="btn btn-info">现在注册</a></li>
-									<li>已注册用户，请<a href="login.jsp">登录</a></li>
-							<%	}else{	%>
-									<li>你好!<%=session.getAttribute("username")%></li>
-							<%  } %>
-						</ul>
-					</div>
-				</div>
-				<div class="span9">
-					<div class="row-fluid">
-						<table class="table table-hover">
-							<thead>
-								<tr>
-									<th>编号</th>
-									<th>主题</th>
-									<th><a href="#">发布时间</a></th>
-									<th><a href="#">访问次数</a></th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>1</td>
-									<td>1233123</td>
-									<td>123123</td>
-									<td>1312323123</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
+		<div class="container">
+			<div class="row">
+				<span><a href="post.jsp" class="btn">发表诉讼</a></span>
+			</div>
+			<div class="row">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>编号</th>
+							<th>主题</th>
+							<th><a href="#">发布时间</a></th>
+							<th><a href="#">访问次数</a></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>1</td>
+							<td>1233123</td>
+							<td>123123</td>
+							<td>1312323123</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 			<hr>
 			<footer>

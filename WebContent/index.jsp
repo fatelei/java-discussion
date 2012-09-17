@@ -71,8 +71,8 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>1</td>
-							<td>1233123</td>
+							<td><a href="detail.jsp?postId=1">1</a></td>
+							<td><a href="detail.jsp?postId=1">1233123</a></td>
 							<td>123123</td>
 							<td>1312323123</td>
 						</tr>

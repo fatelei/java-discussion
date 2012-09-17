@@ -19,6 +19,24 @@ public class UserBean {
 	public static final String UserRank = "user_rank";
 	private  int  userRank = 0;
 	
+	
+	public UserBean(){}
+	
+	public UserBean( String userName, String userPwd, int userRank){
+		this.userName = userName;
+		this.userPassword = userPwd;
+		this.userRank = userRank;
+	}
+	
+	public UserBean(int userId, String userName, String userPwd, int userRank){
+		this.userId = userId;
+		this.userName = userName;
+		this.userPassword = userPwd;
+		this.userRank = userRank;
+	}
+	
+	
+	
 	public int getUserId() {
 		return userId;
 	}

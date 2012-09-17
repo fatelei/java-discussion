@@ -44,23 +44,26 @@ public class UserDaoTest {
 //		System.out.println(userD.countUser());
 		
 		//query user	json
-		ArrayList<UserBean> users = userD.queryUser(1, SysConfBean.UserListPageNum);
+//		ArrayList<UserBean> users = userD.queryUser(1, SysConfBean.UserListPageNum);
 		
 		//bulid	json oject
-		JSONObject json = new JSONObject();   
-		JSONArray useArray = new JSONArray();   
-        JSONObject oneTemp = null;   
-        for(UserBean oneUser : users){
-        	oneTemp = new JSONObject();   
-        	oneTemp.put("id", oneUser.getUserId());   
-        	oneTemp.put("name", oneUser.getUserName());   
-        	useArray.add(oneTemp); 
-        }     
-        json.put("totalPage", 1);   
-        json.put("users", useArray); 
-
-        System.out.println(json);
-        System.out.println(json.toString());
+//		JSONObject json = new JSONObject();   
+//		JSONArray useArray = new JSONArray();   
+//        JSONObject oneTemp = null;   
+//        for(UserBean oneUser : users){
+//        	oneTemp = new JSONObject();   
+//        	oneTemp.put("id", oneUser.getUserId());   
+//        	oneTemp.put("name", oneUser.getUserName());   
+//        	useArray.add(oneTemp); 
+//        }     
+//        json.put("totalPage", 1);   
+//        json.put("users", useArray); 
+//
+//        System.out.println(json);
+//        System.out.println(json.toString());
+        
+        //find user by name
+        System.out.println(userD.findUserByName("hai"));
 	}
 
 }

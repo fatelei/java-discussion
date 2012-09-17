@@ -22,6 +22,23 @@ public class DisObjBean {
 	public static final String DisObjLookNum = "disobj_looknum";
 	private int disObjLookNum = 0;
 	
+	public DisObjBean(){};
+	
+	public DisObjBean(int id, String topic, String content, int userId, int lookNum, String relTime){
+		this.disObjID = id;
+		this.disObjTopic = topic;
+		this.disObjContent = content;
+		this.disObjLookNum = lookNum;
+		this.disObjRelTime = relTime;
+		this.disObjUserID = userId;
+	}
+	
+	public DisObjBean(String topic, String content, int userId){
+		this.disObjTopic = topic;
+		this.disObjContent = content;
+		this.disObjUserID = userId;
+	}
+	
 	public int getDisObjID() {
 		return disObjID;
 	}

@@ -1,6 +1,8 @@
 package com.discuss.dao;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.discuss.bean.DisObjBean;
 import com.discuss.util.SqlControl;
@@ -11,18 +13,74 @@ public class DisObjectDao {
 	private ResultSet res = null;
 	
 	//add new	disObject
-	//include	userid topic content time	
+	//include	userid  topic  content time	
 	public boolean addObject(DisObjBean disObj){
 		//Don't	find the same topic
-		String addUserSql = "insert into  " + DisObjBean.DisTableName + 
+		String addObjSql = "insert into  " + DisObjBean.DisTableName + 
 				" (" + DisObjBean.DisObjUserID + ", " + DisObjBean.DisObjTopic +", " 
 								+ DisObjBean.DisObjContent + ", "  + DisObjBean.DisObjRelTime + ") " +
 				"values ('" + disObj.getDisObjUserID() + "', '" + disObj.getDisObjTopic() +"', '" 
 								+ disObj.getDisObjContent() + "', '" + TimeUtil.getNowTime() + "')";
-		System.out.println(addUserSql);
-		if(sqlCtrl.update(addUserSql)== -1){
+		System.out.println(addObjSql);
+		if(sqlCtrl.update(addObjSql)== -1){
 			return false;
 		}
 		return false;
+	}
+	
+	//delete 
+	public boolean delObject(int objId){
+		String delObjSql = "delete from " + DisObjBean.DisTableName + " where " 
+				+ DisObjBean.DisObjID + " = '" + objId + "';";
+		System.out.println(delObjSql);
+		if(sqlCtrl.update(delObjSql) == -1){
+			return false;
+		}
+		return true;
+	}
+	
+	//count all object's num
+	public int countObj(){
+		String countSql = "select count(*) from " + DisObjBean.DisTableName + " ;";
+		return sqlCtrl.count(countSql);
+	}
+	
+	//query	split records	by	pages
+	public	ArrayList<DisObjBean> queryObj(int nowPage, int pageCount, String orderBy, Boolean isAsc){
+		String splitSql = null;
+		int statrCount = (nowPage - 1) * pageCount;
+		//middle page
+		if(isAsc){
+			splitSql = "select * from " + DisObjBean.DisTableName+ " order by " + orderBy + " asc limit " + statrCount + " , " 
+					+ pageCount + ";";
+		}else{
+			splitSql = "select * from " + DisObjBean.DisTableName+ " order by " + orderBy + " desc limit " + statrCount + " , " 
+					+ pageCount + ";";
+		}
+		System.out.println(splitSql);
+		return findObjList(splitSql);
+	} 
+	
+	//find obj's list
+	public ArrayList<DisObjBean> findObjList(String sql){
+		ArrayList<DisObjBean> objList = new ArrayList<DisObjBean>();
+		res = sqlCtrl.queryResultSet(sql);
+		try {
+			while(res.next()){
+				DisObjBean obj = new DisObjBean();
+				obj.setDisObjID(res.getInt(DisObjBean.DisObjID));
+				obj.setDisObjTopic(res.getString(DisObjBean.DisObjTopic));
+				obj.setDisObjContent(res.getString(DisObjBean.DisObjContent));
+				obj.setDisObjUserID(res.getInt(DisObjBean.DisObjUserID));
+				obj.setDisObjRelTime(res.getTimestamp(DisObjBean.DisObjRelTime).toString());
+				obj.setDisObjLookNum(res.getInt(DisObjBean.DisObjLookNum));
+				objList.add(obj);			
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		sqlCtrl.closeCon();
+		return objList;
 	}
 }

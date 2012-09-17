@@ -79,10 +79,16 @@ public class UserDao {
 	
 	//count all user's num
 	public int countUser(){
-		String countSql = "select count(*) from " + UserBean.UserTable + " ";
+		String countSql = "select count(*) from " + UserBean.UserTable + " ;";
 		return sqlCtrl.count(countSql);
 	}
-		
+	
+	//find user by name
+	public int findUserByName(String name){
+		String findSql = "select * from "  + UserBean.UserTable + " where " + UserBean.UserName + " = '" + name + "' ;";
+		return findUserList(findSql).get(0).getUserId();
+	}
+	
 	//find user's list
 	public ArrayList<UserBean> findUserList(String sql){
 		ArrayList<UserBean> userList = new ArrayList<UserBean>();
@@ -98,6 +104,7 @@ public class UserDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return null;
 		}
 		sqlCtrl.closeCon();
 		return userList;

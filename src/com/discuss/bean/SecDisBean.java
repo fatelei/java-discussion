@@ -1,6 +1,8 @@
 package com.discuss.bean;
 
 public class SecDisBean {
+	public static final String SecDisTable = "seconddiscuss";
+	
 	public static final String SecDisId = "secdis_id";
 	private int secDisId = 0;
 	
@@ -25,6 +27,25 @@ public class SecDisBean {
 	
 	public static final String SecDisRelTime = "secdis_relTime";
 	private String secDisRelTime = null;
+	
+	
+	public SecDisBean(){}
+	
+	public SecDisBean(int id, String content, int supNum, int oppNum, int userId, int objId, String relTime){
+		this.secDisId = id;
+		this.secDisContent = content;
+		this.secDisOppNum = oppNum;
+		this.secDisSupNum = supNum;
+		this.secDisUserId = userId;
+		this.secDisObjectId = objId;
+		this.secDisRelTime = relTime;				
+	}
+	
+	public SecDisBean(String content, int userId, int objId){
+		this.secDisContent = content;
+		this.secDisUserId = userId;
+		this.secDisObjectId = objId;
+	}
 	
 	public int getSecDisId() {
 		return secDisId;

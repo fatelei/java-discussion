@@ -55,33 +55,7 @@ public class UserServlet extends HttpServlet {
 		
 		switch(userFunFlag){
 		case 1:					//login
-			UserBean user = userDao.loginOk(userName, userPassword);
-			if( user != null){
-				 //System.out.println("ok");
-				 request.setAttribute("loginSta", "true");
-				 session.setAttribute(SesVaBean.username, userName);
-				 //set login statue	in session
-				 session.setAttribute(SesVaBean.LoginState, SesVaBean.LoginStateLogin);
-				 switch(user.getUserRank()){
-				 case 1: 
-					 session.setAttribute(SesVaBean.UserRank, SesVaBean.UserRankAdmin);	
-					 break;
-				 case 2: 
-					 session.setAttribute(SesVaBean.UserRank, SesVaBean.UserRankDepa);	
-					 break;
-				 case 3: 
-					 session.setAttribute(SesVaBean.UserRank, SesVaBean.UserRankResd);	
-					 break;					 
-				 }
-				 if (path == null) {
-					 response.sendRedirect("index.jsp");
-				 } else {
-					 response.sendRedirect(path);
-				 }
-			}else{
-				 session.setAttribute("loginSta", "false");
-				 response.sendRedirect("login.jsp");
-			}
+			userLogin(request, response, userName, userPassword, path, session);
 			break;
 		case 2:					//add
 			if(!userPassword.equals(userResPassword)){
@@ -89,10 +63,7 @@ public class UserServlet extends HttpServlet {
 				session.setAttribute("addSta", "false");
 				response.sendRedirect("register.jsp");
 			}else{
-				UserBean newUser = new UserBean();
-				newUser.setUserName(userName);
-				newUser.setUserPassword(userPassword);
-				newUser.setUserRank(3);
+				UserBean newUser = new UserBean(userName, userPassword, 3);
 				if(userDao.addUsr(newUser)){
 					//add ok
 					session.setAttribute("addSta", "true");
@@ -105,19 +76,14 @@ public class UserServlet extends HttpServlet {
 			}
 			break;
 		case 3:					//modify
-			UserBean newUser = new UserBean();
-			newUser.setUserId(Integer.valueOf(userId));
-			newUser.setUserName(userName);
-			newUser.setUserPassword(userPassword);
-			newUser.setUserRank(Integer.valueOf(userRank));
+			UserBean newUser = new UserBean(Integer.valueOf(userId), userName, userPassword, Integer.valueOf(userRank));
+			
 			if(userDao.modifyUser(newUser)){
 				//modify ok
-				//System.out.println("modify ok");
 				session.setAttribute("modifySta", "true");
 				response.sendRedirect("user_manage.jsp");
 			}else{
 				//name already in the database
-				//System.out.println("modify error");
 				session.setAttribute("modifySta", "false");
 				response.sendRedirect("user_manage.jsp");
 			}
@@ -159,11 +125,10 @@ public class UserServlet extends HttpServlet {
 	        json.put("totalPage", totalPage);   
 	        json.put("users", useArray); 
 	        
-	        //System.out.println(json);
-	        
+	        //System.out.println(json);	        
 	        JsonUtil.sendJson(response, json.toString());
 	        break;
-		case 7:
+		case 7:				//find	one	user info
 			String queryUser = "select * from " + UserBean.UserTable + " where " + UserBean.UserID + "='" + userId + "'";
 			ArrayList<UserBean> curUser = userDao.findUserList(queryUser);
 			json = new JSONObject();
@@ -177,5 +142,41 @@ public class UserServlet extends HttpServlet {
 			break;
 		}
 	    
+	}
+	
+	//		login
+	private void userLogin(HttpServletRequest request, HttpServletResponse response, String userName,
+											String userPass, String path, HttpSession session) throws IOException{
+		UserBean user = userDao.loginOk(userName, userPass);
+		if( user != null){
+			 //System.out.println("ok");
+			 request.setAttribute("loginSta", "true");
+			 session.setAttribute(SesVaBean.UserName, userName);
+			 session.setAttribute(SesVaBean.UserId, new UserDao().findUserByName(userName));
+			 			 
+			 //set login statue	in session
+			 session.setAttribute(SesVaBean.LoginState, SesVaBean.LoginStateLogin);
+			 
+			 
+			 switch(user.getUserRank()){
+			 case 1: 
+				 session.setAttribute(SesVaBean.UserRank, SesVaBean.UserRankAdmin);	
+				 break;
+			 case 2: 
+				 session.setAttribute(SesVaBean.UserRank, SesVaBean.UserRankDepa);	
+				 break;
+			 case 3: 
+				 session.setAttribute(SesVaBean.UserRank, SesVaBean.UserRankResd);	
+				 break;					 
+			 }
+			 if (path == null) {
+				 response.sendRedirect("index.jsp");
+			 } else {
+				 response.sendRedirect(path);
+			 }
+		}else{
+			 session.setAttribute("loginSta", "false");
+			 response.sendRedirect("login.jsp");
+		}
 	}
 }

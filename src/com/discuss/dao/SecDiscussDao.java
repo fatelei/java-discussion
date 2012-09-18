@@ -25,7 +25,7 @@ public class SecDiscussDao {
 		if(sqlCtrl.update(addSecDisSql)== -1){
 			return false;
 		}
-		return false;
+		return true;
 	}
 	
 	//delete 

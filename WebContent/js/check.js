@@ -149,3 +149,15 @@ function check_delete_dis(postId) {
 	}
 	return false;
 }
+
+/*
+ * 检测回复内容
+ */
+function check_reply() {
+	var replyObj = document.getElementsByName("replyContent");
+	if (replyObj[0].value.length == 0) {
+		alert("回复内容不能为空!");
+		return false;
+	}
+	return true;
+}

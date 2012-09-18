@@ -68,10 +68,13 @@
 							<th><a href="#">发布时间</a></th>
 							<th><a href="#">访问次数</a></th>
 							<% 
-								if (Integer.parseInt((String)session.getAttribute("userRank")) == 1) {
+								if (authed != null && authed.equals("true")) {
+									if (Integer.parseInt((String)session.getAttribute("userRank")) == 1) {
 							%>
 							<th>操作</th>
 							<%
+									}
+									
 								}
 							%>
 						</tr>
@@ -102,7 +105,14 @@
 					function(data) {
 						console.log(data);
 						data = $.evalJSON(data);
-						var id = <%=Integer.parseInt((String)session.getAttribute("userRank"))%>
+						var id = -1;
+						<%
+							if (authed != null && authed.equals("true")) {
+						%>
+						var id = <%=Integer.parseInt((String)session.getAttribute("userRank"))%>;
+						<%
+							}
+						%>
 						$("#disTable tbody").html(build_dislist(data.disList, id));
 					}
 				);

@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.discuss.bean.SecDisBean;
-import com.discuss.bean.SecDisBean;
 import com.discuss.util.SqlControl;
 import com.discuss.util.TimeUtil;
 
@@ -45,23 +44,23 @@ public class SecDiscussDao {
 		String countSql = "select count(*) from " + SecDisBean.SecDisTable + " ;";
 		return sqlCtrl.count(countSql);
 	}
-	/*
+	
 	//query	split records	by	pages
 	public	ArrayList<SecDisBean> querySecDisc(int nowPage, int pageCount, String orderBy, Boolean isAsc){
 		String splitSql = null;
 		int statrCount = (nowPage - 1) * pageCount;
 		//middle page
 		if(isAsc){
-			splitSql = "select * from " + SecDisBean.DisTableName+ " order by " + orderBy + " asc limit " + statrCount + " , " 
+			splitSql = "select * from " + SecDisBean.SecDisTable+ " order by " + orderBy + " asc limit " + statrCount + " , " 
 					+ pageCount + ";";
 		}else{
-			splitSql = "select * from " + SecDisBean.DisTableName+ " order by " + orderBy + " desc limit " + statrCount + " , " 
+			splitSql = "select * from " + SecDisBean.SecDisTable+ " order by " + orderBy + " desc limit " + statrCount + " , " 
 					+ pageCount + ";";
 		}
-		System.out.println(splitSql);
-		return findSecDisList(splitSql);
+//		System.out.println(splitSql);
+		return findSecDiscList(splitSql);
 	} 
-	*/
+	
 	//find obj's list
 	public ArrayList<SecDisBean> findSecDiscList(String sql){
 		ArrayList<SecDisBean> secDisList = new ArrayList<SecDisBean>();

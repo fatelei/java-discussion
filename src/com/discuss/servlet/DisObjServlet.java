@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.discuss.bean.DisObjBean;
-import com.discuss.bean.SecDisBean;
 import com.discuss.bean.SesVaBean;
 import com.discuss.dao.DisObjectDao;
 

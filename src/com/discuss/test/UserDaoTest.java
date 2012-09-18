@@ -1,11 +1,5 @@
 package com.discuss.test;
 
-import java.util.ArrayList;
-
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
-import com.discuss.bean.SysConfBean;
 import com.discuss.bean.UserBean;
 import com.discuss.dao.UserDao;
 

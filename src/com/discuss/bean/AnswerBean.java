@@ -1,6 +1,8 @@
 package com.discuss.bean;
 
-public class AnswerBean {
+public class AnswerBean{
+	public static final String AnsTable = "answer";
+	
 	public static final String AnsID = "answer_id";
 	private int ansID = 0;
 	
@@ -17,6 +19,23 @@ public class AnswerBean {
 	
 	public static final String AnsObjRelTime = "answer_reltime";
 	private String ansObjRelTime = null;
+	
+	public AnswerBean(){ };
+	
+	//using for add answer
+	public AnswerBean(String content, int userId, int objId){ 
+		this.ansContent = content;
+		this.ansUserID = userId;
+		this.ansObjID = objId;
+	};
+	
+	public AnswerBean(int id, String content, int userId, int objId, String time){ 
+		this.ansID = id;
+		this.ansContent = content;
+		this.ansUserID = userId;
+		this.ansObjID = objId;
+		this.ansObjRelTime = time;
+	};
 	
 	public int getAnsID() {
 		return ansID;

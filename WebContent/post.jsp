@@ -51,18 +51,18 @@
 		</div>
 		<div class="container">
 			<div style="width:800px; margin:0 auto 0 auto;">
-				<form class="form-horizontal" method="POST" action="user">
+				<form class="form-horizontal" method="POST" action="disobj">
 					<input type="hidden" name="disFunFlag" value="1"/>
 					<%
-						String msg=(String)request.getSession().getAttribute("loginSta");
+						String msg=(String)request.getSession().getAttribute("post");
 						if (msg != null && msg.equals("false")) {
 					%>
 					<div class="alert alert-error">
-						<p style="text-align:center;"><strong>用户名或密码错误</strong></p>
+						<p style="text-align:center;"><strong>发表诉讼失败!</strong></p>
 					</div>
 					<%
 						}
-						request.getSession().removeAttribute("loginSta");
+						request.getSession().removeAttribute("post");
 					%>
 					<div class="control-group">
 						<label class="control-label">标题:</label>

@@ -60,22 +60,23 @@
 				<span><a href="post.jsp" class="btn">发表诉讼</a></span>
 			</div>
 			<div class="row">
-				<table class="table table-hover">
+				<table id="disTable" class="table table-hover">
 					<thead>
 						<tr>
 							<th>编号</th>
 							<th>主题</th>
 							<th><a href="#">发布时间</a></th>
 							<th><a href="#">访问次数</a></th>
+							<% 
+								if (Integer.parseInt((String)session.getAttribute("userRank")) == 1) {
+							%>
+							<th>操作</th>
+							<%
+								}
+							%>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td><a href="detail.jsp?postId=1">1</a></td>
-							<td><a href="detail.jsp?postId=1">1233123</a></td>
-							<td>123123</td>
-							<td>1312323123</td>
-						</tr>
 					</tbody>
 				</table>
 			</div>
@@ -85,7 +86,27 @@
 			</footer>
 		</div>
 		<script type="text/javascript" src="js/jquery-1.8.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery.json-2.3.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/check.js"></script>
+		<script type="text/javascript" src="js/post.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$.get("disobj",
+					{
+						"disFunFlag": "3",
+						"nowPage": "1",
+						"orderBy": "disobj_reltime",
+						"isAsc": "1"
+					},
+					function(data) {
+						console.log(data);
+						data = $.evalJSON(data);
+						var id = <%=Integer.parseInt((String)session.getAttribute("userRank"))%>
+						$("#disTable tbody").html(build_dislist(data.disList, id));
+					}
+				);
+			});
+		</script>
 	</body>
 </html>

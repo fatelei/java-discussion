@@ -16,16 +16,16 @@ public class DisObjectDao {
 	//include	userid  topic  content time	
 	public boolean addObject(DisObjBean disObj){
 		//Don't	find the same topic
-		String addObjSql = "insert into  " + DisObjBean.DisTableName + 
-				" (" + DisObjBean.DisObjUserID + ", " + DisObjBean.DisObjTopic +", " 
+		String addObjSql = "insert into " + DisObjBean.DisTableName + 
+				"(" + DisObjBean.DisObjUserID + ", " + DisObjBean.DisObjTopic +", " 
 								+ DisObjBean.DisObjContent + ", "  + DisObjBean.DisObjRelTime + ") " +
-				"values ('" + disObj.getDisObjUserID() + "', '" + disObj.getDisObjTopic() +"', '" 
+				"values('" + disObj.getDisObjUserID() + "', '" + disObj.getDisObjTopic() +"', '" 
 								+ disObj.getDisObjContent() + "', '" + TimeUtil.getNowTime() + "')";
 		System.out.println(addObjSql);
 		if(sqlCtrl.update(addObjSql)== -1){
 			return false;
 		}
-		return false;
+		return true;
 	}
 	
 	//delete 

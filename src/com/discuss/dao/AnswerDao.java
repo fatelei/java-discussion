@@ -14,7 +14,7 @@ public class AnswerDao {
 
 	//add new	answer
 	//include	the content of answer content , userId , ObjId and now time 
-	public boolean addSecDisc(AnswerBean disObj){
+	public boolean addAns(AnswerBean disObj){
 		//Don't	find the same topic
 		String addAnsSql = "insert into  " + AnswerBean.AnsTable + 
 				" (" + AnswerBean.AnsContent + ", " + AnswerBean.AnsObjID +", " 
@@ -30,7 +30,7 @@ public class AnswerDao {
 	
 	
 	//delete 
-	public boolean delSecDisc(int ansId){
+	public boolean delAns(int ansId){
 		String delAnsSql = "delete from " + AnswerBean.AnsTable + " where " 
 				+ AnswerBean.AnsID + " = '" + ansId + "';";
 		System.out.println(delAnsSql);
@@ -40,8 +40,18 @@ public class AnswerDao {
 		return true;
 	}
 	
+	public boolean delAnsByObj(int objId){
+		String delAnsSql = "delete from " + AnswerBean.AnsTable + " where " 
+				+ AnswerBean.AnsObjID + " = '" + objId + "';";
+		System.out.println(delAnsSql);
+		if(sqlCtrl.update(delAnsSql) == -1){
+			return false;
+		}
+		return true;
+	}
+	
 	//count all
-	public int countAns(){
+ 	public int countAns(){
 		String countSql = "select count(*) from " + AnswerBean.AnsTable + " ;";
 		return sqlCtrl.count(countSql);
 	}

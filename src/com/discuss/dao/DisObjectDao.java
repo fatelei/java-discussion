@@ -10,6 +10,8 @@ import com.discuss.util.TimeUtil;
 
 public class DisObjectDao {
 	private SqlControl sqlCtrl = new SqlControl();
+	private AnswerDao ansDao = new AnswerDao();
+	private SecDiscussDao secDao = new SecDiscussDao();
 	private ResultSet res = null;
 	
 	//add new	disObject
@@ -30,6 +32,10 @@ public class DisObjectDao {
 	
 	//delete 
 	public boolean delObject(int objId){
+		if(!ansDao.delAnsByObj(objId) || !secDao.delSecDiscByObj(objId)){
+			return false;
+		}		
+		
 		String delObjSql = "delete from " + DisObjBean.DisTableName + " where " 
 				+ DisObjBean.DisObjID + " = '" + objId + "';";
 		System.out.println(delObjSql);

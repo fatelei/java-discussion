@@ -71,6 +71,22 @@ public class SecDiscussDao {
 		return findSecDiscList(splitSql);
 	} 
 	
+	//query	recods by Discuss object
+	public	ArrayList<SecDisBean> querySecDiscByObj(int nowPage, int pageCount, int objId, String orderBy, Boolean isAsc){
+		String splitSql = null;
+		int statrCount = (nowPage - 1) * pageCount;
+		//middle page
+		if(isAsc){
+			splitSql = "select * from " + SecDisBean.SecDisTable+ " where " + SecDisBean.SecDisObjectId +" = '" +objId 
+					+ "' order by " + orderBy + " asc limit " + statrCount + " , " + pageCount + ";";
+		}else{
+			splitSql = "select * from " + SecDisBean.SecDisTable+ " where " + SecDisBean.SecDisObjectId +" = '" +objId 
+					+ "' order by " + orderBy + " desc limit " + statrCount + " , " + pageCount + ";";
+		}
+//		System.out.println(splitSql);
+		return findSecDiscList(splitSql);
+	} 
+	
 	//find obj's list
 	public ArrayList<SecDisBean> findSecDiscList(String sql){
 		ArrayList<SecDisBean> secDisList = new ArrayList<SecDisBean>();

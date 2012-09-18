@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.discuss.bean.DisObjBean;
+import com.discuss.bean.SecDisBean;
 import com.discuss.util.SqlControl;
 import com.discuss.util.TimeUtil;
 
@@ -66,6 +67,19 @@ public class DisObjectDao {
 		System.out.println(splitSql);
 		return findObjList(splitSql);
 	} 
+	
+	public DisObjBean queryObjByDetail(int id, int nowPage, int pageCount){
+		DisObjBean disDetail = queryObjById(id);
+		disDetail.setAns(ansDao.querySecDiscByObj(id));
+		disDetail.setSecDisList(secDao.querySecDiscByObj(nowPage, pageCount, id, SecDisBean.SecDisRelTime, false));
+		return disDetail;
+	}
+	
+	public DisObjBean queryObjById(int id){
+		String findSql = "select * from " + DisObjBean.DisTableName + " where " + DisObjBean.DisObjID + " = '" + id + "';";
+		System.out.println(findSql);
+		return findObjList(findSql).get(0);
+	}
 	
 	//find obj's list
 	public ArrayList<DisObjBean> findObjList(String sql){

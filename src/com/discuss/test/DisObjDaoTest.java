@@ -22,6 +22,11 @@ public class DisObjDaoTest {
 		//System.out.println(disObjDao.countObj());
 		
 		//query test
-		System.out.println(disObjDao.queryObj(1, 10, DisObjBean.DisObjContent, false).get(0).getDisObjID());
+//		System.out.println(disObjDao.queryObj(1, 10, DisObjBean.DisObjContent, false).get(0).getDisObjID());
+		
+		DisObjBean dis = disObjDao.queryObjByDetail(2, 1, 10);
+		System.out.println(dis.getDisObjContent());
+		System.out.println(dis.getAns().getAnsContent());
+		System.out.println(dis.getSecDisList().size());
 	}
 }

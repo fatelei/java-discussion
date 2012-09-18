@@ -20,6 +20,9 @@ public class SecDiscussDaoTest {
 //		System.out.println(secDis.countSecDisc());
 		
 		//query test
-		System.out.println(secDis.querySecDisc(1, 10, SecDisBean.SecDisId, true).get(0).getSecDisContent());
+		//System.out.println(secDis.querySecDisc(1, 10, SecDisBean.SecDisId, true).get(0).getSecDisContent());
+		System.out.println(secDis.querySecDiscByObj(1, 10, 2, SecDisBean.SecDisId, true).get(1).getSecDisContent());
+		
+		
 	}
 }

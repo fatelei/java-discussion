@@ -1,5 +1,7 @@
 package com.discuss.bean;
 
+import java.util.ArrayList;
+
 public class DisObjBean {
 	public static final String DisTableName = "discussobject";
 	
@@ -21,6 +23,9 @@ public class DisObjBean {
 	
 	public static final String DisObjLookNum = "disobj_looknum";
 	private int disObjLookNum = 0;
+	
+	private AnswerBean ans = null;
+	private ArrayList<SecDisBean> secDisList = null;
 	
 	public DisObjBean(){};
 	
@@ -85,5 +90,21 @@ public class DisObjBean {
 	}
 	public void setDisObjLookNum(int disObjLookNum) {
 		this.disObjLookNum = disObjLookNum;
+	}
+
+	public AnswerBean getAns() {
+		return ans;
+	}
+
+	public void setAns(AnswerBean ans) {
+		this.ans = ans;
+	}
+
+	public ArrayList<SecDisBean> getSecDisList() {
+		return secDisList;
+	}
+
+	public void setSecDisList(ArrayList<SecDisBean> secDisList) {
+		this.secDisList = secDisList;
 	}
 }

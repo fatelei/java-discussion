@@ -1,5 +1,7 @@
 package com.discuss.bean;
 
+import java.util.ArrayList;
+
 public class SecDisBean {
 	public static final String SecDisTable = "seconddiscuss";
 	
@@ -23,7 +25,7 @@ public class SecDisBean {
 	
 	public static final String SecDisObjectId = "secdis_object";
 	private int secDisObjectId = 0;
-	private DisObjBean secDisObject = null;
+	private ArrayList<DisObjBean> secDisObject = null;
 	
 	public static final String SecDisRelTime = "secdis_relTime";
 	private String secDisRelTime = null;
@@ -94,13 +96,15 @@ public class SecDisBean {
 	public void setSecDisObjectId(int secDisObjectId) {
 		this.secDisObjectId = secDisObjectId;
 	}
-	public DisObjBean getSecDisObject() {
+	
+	public ArrayList<DisObjBean> getSecDisObject() {
 		return secDisObject;
 	}
-	public void setSecDisObject(DisObjBean secDisObject) {
+
+	public void setSecDisObject(ArrayList<DisObjBean> secDisObject) {
 		this.secDisObject = secDisObject;
 	}
-	
+
 	public String getSecDisRelTime() {
 		return secDisRelTime;
 	}

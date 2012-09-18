@@ -28,7 +28,6 @@ public class AnswerDao {
 		return false;
 	}
 	
-	
 	//delete 
 	public boolean delAns(int ansId){
 		String delAnsSql = "delete from " + AnswerBean.AnsTable + " where " 
@@ -55,23 +54,19 @@ public class AnswerDao {
 		String countSql = "select count(*) from " + AnswerBean.AnsTable + " ;";
 		return sqlCtrl.count(countSql);
 	}
-	/*
+	
 	//query	split records	by	pages
-	public	ArrayList<AnswerBean> querySecDisc(int nowPage, int pageCount, String orderBy, Boolean isAsc){
-		String splitSql = null;
-		int statrCount = (nowPage - 1) * pageCount;
-		//middle page
-		if(isAsc){
-			splitSql = "select * from " + AnswerBean.SecDisTable+ " order by " + orderBy + " asc limit " + statrCount + " , " 
-					+ pageCount + ";";
-		}else{
-			splitSql = "select * from " + AnswerBean.SecDisTable+ " order by " + orderBy + " desc limit " + statrCount + " , " 
-					+ pageCount + ";";
-		}
-//		System.out.println(splitSql);
-		return findSecDiscList(splitSql);
+	public	AnswerBean querySecDisc(int id){
+			String findAnsSql = "select * from " + AnswerBean.AnsTable + " where " + AnswerBean.AnsID + " = '" + id+ "';";
+		System.out.println(findAnsSql);
+		return findSecDiscList(findAnsSql).get(0);
 	} 
-	*/
+	
+	public	AnswerBean querySecDiscByObj(int objId){
+		String findAnsSql = "select * from " + AnswerBean.AnsTable + " where " + AnswerBean.AnsObjID + " = '" + objId+ "';";
+		System.out.println(findAnsSql);
+		return findSecDiscList(findAnsSql).get(0);
+	} 
 	
 	//find obj's list
 	public ArrayList<AnswerBean> findSecDiscList(String sql){

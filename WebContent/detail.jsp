@@ -57,9 +57,19 @@
 			</div>
 		</div>
 		<div class="container">
+			<%
+				String msg = (String)request.getSession().getAttribute("post");
+				if (msg != null && msg.equals("true")) {
+			%>
 			<div class="row">
-				<span><input type="button" class="btn" value="发表诉讼"/></span>
-				<span><input type="button" class="btn" value="回复"/></span>
+				<div class="alert alert-success">
+					<p style="text-align:center;"><strong>发表诉讼成功!</strong></p>
+				</div>
+			</div>
+			<%}request.getSession().removeAttribute("post");%>
+			<div class="row">
+				<span><input type="button" class="btn" onclick="show_post_modal();" value="发表诉讼"/></span>
+				<span><input type="button" class="btn" onclick="show_reply_modal();" value="回复"/></span>
 			</div>
 			<div class="sep5"></div>
 			<div class="row">
@@ -110,20 +120,21 @@
 		<div id="post-modal" class="modal fade hide">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h3></h3>
+				<h3>发表诉讼</h3>
 			</div>
-			<form method="POST" action="">
+			<form method="POST" action="disobj" class="form-horizontal">
+				<input type="hidden" name="disFunFlag" value="1"/>
 				<div class="modal-body">
 					<div class="control-group">
 						<label class="control-label">标题:</label>
 						<div class="controls">
-							<input type="text" name="title" class="input-xxlarge"/>
+							<input type="text" name="title" class="input-xlarge"/>
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label">诉讼内容:</label>
 						<div class="controls">
-							<textarea name="content" style="width:500px;" rows="5"></textarea>
+							<textarea name="content" style="width:300px;" rows="5"></textarea>
 						</div>
 					</div>
 				</div>
@@ -133,17 +144,17 @@
 				</div>
 			</form>
 		</div>
-		<div id="replay-modal" class="modal fade hide">
+		<div id="reply-modal" class="modal fade hide">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h3></h3>
+				<h3>回复诉讼</h3>
 			</div>
-			<form method="POST" action="">
+			<form method="POST" action="" class="form-horizontal">
 				<div class="modal-body">
 					<div class="control-group">
 						<label class="control-label">回复内容:</label>
 						<div class="controls">
-							<textarea name="content" style="width:500px;" rows="5"></textarea>
+							<textarea name="content" style="width:300px;" rows="5"></textarea>
 						</div>
 					</div>
 				</div>
@@ -157,5 +168,6 @@
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/jquery.json-2.3.min.js"></script>
 		<script type="text/javascript" src="js/check.js"></script>
+		<script type="text/javascript" src="js/post.js"></script>
 	</body>
 </html>

@@ -125,3 +125,27 @@ function check_post() {
 	}
 	return true;
 }
+
+/*
+ * 删除所选诉讼
+ */
+function check_delete_dis(postId) {
+	if (confirm("是否要删除该诉讼?")) {
+		$.post("disobj", 
+				{
+					"disFunFlag": "4",
+					"postId": postId
+				},
+				function(data) {
+					data = $.evalJSON(data);
+					if (data.msg == "true") {
+						alert("删除成功!");
+						window.location.reload();
+					} else {
+						alert("删除失败!");
+					}
+				}
+		);
+	}
+	return false;
+}

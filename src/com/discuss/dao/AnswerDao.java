@@ -25,7 +25,7 @@ public class AnswerDao {
 		if(sqlCtrl.update(addAnsSql)== -1){
 			return false;
 		}
-		return false;
+		return true;
 	}
 	
 	

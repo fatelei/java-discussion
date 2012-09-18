@@ -154,13 +154,13 @@
 					<div class="control-group">
 						<label class="control-label">回复内容:</label>
 						<div class="controls">
-							<textarea name="content" style="width:300px;" rows="5"></textarea>
+							<textarea name="replyContent" style="width:300px;" rows="5"></textarea>
 						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
 					<input type="reset" class="btn" value="重置"/>
-					<input type="submit" class="btn btn-primary" onclick="return check_post();" value="发表"/>
+					<input type="submit" class="btn btn-primary" onclick="return check_reply();" value="发表"/>
 				</div>
 			</form>
 		</div>

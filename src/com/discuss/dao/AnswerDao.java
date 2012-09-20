@@ -49,6 +49,16 @@ public class AnswerDao {
 		return true;
 	}
 	
+	public boolean delAnsByUser(int userId){
+		String delAnsSql = "delete from " + AnswerBean.AnsTable + " where " 
+				+ AnswerBean.AnsUserID + " = '" + userId + "';";
+		System.out.println(delAnsSql);
+		if(sqlCtrl.update(delAnsSql) == -1){
+			return false;
+		}
+		return true;
+	}
+	
 	//count all
  	public int countAns(){
 		String countSql = "select count(*) from " + AnswerBean.AnsTable + " ;";
@@ -79,7 +89,7 @@ public class AnswerDao {
 				ans.setAnsContent(res.getString(AnswerBean.AnsContent));
 				ans.setAnsObjID(res.getInt(AnswerBean.AnsObjID));
 				ans.setAnsUserID(res.getInt(AnswerBean.AnsUserID));
-				ans.setAnsObjRelTime(res.getString(AnswerBean.AnsObjRelTime));
+				ans.setAnsObjRelTime(TimeUtil.formatTime(res.getTimestamp(AnswerBean.AnsObjRelTime).toString()));
 				
 				ansList.add(ans);			
 			}

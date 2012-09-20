@@ -46,6 +46,16 @@ public class DisObjectDao {
 		return true;
 	}
 	
+	public boolean delObjectByUser(int userId){
+		String delObjSql = "delete from " + SecDisBean.SecDisTable + " where " 
+				+ DisObjBean.DisObjUserID + " = '" + userId + "';";
+		System.out.println(delObjSql);
+		if(sqlCtrl.update(delObjSql) == -1){
+			return false;
+		}
+		return true;
+	}
+	
 	//count all object's num
 	public int countObj(){
 		String countSql = "select count(*) from " + DisObjBean.DisTableName + " ;";
@@ -92,7 +102,7 @@ public class DisObjectDao {
 				obj.setDisObjTopic(res.getString(DisObjBean.DisObjTopic));
 				obj.setDisObjContent(res.getString(DisObjBean.DisObjContent));
 				obj.setDisObjUserID(res.getInt(DisObjBean.DisObjUserID));
-				obj.setDisObjRelTime(res.getTimestamp(DisObjBean.DisObjRelTime).toString());
+				obj.setDisObjRelTime(TimeUtil.formatTime(res.getTimestamp(DisObjBean.DisObjRelTime).toString()));
 				obj.setDisObjLookNum(res.getInt(DisObjBean.DisObjLookNum));
 				objList.add(obj);			
 			}

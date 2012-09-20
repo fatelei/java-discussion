@@ -9,6 +9,12 @@ import com.discuss.util.SqlControl;
 public class UserDao {
 	private SqlControl sqlCtrl = new SqlControl();
 	private ResultSet res = null;
+
+	//Dao
+	private DisObjectDao disDao = new DisObjectDao();
+	private SecDiscussDao secDao = new SecDiscussDao();
+	private AnswerDao ansDao = new AnswerDao();
+	
 	//login	is	ok	?
 	public UserBean loginOk(String userName, String password){
 		String findUserSql = "select * from " + UserBean.UserTable + 
@@ -47,6 +53,10 @@ public class UserDao {
 	
 	//delete user by user's id
 	public	boolean delUser(int userId ){
+		if(disDao.delObjectByUser(userId) || secDao.delSecDiscByUser(userId) || ansDao.delAnsByUser(userId)){
+			return false;
+		}
+		
 		String delUserSql = "delete from " + UserBean.UserTable + " where " 
 				+ UserBean.UserID + " = '" + userId + "';";
 		if(sqlCtrl.update(delUserSql) == -1){

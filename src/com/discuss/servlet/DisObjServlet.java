@@ -89,9 +89,5 @@ public class DisObjServlet extends HttpServlet {
 			JsonUtil.sendJson(response, json.toString());
 			break;
 		}
-		
-		
-		
 	}
-
 }

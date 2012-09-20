@@ -14,6 +14,7 @@ import net.sf.json.JSONObject;
 
 import com.discuss.bean.DisObjBean;
 import com.discuss.bean.SesVaBean;
+import com.discuss.bean.SysConfBean;
 import com.discuss.dao.DisObjectDao;
 import com.discuss.util.JsonUtil;
 
@@ -51,7 +52,14 @@ public class DisObjServlet extends HttpServlet {
 			}
 			break;
 		case 2: //query a specific discuss
-			
+			DisObjBean curDis = disObjDao.queryObjById(Integer.parseInt(postId));
+			json = new JSONObject();
+			json.put("id", curDis.getDisObjID());
+			json.put("title", curDis.getDisObjTopic());
+			json.put("content", curDis.getDisObjContent());
+			json.put("time", curDis.getDisObjRelTime());
+			json.put("author", curDis.getDisObjUser().getUserName());
+			JsonUtil.sendJson(response, json.toString());
 			break;
 		case 3: //query list of discuss
 			int nowPage = Integer.parseInt(request.getParameter("nowPage"));
@@ -59,11 +67,17 @@ public class DisObjServlet extends HttpServlet {
 			int isAsc = Integer.parseInt(request.getParameter("isAsc"));
 			ArrayList<DisObjBean> listDis = null;
 			if (isAsc == 1) {
-				listDis = disObjDao.queryObj(nowPage, 10, orderBy, true);
+				listDis = disObjDao.queryObj(nowPage, 1, orderBy, true);
 			} else {
-				listDis = disObjDao.queryObj(nowPage, 10, orderBy, false);
+				listDis = disObjDao.queryObj(nowPage, 1, orderBy, false);
 			}
-			int totalPages = disObjDao.countObj();
+			int totalPages = 0;
+			int totalDises = disObjDao.countObj();
+			if (totalDises % SysConfBean.DisListPageNum == 0) {
+				totalPages = totalDises / SysConfBean.DisListPageNum;
+			} else {
+				totalPages = totalDises / SysConfBean.DisListPageNum + 1;
+			}
 			JSONArray disAry = new JSONArray();
 			for (DisObjBean perDis: listDis) {
 				JSONObject tmp = new JSONObject();

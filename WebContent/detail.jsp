@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.discuss.bean.DisObjBean"%>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -69,51 +69,27 @@
 			<%}request.getSession().removeAttribute("post");%>
 			<div class="row">
 				<span><input type="button" class="btn" onclick="show_post_modal();" value="发表诉讼"/></span>
-				<span><input type="button" class="btn" onclick="show_reply_modal();" value="回复"/></span>
+				<%
+					if (authed != null && authed.equals("true")) {
+						int rank = (Integer)session.getAttribute("userRank");
+						if (rank == 2) {
+				%>
+				<span><input type="button" class="btn" onclick="" value="发表回复"/></span>
+				<%
+						}
+					}
+				%>
+				<span><input type="button" class="btn" onclick="show_reply_modal();" value="附议"/></span>
 			</div>
 			<div class="sep5"></div>
 			<div class="row">
-				<div class="box">
-					<div class="topic-header">
-						<h2>Test title</h2>
-						<small style="color: #999;">
-                			<span></span>fate 发表于 2012-9-17
-                		</small>
-                		<div style="float:right">
-                			<a href="#"><i class="icon-thumbs-up"></i></a>100
-							<a href="#"><i class="icon-thumbs-down"></i></a>200
-						</div>
-					</div>
-					<div class="topic-inner">
-						<div class="topic-content">
-                			<p>fsfdfaffsafsdfsdfsd</p>
-            			</div>
-					</div>
+				<div class="box" id="topic">
 				</div>
 				<div class="sep20"></div>
 				<div id="reply">
-					<div class="cell">
-						<table cepllpadding="0" cellspacing="0" border="0" width="100%">
-							<tbody>
-								<tr>
-									<td width="10" valign="top"></td>
-									<td width="auto" valign="top" align="left">
-										<div class="fr">
-											<span class="badge">1</span>
-											<a href="#"><i class="icon-thumbs-up"></i></a>100
-											<a href="#"><i class="icon-thumbs-down"></i></a>200
-										</div>
-										<div class="sep3"></div>
-										<strong>test</strong> 回复：<span class="small">2012-9-17</span>
-										<div class="sep5"></div>
-										<div class="reply_content">
-											csafdasdasda
-										</div>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
+				</div>
+				<div class="sep20"></div>
+				<div id="additionComments">
 				</div>
 			</div>
 		</div>
@@ -169,5 +145,31 @@
 		<script type="text/javascript" src="js/jquery.json-2.3.min.js"></script>
 		<script type="text/javascript" src="js/check.js"></script>
 		<script type="text/javascript" src="js/post.js"></script>
+		<script type="text/javascript">
+			var postId = <%=request.getParameter("postId")%>;
+			$(document).ready(function(){
+				$.get("disobj",
+					{
+						"disFunFlag": "2",
+						"postId": postId
+					},
+					function(data) {
+						data = $.evalJSON(data);
+						$("#topic").html(build_topic(data));
+					}
+				);
+				$.get("rplobj",
+					{
+						"rplFunFlag": "1",
+						"postId": postId,
+						"nowPage": 1
+					},
+					function(data) {
+						data = $.evalJSON(data);
+						$("#additionComments").html(data.secList);
+					}
+				);
+			});
+		</script>
 	</body>
 </html>

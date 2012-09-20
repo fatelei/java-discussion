@@ -13,6 +13,7 @@ public class DisObjectDao {
 	private SqlControl sqlCtrl = new SqlControl();
 	private AnswerDao ansDao = new AnswerDao();
 	private SecDiscussDao secDao = new SecDiscussDao();
+	private UserDao userDao = new UserDao();
 	private ResultSet res = null;
 	
 	//add new	disObject
@@ -104,6 +105,7 @@ public class DisObjectDao {
 				obj.setDisObjUserID(res.getInt(DisObjBean.DisObjUserID));
 				obj.setDisObjRelTime(TimeUtil.formatTime(res.getTimestamp(DisObjBean.DisObjRelTime).toString()));
 				obj.setDisObjLookNum(res.getInt(DisObjBean.DisObjLookNum));
+				obj.setDisObjUser(userDao.findUserById(res.getInt(DisObjBean.DisObjUserID)));
 				objList.add(obj);			
 			}
 		} catch (SQLException e) {

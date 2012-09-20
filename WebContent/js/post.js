@@ -24,3 +24,49 @@ function show_post_modal() {
 function show_reply_modal() {
 	$("#reply-modal").modal("show");
 }
+
+/*
+ * 获得主题内容
+ */
+function build_topic(data) {
+	var html = "";
+	html += '<div class="topic-header"><h2>' + data.title + '</h2>';
+	html += '<small type="color: #999"><span></span>' + data.author + '发表于' + data.time + '</small></div>';
+	html += '<div class="topic-inner"><div class="topic-content"><p>' + data.content + '</p></div></div>';
+	return html;
+}
+
+/*
+ * 获得回复内容
+ */
+function build_reply(data) {
+	var html = "";
+}
+
+/*
+ * 获得附议列表
+ */
+function build_additional_comments(data) {
+	var html = "";
+	for (var i = 0; i < data.length; i++) {
+		html += '<div class="cell">';
+		html += '<table cellpadding="0" cellspacing="0" border="0" width="100%">';
+		html += '<tbody><tr><td width="10" valign="top"></td>';
+		html += '<td width="auto" valign="top" align="left">';
+		html += '<div class="fr"><span class="badge">' + i + '</span>';
+		html += '<a href="#"><i class="icon-thumbs-up"></i></a>' + data[i].secAprNum;
+		html += '<a href="#"><i class="icon-thumbs-down"></i></a>' + data[i].secOppNum + '</div>';
+		html += '<div class="sep3></div>';
+		html += '<strong>' + data[i].secUser + '</strong> 回复:<span class="small">' + data[i].secTime + '</span>';
+		html += '<div class="sep5"></div>';
+		html += '<div class="reply_content">' + data[i].secContent + '</div></td></tr></tbody></table></div>';
+	}
+	return html;
+}
+
+/*
+ *
+ */
+function get_discuss(page, orderBy, isAsc) {
+	
+}

@@ -78,7 +78,6 @@ public class AnswerBean{
 		this.ansObj = ansObj;
 	}
 
-	
 	public String getAnsObjRelTime() {
 		return ansObjRelTime;
 	}

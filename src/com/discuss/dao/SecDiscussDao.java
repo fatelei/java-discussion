@@ -11,6 +11,7 @@ import com.discuss.util.TimeUtil;
 public class SecDiscussDao {
 	private SqlControl sqlCtrl = new SqlControl();
 	private ResultSet res = null;
+	private UserDao userDao = null;
 	
 	//add new	SecDiscuss
 	//include	the content of seconded discuss , userId , ObjId and now time 
@@ -111,7 +112,8 @@ public class SecDiscussDao {
 				secDis.setSecDisObjectId(res.getInt(SecDisBean.SecDisObjectId));
 				secDis.setSecDisUserId(res.getInt(SecDisBean.SecDisUserId));
 				secDis.setSecDisRelTime(TimeUtil.formatTime(res.getTimestamp(SecDisBean.SecDisRelTime).toString()));
-				
+
+				secDis.setSecDisUser(userDao.findUserById(res.getInt(SecDisBean.SecDisUserId)));
 				secDisList.add(secDis);			
 			}
 		} catch (SQLException e) {

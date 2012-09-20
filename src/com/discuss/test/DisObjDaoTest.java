@@ -8,8 +8,8 @@ public class DisObjDaoTest {
 		DisObjectDao disObjDao = new DisObjectDao();
 		
 		//add test
-//		DisObjBean disObj = new DisObjBean("Fuck Japanese", "hdfjiajeofjfojdi", 12);
-//		disObjDao.addObject(disObj);
+		DisObjBean disObj = new DisObjBean("Fuck Japanese", "hdfjiajeofjfojdi", 12);
+		System.out.println(disObjDao.addObject(disObj));
 		
 		//delete test
 		//disObjDao.delObject(1);
@@ -24,9 +24,9 @@ public class DisObjDaoTest {
 		//query test
 //		System.out.println(disObjDao.queryObj(1, 10, DisObjBean.DisObjContent, false).get(0).getDisObjID());
 		
-		DisObjBean dis = disObjDao.queryObjByDetail(2, 1, 10);
-		System.out.println(dis.getDisObjContent());
-		System.out.println(dis.getAns().getAnsContent());
-		System.out.println(dis.getSecDisList().size());
+//		DisObjBean dis = disObjDao.queryObjByDetail(2, 1, 10);
+//		System.out.println(dis.getDisObjContent());
+//		System.out.println(dis.getAns().getAnsContent());
+//		System.out.println(dis.getSecDisList().size());
 	}
 }

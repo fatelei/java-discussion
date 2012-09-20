@@ -16,7 +16,10 @@ public class AnswerDao {
 	//add new	answer
 	//include	the content of answer content , userId , ObjId and now time 
 	public boolean addAns(AnswerBean disObj){
-		//Don't	find the same topic
+		//have answered ?
+		String isAnsedSql = "select * from " + AnswerBean.AnsTable + " where " + AnswerBean.AnsObjID + " = '"+ disObj.getAnsObjID() +"' ;"; 
+		System.out.println(isAnsedSql);
+		
 		
 		//
 		String addAnsSql = "insert into  " + AnswerBean.AnsTable + 

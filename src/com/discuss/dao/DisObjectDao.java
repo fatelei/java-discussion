@@ -22,7 +22,7 @@ public class DisObjectDao {
 	//add new	disObject
 	//include	userid  topic  content time	
 	public int addObject(DisObjBean disObj){
-		//judice this same
+		//judge this repeat
 		if(queryObjInDbByName(disObj.getDisObjTopic())){
 			return -1;
 		}
@@ -33,12 +33,12 @@ public class DisObjectDao {
 								+ DisObjBean.DisObjContent + ", "  + DisObjBean.DisObjRelTime + ") " +
 				"values('" + disObj.getDisObjUserID() + "', '" + disObj.getDisObjTopic() +"', '" 
 								+ disObj.getDisObjContent() + "', '" + TimeUtil.getNowTime() + "')";
-		System.out.println(addObjSql);
+//		System.out.println(addObjSql);
 		if(sqlCtrl.update(addObjSql)== -1){
 			return -1;
 		}		
 		
-		//fing user's id		
+		//find new object's id		
 		return queryObjIdByName(disObj.getDisObjTopic());
 	}
 	
@@ -70,13 +70,13 @@ public class DisObjectDao {
 		return true;
 	}
 		
-	//count all object's num
+	//count 
 	public int countObj(){
 		String countSql = "select count(*) from " + DisObjBean.DisTableName + " ;";
 		return sqlCtrl.getOneInt(countSql);
 	}
 	
-	//query	split records	by	pages
+	//query	
 	public	ArrayList<DisObjBean> queryObj(int nowPage, int pageCount, String orderBy, Boolean isAsc){
 		String splitSql = null;
 		int statrCount = (nowPage - 1) * pageCount;
@@ -107,7 +107,7 @@ public class DisObjectDao {
 	
 	public int queryObjIdByName(String topicName){
 		String querySql = "select " + DisObjBean.DisObjID + " from " + DisObjBean.DisTableName + " where "
-																		+ DisObjBean.DisObjTopic + " = " + topicName + " ;";
+																		+ DisObjBean.DisObjTopic + " = '" + topicName + "' ;";
 		return sqlCtrl.getOneInt(querySql);
 	}
 	
@@ -137,12 +137,12 @@ public class DisObjectDao {
 
 	//judge this Object is in the db or not
 	public boolean queryObjInDbByName(String objName){
-		String queryString = "select * from " + DisObjBean.DisTableName + " where " + DisObjBean.DisObjTopic + " = " + objName +" ; ";
-		System.out.println("judge reapt :" + queryString );
+		String queryString = "select * from " + DisObjBean.DisTableName + " where " + DisObjBean.DisObjTopic + " = '" + objName +"'; ";
+//		System.out.println("judge reapt :" + queryString );
 		if(findObjList(queryString).size() > 0){
-			return false;
+			return true;
 		}
-		return true;
+		return false;
 	}
 
 }

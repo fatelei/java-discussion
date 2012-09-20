@@ -17,6 +17,8 @@ public class AnswerDao {
 	//include	the content of answer content , userId , ObjId and now time 
 	public boolean addAns(AnswerBean disObj){
 		//Don't	find the same topic
+		
+		//
 		String addAnsSql = "insert into  " + AnswerBean.AnsTable + 
 				" (" + AnswerBean.AnsContent + ", " + AnswerBean.AnsObjID +", " 
 								+ AnswerBean.AnsUserID + ", "  + AnswerBean.AnsObjRelTime + ") " +

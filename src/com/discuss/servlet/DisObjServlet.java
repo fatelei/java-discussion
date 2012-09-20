@@ -43,7 +43,7 @@ public class DisObjServlet extends HttpServlet {
 		case 1: //post a new discuss object
 			int userId = (Integer)session.getAttribute(SesVaBean.UserId);
 			DisObjBean disObj = new DisObjBean(title, content, userId);
-			if (disObjDao.addObject(disObj)) {
+			if (disObjDao.addObject(disObj) != -1) {
 				session.setAttribute("post", "true");
 				response.sendRedirect("detail.jsp?postId="+disObj.getDisObjID()+"&disFunFlag=2");
 			} else {

@@ -10,7 +10,8 @@ import com.discuss.util.TimeUtil;
 
 public class AnswerDao {
 	private SqlControl sqlCtrl = new SqlControl();
-	private ResultSet res = null; 
+	private ResultSet res = null;
+	private UserDao userDao = null;
 
 	//add new	answer
 	//include	the content of answer content , userId , ObjId and now time 
@@ -65,7 +66,12 @@ public class AnswerDao {
 	public	AnswerBean querySecDiscByObj(int objId){
 		String findAnsSql = "select * from " + AnswerBean.AnsTable + " where " + AnswerBean.AnsObjID + " = '" + objId+ "';";
 		System.out.println(findAnsSql);
-		return findSecDiscList(findAnsSql).get(0);
+		ArrayList<AnswerBean> tmp = findSecDiscList(findAnsSql);
+		if (tmp.size() > 0) {
+			return tmp.get(0);
+		} else {
+			return null;
+		}
 	} 
 	
 	//find obj's list
@@ -80,8 +86,8 @@ public class AnswerDao {
 				ans.setAnsObjID(res.getInt(AnswerBean.AnsObjID));
 				ans.setAnsUserID(res.getInt(AnswerBean.AnsUserID));
 				ans.setAnsObjRelTime(res.getString(AnswerBean.AnsObjRelTime));
-				
-				ansList.add(ans);			
+				ans.setAnsUser(userDao.findUserById(res.getInt(AnswerBean.AnsUserID)));
+				ansList.add(ans);		
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

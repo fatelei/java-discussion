@@ -89,6 +89,10 @@ public class UserDao {
 		return findUserList(findSql).get(0).getUserId();
 	}
 	
+	public UserBean findUserById(int userId) {
+		String findSql = "select * from "  + UserBean.UserTable + " where " + UserBean.UserID + " = '" + userId + "' ;";
+		return findUserList(findSql).get(0);
+	}
 	//find user's list
 	public ArrayList<UserBean> findUserList(String sql){
 		ArrayList<UserBean> userList = new ArrayList<UserBean>();

@@ -83,6 +83,10 @@
 					</tbody>
 				</table>
 			</div>
+			<div class="row">
+				<div id="page" class="pagination">
+				</div>
+			</div>
 			<hr>
 			<footer>
 				<p>&copy;Web诉讼系统 2012</p>
@@ -93,27 +97,37 @@
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/check.js"></script>
 		<script type="text/javascript" src="js/post.js"></script>
+		<script type="text/javascript" src="js/page.js"></script>
 		<script type="text/javascript">
+			var nowPage;
+			var totalPages;
+			var orderBy = ["disobj_reltime", "disobj_looknum"];
+			var isAsc = 1;
+			var range = [0, 0];
+			var cursor;
+			var id = -1;
 			$(document).ready(function(){
 				$.get("disobj",
 					{
 						"disFunFlag": "3",
 						"nowPage": "1",
-						"orderBy": "disobj_reltime",
-						"isAsc": "1"
+						"orderBy": orderBy[0],
+						"isAsc": isAsc
 					},
 					function(data) {
 						console.log(data);
 						data = $.evalJSON(data);
-						var id = -1;
+						nowPage = data.nowPage;
+						totalPages = data.totalPages;
 						<%
 							if (authed != null && authed.equals("true")) {
 						%>
-						var id = <%=Integer.parseInt((String)session.getAttribute("userRank"))%>;
+						id = <%=Integer.parseInt((String)session.getAttribute("userRank"))%>;
 						<%
 							}
 						%>
 						$("#disTable tbody").html(build_dislist(data.disList, id));
+						$("#page").html(make_page(cursor, nowPage, totalPages));
 					}
 				);
 			});

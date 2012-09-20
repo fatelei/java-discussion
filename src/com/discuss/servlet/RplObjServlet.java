@@ -73,11 +73,9 @@ public class RplObjServlet extends HttpServlet {
 			break;
 		case 2: //发表回复
 			break;
-		case 3: //引用回复
+		case 3: //发表附议
 			break;
-		case 4: //发表附议
-			break;
-		case 5: //引用附议
+		case 4: //引用附议
 			break;
 		}
 	}

@@ -9,10 +9,11 @@ function make_page(cursor, page, totalpages) {
 	}
 	html += '<ul>';
 	cursor = page;
+	console.log(cursor);
 	if (parseInt(page) == 1) {
 		html += '<li class="disabled"><a href="#">«</a></li>';
 	} else {
-		html += '<li><a href="#" onclick="forward();">«</a></li>';
+		html += '<li><a href="#" onclick=\'forward(' + cursor + ');\'>«</a></li>';
 	}
 	if (!range[0] && !range[1]) {
 		if (totalPages <= 5) {
@@ -46,17 +47,23 @@ function make_page(cursor, page, totalpages) {
 	if (page == totalPages) {
 		html += '<li class="disabled"><a href="#">»</a></li>';
 	} else {
-		html += '<li><a href="#">»</a></li>';
+		html += '<li><a href="#" onclick=\'backward(' + cursor + ');\'>»</a></li>';
 	}
 	html += '</ul>';
 	return html;
 }
 
+/*
+ * 更新分页分区
+ */
 function update_range(range, start, end) {
 	range[0] = start;
 	range[1] = end;
 }
 
+/*
+ * 生成页数
+ */
 function make_page_num(target, curPage) {
 	var html = "";
 	var start = 0;
@@ -75,6 +82,9 @@ function make_page_num(target, curPage) {
 	return html;
 }
 
+/*
+ * 跳转到指定页面
+ */
 function direct_to_page(page) {
 	$.get("disobj",
 		{
@@ -92,4 +102,30 @@ function direct_to_page(page) {
 		}
 	);
 	return false;
+}
+
+/*
+ * 前进一页
+ */
+function forward(cursor) {
+	var toPage = 0;
+	if (cursor - 1 <= 0) {
+		toPage = 1;
+	} else {
+		toPage = cursor - 1;
+	}
+	return direct_to_page(toPage);
+}
+
+/*
+ * 后退一页
+ */
+function backward(cursor) {
+	var toPage = 0;
+	if (cursor + 1 > totalPages) {
+		toPage = totalPages;
+	} else {
+		toPage = cursor + 1;
+	}
+	return direct_to_page(toPage);
 }

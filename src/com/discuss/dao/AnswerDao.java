@@ -17,11 +17,14 @@ public class AnswerDao {
 	//include	the content of answer content , userId , ObjId and now time 
 	public boolean addAns(AnswerBean disObj){
 		//have answered ?
-		String isAnsedSql = "select * from " + AnswerBean.AnsTable + " where " + AnswerBean.AnsObjID + " = '"+ disObj.getAnsObjID() +"' ;"; 
-		System.out.println(isAnsedSql);
+		String isAnsedSql = "select count(*) from " + AnswerBean.AnsTable + " where " + AnswerBean.AnsObjID + " = '"+ disObj.getAnsObjID() +"' ;"; 
+//		System.out.println(isAnsedSql);
+		if(sqlCtrl.getOneInt(isAnsedSql) > 0){
+			//The user has already repeated for the object
+			return false;
+		}
 		
-		
-		//
+		//Add the answer info to db;
 		String addAnsSql = "insert into  " + AnswerBean.AnsTable + 
 				" (" + AnswerBean.AnsContent + ", " + AnswerBean.AnsObjID +", " 
 								+ AnswerBean.AnsUserID + ", "  + AnswerBean.AnsObjRelTime + ") " +

@@ -7,8 +7,8 @@ public class AnsDaoTest {
 		AnswerDao ansDao = new AnswerDao();
 		
 		//add test
-//		AnswerBean ans = new AnswerBean("你说的真是太对了，支持你！", 12, 2);
-//		ansDao.addAns(ans);
+//		AnswerBean ans = new AnswerBean("你说的真是太对了，支持你！", 12, 3);
+//		System.out.println(ansDao.addAns(ans));
 		
 		//delete test
 //		ansDao.delSecDisc(3);

@@ -30,7 +30,7 @@
 							<li class="active"><a href="index.jsp">首页</a></li>
 							<% 
 								String rank = (String)request.getSession().getAttribute("userRank");
-								if (Integer.parseInt(rank) == 1) {
+								if (rank != null && Integer.parseInt(rank) == 1) {
 							%>
 							<li><a href="user_manage.jsp">用户管理</a></li>
 							<%

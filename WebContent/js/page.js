@@ -9,7 +9,6 @@ function make_page(cursor, page, totalpages) {
 	}
 	html += '<ul>';
 	cursor = page;
-	console.log(cursor);
 	if (parseInt(page) == 1) {
 		html += '<li class="disabled"><a href="#">«</a></li>';
 	} else {

@@ -84,7 +84,7 @@
 				</table>
 			</div>
 			<div class="row">
-				<div id="page" class="pagination">
+				<div id="page" class="pagination pull-right">
 				</div>
 			</div>
 			<hr>

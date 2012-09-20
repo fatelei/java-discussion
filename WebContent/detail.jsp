@@ -21,7 +21,7 @@
 					<a class="brand" href="#">Web诉讼系统</a>
 					<div class="nav-collapse collapse">
 						<ul class="nav">
-							<li class="active"><a href="#">首页</a></li>
+							<li class="active"><a href="index.jsp">首页</a></li>
 							<!--If not login-->
 							<%
 							    String authed = (String)session.getAttribute("loginState");
@@ -32,7 +32,7 @@
 							<%	} else {%>
 							<% 
 									String level = (String)session.getAttribute("userRank");
-									if (Integer.parseInt(level) == 1) {
+									if (level != null && Integer.parseInt(level) == 1) {
 							%>
 										<li><a href="user_manage.jsp">用户管理</a></li>
 							<%		}	%>
@@ -71,8 +71,8 @@
 				<span><input type="button" class="btn" onclick="show_post_modal();" value="发表诉讼"/></span>
 				<%
 					if (authed != null && authed.equals("true")) {
-						int rank = (Integer)session.getAttribute("userRank");
-						if (rank == 2) {
+						String level = (String)session.getAttribute("userRank");
+						if (level != null && Integer.parseInt(level) == 2) {
 				%>
 				<span><input type="button" class="btn" onclick="" value="发表回复"/></span>
 				<%

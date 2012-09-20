@@ -80,7 +80,7 @@ public class SqlControl {
 	}
 	
 	//count
-	public int count(String sql){
+	public int getOneInt(String sql){
 		if(sta == null){
 			createStatement();
 		}

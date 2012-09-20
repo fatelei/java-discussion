@@ -43,7 +43,7 @@ public class SecDiscussDao {
 	//count all
 	public int countSecDisc(){
 		String countSql = "select count(*) from " + SecDisBean.SecDisTable + " ;";
-		return sqlCtrl.count(countSql);
+		return sqlCtrl.getOneInt(countSql);
 	}
 	
 	//query	split records	by	pages
@@ -103,4 +103,6 @@ public class SecDiscussDao {
 		sqlCtrl.closeCon();
 		return secDisList;
 	}
+
+	//add secDiscuss sp
 }

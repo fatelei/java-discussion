@@ -34,7 +34,7 @@ public class UserDao {
 		//having the same user ?
 		String coutUserSql = "select count(*) from " + UserBean.UserTable + " where " 
 						+ UserBean.UserName + " = '" + user.getUserName() + "';";
-		if(sqlCtrl.count(coutUserSql) > 0){
+		if(sqlCtrl.getOneInt(coutUserSql) > 0){
 			//have
 			return false;
 		}else{
@@ -109,7 +109,7 @@ public class UserDao {
 	//count all user's num
 	public int countUser(){
 		String countSql = "select count(*) from " + UserBean.UserTable + " ;";
-		return sqlCtrl.count(countSql);
+		return sqlCtrl.getOneInt(countSql);
 	}
 	
 	//find user by name

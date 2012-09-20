@@ -43,7 +43,7 @@ public class AnswerDao {
 	//count all
  	public int countAns(){
 		String countSql = "select count(*) from " + AnswerBean.AnsTable + " ;";
-		return sqlCtrl.count(countSql);
+		return sqlCtrl.getOneInt(countSql);
 	}
 	
 	//query	split records	by	pages

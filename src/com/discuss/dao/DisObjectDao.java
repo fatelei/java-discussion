@@ -21,7 +21,12 @@ public class DisObjectDao {
 	
 	//add new	disObject
 	//include	userid  topic  content time	
-	public boolean addObject(DisObjBean disObj){
+	public int addObject(DisObjBean disObj){
+		//judice this same
+		if(queryObjInDbByName(disObj.getDisObjTopic())){
+			return -1;
+		}
+		
 		//Don't	find the same topic
 		String addObjSql = "insert into " + DisObjBean.DisTableName + 
 				"(" + DisObjBean.DisObjUserID + ", " + DisObjBean.DisObjTopic +", " 
@@ -30,9 +35,11 @@ public class DisObjectDao {
 								+ disObj.getDisObjContent() + "', '" + TimeUtil.getNowTime() + "')";
 		System.out.println(addObjSql);
 		if(sqlCtrl.update(addObjSql)== -1){
-			return false;
-		}
-		return true;
+			return -1;
+		}		
+		
+		//fing user's id		
+		return queryObjIdByName(disObj.getDisObjTopic());
 	}
 	
 	//delete 
@@ -66,7 +73,7 @@ public class DisObjectDao {
 	//count all object's num
 	public int countObj(){
 		String countSql = "select count(*) from " + DisObjBean.DisTableName + " ;";
-		return sqlCtrl.count(countSql);
+		return sqlCtrl.getOneInt(countSql);
 	}
 	
 	//query	split records	by	pages
@@ -98,6 +105,12 @@ public class DisObjectDao {
 		return findObjList(findSql).get(0);
 	}
 	
+	public int queryObjIdByName(String topicName){
+		String querySql = "select " + DisObjBean.DisObjID + " from " + DisObjBean.DisTableName + " where "
+																		+ DisObjBean.DisObjTopic + " = " + topicName + " ;";
+		return sqlCtrl.getOneInt(querySql);
+	}
+	
 	//find obj's list
 	public ArrayList<DisObjBean> findObjList(String sql){
 		ArrayList<DisObjBean> objList = new ArrayList<DisObjBean>();
@@ -121,4 +134,15 @@ public class DisObjectDao {
 		sqlCtrl.closeCon();
 		return objList;
 	}
+
+	//judge this Object is in the db or not
+	public boolean queryObjInDbByName(String objName){
+		String queryString = "select * from " + DisObjBean.DisTableName + " where " + DisObjBean.DisObjTopic + " = " + objName +" ; ";
+		System.out.println("judge reapt :" + queryString );
+		if(findObjList(queryString).size() > 0){
+			return false;
+		}
+		return true;
+	}
+
 }

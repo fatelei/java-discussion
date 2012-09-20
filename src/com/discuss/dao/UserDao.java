@@ -3,6 +3,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.discuss.bean.AnswerBean;
+import com.discuss.bean.DisObjBean;
+import com.discuss.bean.SecDisBean;
 import com.discuss.bean.UserBean;
 import com.discuss.util.SqlControl;
 
@@ -10,11 +13,6 @@ public class UserDao {
 	private SqlControl sqlCtrl = new SqlControl();
 	private ResultSet res = null;
 
-	//Dao
-	private DisObjectDao disDao = new DisObjectDao();
-	private SecDiscussDao secDao = new SecDiscussDao();
-	private AnswerDao ansDao = new AnswerDao();
-	
 	//login	is	ok	?
 	public UserBean loginOk(String userName, String password){
 		String findUserSql = "select * from " + UserBean.UserTable + 
@@ -53,10 +51,31 @@ public class UserDao {
 	
 	//delete user by user's id
 	public	boolean delUser(int userId ){
-		if(disDao.delObjectByUser(userId) || secDao.delSecDiscByUser(userId) || ansDao.delAnsByUser(userId)){
+		//delete the user's answers
+		String delAnsSql = "delete from " + AnswerBean.AnsTable + " where " 
+				+ AnswerBean.AnsUserID + " = '" + userId + "';";
+		System.out.println(delAnsSql);
+		if(sqlCtrl.update(delAnsSql) == -1){
 			return false;
 		}
 		
+		//delete the user's secondDiscuss
+		String delSecDisSql = "delete from " + SecDisBean.SecDisTable + " where " 
+				+ SecDisBean.SecDisUserId + " = '" + userId + "';";
+		System.out.println(delSecDisSql);
+		if(sqlCtrl.update(delSecDisSql) == -1){
+			return false;
+		}
+		
+		//delete the user's Object
+		String delObjSql = "delete from " + SecDisBean.SecDisTable + " where " 
+				+ DisObjBean.DisObjUserID + " = '" + userId + "';";
+		System.out.println(delObjSql);
+		if(sqlCtrl.update(delObjSql) == -1){
+			return false;
+		}
+		
+		//delete the user's info		
 		String delUserSql = "delete from " + UserBean.UserTable + " where " 
 				+ UserBean.UserID + " = '" + userId + "';";
 		if(sqlCtrl.update(delUserSql) == -1){

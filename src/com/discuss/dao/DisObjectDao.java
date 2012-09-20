@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.discuss.bean.AnswerBean;
 import com.discuss.bean.DisObjBean;
 import com.discuss.bean.SecDisBean;
 import com.discuss.util.SqlControl;
@@ -11,10 +12,12 @@ import com.discuss.util.TimeUtil;
 
 public class DisObjectDao {
 	private SqlControl sqlCtrl = new SqlControl();
+	private ResultSet res = null;
+	
+	//new dao
+	private UserDao userDao = new UserDao();
 	private AnswerDao ansDao = new AnswerDao();
 	private SecDiscussDao secDao = new SecDiscussDao();
-	private UserDao userDao = new UserDao();
-	private ResultSet res = null;
 	
 	//add new	disObject
 	//include	userid  topic  content time	
@@ -34,10 +37,23 @@ public class DisObjectDao {
 	
 	//delete 
 	public boolean delObject(int objId){
-		if(!ansDao.delAnsByObj(objId) || !secDao.delSecDiscByObj(objId)){
+		//delete the object's answer
+		String delAnsSql = "delete from " + AnswerBean.AnsTable + " where " 
+				+ AnswerBean.AnsObjID + " = '" + objId + "';";
+		System.out.println(delAnsSql);
+		if(sqlCtrl.update(delAnsSql) == -1){
 			return false;
-		}		
+		}
 		
+		//delete the object's secdiscuss
+		String delSecDisSql = "delete from " + SecDisBean.SecDisTable + " where " 
+				+ SecDisBean.SecDisObjectId + " = '" + objId + "';";
+		System.out.println(delSecDisSql);
+		if(sqlCtrl.update(delSecDisSql) == -1){
+			return false;
+		}
+		
+		//delete this obj's info
 		String delObjSql = "delete from " + DisObjBean.DisTableName + " where " 
 				+ DisObjBean.DisObjID + " = '" + objId + "';";
 		System.out.println(delObjSql);
@@ -46,17 +62,7 @@ public class DisObjectDao {
 		}
 		return true;
 	}
-	
-	public boolean delObjectByUser(int userId){
-		String delObjSql = "delete from " + SecDisBean.SecDisTable + " where " 
-				+ DisObjBean.DisObjUserID + " = '" + userId + "';";
-		System.out.println(delObjSql);
-		if(sqlCtrl.update(delObjSql) == -1){
-			return false;
-		}
-		return true;
-	}
-	
+		
 	//count all object's num
 	public int countObj(){
 		String countSql = "select count(*) from " + DisObjBean.DisTableName + " ;";

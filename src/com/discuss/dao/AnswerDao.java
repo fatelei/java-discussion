@@ -40,26 +40,6 @@ public class AnswerDao {
 		return true;
 	}
 	
-	public boolean delAnsByObj(int objId){
-		String delAnsSql = "delete from " + AnswerBean.AnsTable + " where " 
-				+ AnswerBean.AnsObjID + " = '" + objId + "';";
-		System.out.println(delAnsSql);
-		if(sqlCtrl.update(delAnsSql) == -1){
-			return false;
-		}
-		return true;
-	}
-	
-	public boolean delAnsByUser(int userId){
-		String delAnsSql = "delete from " + AnswerBean.AnsTable + " where " 
-				+ AnswerBean.AnsUserID + " = '" + userId + "';";
-		System.out.println(delAnsSql);
-		if(sqlCtrl.update(delAnsSql) == -1){
-			return false;
-		}
-		return true;
-	}
-	
 	//count all
  	public int countAns(){
 		String countSql = "select count(*) from " + AnswerBean.AnsTable + " ;";

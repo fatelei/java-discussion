@@ -40,26 +40,6 @@ public class SecDiscussDao {
 		return true;
 	}
 	
-	public boolean delSecDiscByObj(int objId){
-		String delSecDisSql = "delete from " + SecDisBean.SecDisTable + " where " 
-				+ SecDisBean.SecDisObjectId + " = '" + objId + "';";
-		System.out.println(delSecDisSql);
-		if(sqlCtrl.update(delSecDisSql) == -1){
-			return false;
-		}
-		return true;
-	}
-	
-	public boolean delSecDiscByUser(int userId){
-		String delSecDisSql = "delete from " + SecDisBean.SecDisTable + " where " 
-				+ SecDisBean.SecDisUserId + " = '" + userId + "';";
-		System.out.println(delSecDisSql);
-		if(sqlCtrl.update(delSecDisSql) == -1){
-			return false;
-		}
-		return true;
-	}
-	
 	//count all
 	public int countSecDisc(){
 		String countSql = "select count(*) from " + SecDisBean.SecDisTable + " ;";

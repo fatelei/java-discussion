@@ -89,8 +89,8 @@ function direct_to_page(page) {
 		{
 			"disFunFlag": "3",
 			"nowPage": page,
-			"orderBy": orderBy[0],
-			"isAsc": 1
+			"orderBy": orderByIndex == -1?orderBy[0]:orderBy[orderByIndex],
+			"isAsc": isAsc
 		},
 		function (data) {
 			data = $.evalJSON(data);
@@ -127,4 +127,13 @@ function backward(cursor) {
 		toPage = cursor + 1;
 	}
 	return direct_to_page(toPage);
+}
+
+/*
+ * 讨论列表排序
+ */
+function sortBy(index) {
+	orderByIndex = index;
+	direct_to_page(1);
+	isAsc^=1;
 }

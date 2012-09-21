@@ -15,9 +15,9 @@ public class AnswerDao {
 
 	//add new	answer
 	//include	the content of answer content , userId , ObjId and now time 
-	public boolean addAns(AnswerBean disObj){
+	public boolean addAns(AnswerBean ansObj){
 		//have answered ?
-		String isAnsedSql = "select count(*) from " + AnswerBean.AnsTable + " where " + AnswerBean.AnsObjID + " = '"+ disObj.getAnsObjID() +"' ;"; 
+		String isAnsedSql = "select count(*) from " + AnswerBean.AnsTable + " where " + AnswerBean.AnsObjID + " = '"+ ansObj.getAnsObjID() +"' ;"; 
 //		System.out.println(isAnsedSql);
 		if(sqlCtrl.getOneInt(isAnsedSql) > 0){
 			//The user has already repeated for the object
@@ -28,8 +28,8 @@ public class AnswerDao {
 		String addAnsSql = "insert into  " + AnswerBean.AnsTable + 
 				" (" + AnswerBean.AnsContent + ", " + AnswerBean.AnsObjID +", " 
 								+ AnswerBean.AnsUserID + ", "  + AnswerBean.AnsObjRelTime + ") " +
-				"values ('" + disObj.getAnsContent() + "', '" + disObj.getAnsObjID() +"', '" 
-								+ disObj.getAnsUserID() + "', '" + TimeUtil.getNowTime() + "')";
+				"values ('" + ansObj.getAnsContent() + "', '" + ansObj.getAnsObjID() +"', '" 
+								+ ansObj.getAnsUserID() + "', '" + TimeUtil.getNowTime() + "')";
 		System.out.println(addAnsSql);
 		if(sqlCtrl.update(addAnsSql)== -1){
 			return false;
@@ -76,6 +76,7 @@ public class AnswerDao {
 	public ArrayList<AnswerBean> findSecDiscList(String sql){
 		ArrayList<AnswerBean> ansList = new ArrayList<AnswerBean>();
 		res = sqlCtrl.queryResultSet(sql);
+		userDao = new UserDao();
 		try {
 			while(res.next()){
 				AnswerBean ans = new AnswerBean();
@@ -84,7 +85,6 @@ public class AnswerDao {
 				ans.setAnsObjID(res.getInt(AnswerBean.AnsObjID));
 				ans.setAnsUserID(res.getInt(AnswerBean.AnsUserID));
 				ans.setAnsObjRelTime(TimeUtil.formatTime(res.getTimestamp(AnswerBean.AnsObjRelTime).toString()));
-
 				ans.setAnsUser(userDao.findUserById(res.getInt(AnswerBean.AnsUserID)));
 				ansList.add(ans);		
 			}

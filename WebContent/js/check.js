@@ -157,7 +157,8 @@ function check_reply() {
 	var replyObj = document.getElementsByName("replyContent");
 	if (replyObj[0].value.length == 0) {
 		alert("回复内容不能为空!");
-		return false;
+	} else {
+		post_reply();
 	}
-	return true;
+	return false;
 }

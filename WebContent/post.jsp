@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <%
 	String loginSta = (String)request.getSession().getAttribute("loginState");
-	if (loginSta != null && loginSta.equals("false")) {
+	if (loginSta == null || loginSta.equals("false")) {
 		response.sendRedirect("login.jsp?path=" + request.getRequestURI());
 	}
 %>

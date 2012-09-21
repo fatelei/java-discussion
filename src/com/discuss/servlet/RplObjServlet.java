@@ -11,7 +11,9 @@ import net.sf.json.JSONObject;
 
 import com.discuss.bean.DisObjBean;
 import com.discuss.bean.SecDisBean;
+import com.discuss.bean.SesVaBean;
 import com.discuss.dao.DisObjectDao;
+import com.discuss.dao.SecDiscussDao;
 import com.discuss.util.JsonUtil;
 
 /**
@@ -43,11 +45,11 @@ public class RplObjServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		int rplFunFlag = Integer.parseInt(request.getParameter("rplFunFlag"));
 		int postId = Integer.parseInt(request.getParameter("postId"));
-		int nowPage = Integer.parseInt(request.getParameter("nowPage"));
 		DisObjectDao disObjDao = new DisObjectDao();
 		JSONObject json = null;
 		switch (rplFunFlag) {
 		case 1:	//获得回复列表
+			int nowPage = Integer.parseInt(request.getParameter("nowPage"));
 			DisObjBean disObj = disObjDao.queryObjByDetail(postId, nowPage, 10);
 			json = new JSONObject();
 			JSONObject ansJson = new JSONObject();
@@ -74,6 +76,17 @@ public class RplObjServlet extends HttpServlet {
 		case 2: //发表回复
 			break;
 		case 3: //发表附议
+			SecDiscussDao secDisDao = new SecDiscussDao();
+			String rplContent = request.getParameter("replyContent");
+			int userId = (Integer)request.getSession().getAttribute(SesVaBean.UserId);
+			SecDisBean secDisBean = new SecDisBean(rplContent, userId, postId);
+			json = new JSONObject();
+			if (secDisDao.addSecDisc(secDisBean)) {
+				json.put("rplSta", "true");
+			} else {
+				json.put("rplSta", "false");
+			}
+			JsonUtil.sendJson(response, json.toString());
 			break;
 		case 4: //引用附议
 			break;

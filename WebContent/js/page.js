@@ -85,18 +85,37 @@ function make_page_num(target, curPage) {
  * 跳转到指定页面
  */
 function direct_to_page(page) {
-	$.get("disobj",
-		{
-			"disFunFlag": "3",
-			"nowPage": page,
-			"orderBy": orderByIndex == -1?orderBy[0]:orderBy[orderByIndex],
-			"isAsc": isAsc
-		},
+	var obj = "";
+	switch (url) {
+	case "disobj":
+		obj = {
+				"disFunFlag": funcFlag,
+				"nowPage": page,
+				"orderBy": orderByIndex == -1?orderBy[0]:orderBy[orderByIndex],
+				"isAsc": isAsc
+			  };
+		break;
+	case "rplobj":
+		obj = {
+				"rplFunFlag": funcFlag,
+				"nowPage": page,
+				"postId": postId
+			  };
+		break;
+	};
+	$.get(url, obj,
 		function (data) {
 			data = $.evalJSON(data);
 			nowPage = data.nowPage;
 			totalPages = data.totalPages;
-			$("#disTable tbody").html(build_dislist(data.disList, id));
+			switch (url) {
+			case "disobj":
+				$("#disTable tbody").html(build_dislist(data.disList, id));
+				break;
+			case "rplobj":
+				$("#additionComments").html(build_additional_comments(data.secList));
+				break;
+			};
 			$("#page").html(make_page(cursor, nowPage, totalPages));
 		}
 	);

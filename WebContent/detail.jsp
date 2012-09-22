@@ -168,6 +168,13 @@
 		<script type="text/javascript" src="js/page.js"></script>
 		<script type="text/javascript">
 			var postId = <%=request.getParameter("postId")%>;
+			var nowPage;
+			var totalPages;
+			var cursor;
+			var range = [0, 0];
+			var url = "rplobj";
+			var funcFlag = "5";
+			var obj = "additionComments";
 			$(document).ready(function(){
 				$.get("disobj",
 					{
@@ -179,7 +186,7 @@
 						$("#topic").html(build_topic(data));
 					}
 				);
-				$.get("rplobj",
+				$.get(url,
 					{
 						"rplFunFlag": "1",
 						"postId": postId,
@@ -190,15 +197,19 @@
 						$("#reply").html(build_reply(data.ans));
 					}
 				);
-				$.get("rplobj",
+				$.get(url,
 					{
 						"rplFunFlag": "5",
 						"postId": postId,
 						"nowPage": 1
 					},
 					function(data) {
+						console.log(data);
 						data = $.evalJSON(data);
+						nowPage = data.nowPage;
+						totalPages = data.totalPages;
 						$("#additionComments").html(build_additional_comments(data.secList));
+						$("#page").html(make_page(cursor, nowPage, totalPages));
 					}
 				);
 			});

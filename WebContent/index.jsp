@@ -106,10 +106,12 @@
 			var range = [0, 0];
 			var cursor;
 			var id = -1;
+			var url = "disobj";
+			var funcFlag = "3";
 			$(document).ready(function(){
-				$.get("disobj",
+				$.get(url,
 					{
-						"disFunFlag": "3",
+						"disFunFlag": funcFlag,
 						"nowPage": "1",
 						"orderBy": orderBy[0],
 						"isAsc": isAsc

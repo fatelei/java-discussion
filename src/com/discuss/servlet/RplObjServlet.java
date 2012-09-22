@@ -91,7 +91,7 @@ public class RplObjServlet extends HttpServlet {
 			if (t == null) {
 				json.put("adcSta", "false");
 			} else {
-				userId = Integer.parseInt(t);
+				userId = (Integer)session.getAttribute(SesVaBean.UserId);
 				SecDiscussDao secDisDao = new SecDiscussDao();
 				String addComment = request.getParameter("additionContent");
 				SecDisBean secDisBean = new SecDisBean(addComment, userId, postId);
@@ -106,7 +106,7 @@ public class RplObjServlet extends HttpServlet {
 		case 4: //引用附议
 			break;
 		case 5: //获得附议内容
-			disObj = disObjDao.queryObjByDetail(postId, nowPage, 10);
+			disObj = disObjDao.queryObjByDetail(postId, nowPage, 1);
 			json = new JSONObject();
 			JSONArray sdList = new JSONArray();
 			SecDiscussDao secDisDao = new SecDiscussDao();
@@ -124,6 +124,7 @@ public class RplObjServlet extends HttpServlet {
 			json.put("secList", sdList.toString());
 			json.put("nowPage", nowPage);
 			json.put("totalPages", totalPages);
+			response.setCharacterEncoding("UTF-8");
 			JsonUtil.sendJson(response, json.toString());
 			break;
 		}

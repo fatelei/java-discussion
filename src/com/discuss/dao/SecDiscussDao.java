@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.discuss.bean.DisObjBean;
 import com.discuss.bean.SecDisBean;
 import com.discuss.util.SqlControl;
 import com.discuss.util.TimeUtil;
@@ -120,9 +119,7 @@ public class SecDiscussDao {
 			//sql error
 			return -1;
 		}
-		String findSupStr = "select " + SecDisBean.SecDisSupNum + " from " 
-				+ SecDisBean.SecDisTable + " where " + DisObjBean.DisObjID + " = " + secDisId + " ;";
-		return sqlCtrl.getOneInt(findSupStr);
+		return sqlCtrl.getOneInt(findOldSql);
 	}
 	
 	//update the opposite num
@@ -135,11 +132,8 @@ public class SecDiscussDao {
 		String updateSql = "update " + SecDisBean.SecDisTable + " set " + SecDisBean.SecDisOppNum + " = "
 											+ " '" + num +"' where " + SecDisBean.SecDisId + " = '" + secDisId +"';";
 		if(sqlCtrl.update(updateSql) == -1){
-			//sql error
 			return -1;
 		}
-		String findOppStr = "select " + SecDisBean.SecDisOppNum + " from " 
-				+ SecDisBean.SecDisTable + " where " + DisObjBean.DisObjID + " = " + secDisId + " ;";
-		return sqlCtrl.getOneInt(findOppStr);
+		return sqlCtrl.getOneInt(findOldSql);
 	}
 }

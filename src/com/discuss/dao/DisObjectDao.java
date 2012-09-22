@@ -95,7 +95,7 @@ public class DisObjectDao {
 	public DisObjBean queryObjByDetail(int id, int nowPage, int pageCount){
 		DisObjBean disDetail = queryObjById(id);
 		disDetail.setAns(ansDao.querySecDiscByObj(id));
-		disDetail.setSecDisList(secDao.querySecDiscByObj(nowPage, pageCount, id, SecDisBean.SecDisRelTime, false));
+		disDetail.setSecDisList(secDao.querySecDiscByObj(nowPage, pageCount, id, SecDisBean.SecDisRelTime, true));
 		return disDetail;
 	}
 	

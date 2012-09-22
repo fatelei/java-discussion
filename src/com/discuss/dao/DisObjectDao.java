@@ -161,4 +161,11 @@ public class DisObjectDao {
 		}
 		return true;
 	}
+	
+	//query the look num of object
+	public int findLookNumById(int objId){
+		String findLookStr = "select " + DisObjBean.DisObjLookNum + " from " 
+						+ DisObjBean.DisTableName + " where " + DisObjBean.DisObjID + " = " + objId + " ;";
+		return sqlCtrl.getOneInt(findLookStr);				
+	}
 }

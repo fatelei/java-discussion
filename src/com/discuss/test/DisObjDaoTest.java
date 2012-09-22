@@ -28,6 +28,6 @@ public class DisObjDaoTest {
 //		System.out.println(dis.getAns().getAnsContent());
 //		System.out.println(dis.getSecDisList().size());
 		
-		System.out.println(disObjDao.updateTheLookNum(2, 100));
+		System.out.println(disObjDao.findLookNumById(2));
 	}
 }

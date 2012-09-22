@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.discuss.bean.DisObjBean;
 import com.discuss.bean.SecDisBean;
 import com.discuss.util.SqlControl;
 import com.discuss.util.TimeUtil;
@@ -106,7 +107,7 @@ public class SecDiscussDao {
 	}
 
 	//update the support num
-	public boolean updateTheSuptNum(int secDisId, int oneSum){
+	public int updateTheSuptNum(int secDisId, int oneSum){
 		String findOldSql = "select " + SecDisBean.SecDisSupNum + " from " + SecDisBean.SecDisTable + 
 					" where " + SecDisBean.SecDisId + " = " + secDisId + " ;";
 		System.out.println(findOldSql);
@@ -117,13 +118,15 @@ public class SecDiscussDao {
 //		System.out.println(updateSql);
 		if(sqlCtrl.update(updateSql) == -1){
 			//sql error
-			return false;
+			return -1;
 		}
-		return true;
+		String findSupStr = "select " + SecDisBean.SecDisSupNum + " from " 
+				+ SecDisBean.SecDisTable + " where " + DisObjBean.DisObjID + " = " + secDisId + " ;";
+		return sqlCtrl.getOneInt(findSupStr);
 	}
 	
 	//update the opposite num
-	public boolean updateTheOppNum(int secDisId, int oneSum){
+	public int updateTheOppNum(int secDisId, int oneSum){
 		String findOldSql = "select " + SecDisBean.SecDisOppNum + " from " + SecDisBean.SecDisTable + 
 					" where " + SecDisBean.SecDisId + " = " + secDisId + " ;";
 		System.out.println(findOldSql);
@@ -131,11 +134,12 @@ public class SecDiscussDao {
 		num += oneSum;
 		String updateSql = "update " + SecDisBean.SecDisTable + " set " + SecDisBean.SecDisOppNum + " = "
 											+ " '" + num +"' where " + SecDisBean.SecDisId + " = '" + secDisId +"';";
-//		System.out.println(updateSql);
 		if(sqlCtrl.update(updateSql) == -1){
 			//sql error
-			return false;
+			return -1;
 		}
-		return true;
+		String findOppStr = "select " + SecDisBean.SecDisOppNum + " from " 
+				+ SecDisBean.SecDisTable + " where " + DisObjBean.DisObjID + " = " + secDisId + " ;";
+		return sqlCtrl.getOneInt(findOppStr);
 	}
 }

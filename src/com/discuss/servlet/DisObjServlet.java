@@ -17,6 +17,7 @@ import com.discuss.bean.SesVaBean;
 import com.discuss.bean.SysConfBean;
 import com.discuss.dao.DisObjectDao;
 import com.discuss.util.JsonUtil;
+import com.discuss.util.StrUtil;
 
 public class DisObjServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -28,13 +29,13 @@ public class DisObjServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		int funFlag = Integer.valueOf(request.getParameter("disFunFlag"));  
+		int funFlag = Integer.valueOf(StrUtil.tranISOToUTF(request.getParameter("disFunFlag")));  
 		
 		HttpSession session = request.getSession();
 		
-		String title = request.getParameter("title");
-		String content = request.getParameter("content");
-		String postId = request.getParameter("postId");
+		String title = StrUtil.tranISOToUTF(request.getParameter("title"));
+		String content = StrUtil.tranISOToUTF( request.getParameter("content"));
+		String postId =  StrUtil.tranISOToUTF(request.getParameter("postId"));
 		
 		DisObjectDao disObjDao = new DisObjectDao();
 		JSONObject json = null;
@@ -42,6 +43,7 @@ public class DisObjServlet extends HttpServlet {
 		switch(funFlag){
 		case 1: //post a new discuss object
 			int userId = (Integer)session.getAttribute(SesVaBean.UserId);
+
 			DisObjBean disObj = new DisObjBean(title, content, userId);
 			int rst = disObjDao.addObject(disObj);
 			if (rst != -1) {
@@ -63,9 +65,9 @@ public class DisObjServlet extends HttpServlet {
 			JsonUtil.sendJson(response, json.toString());
 			break;
 		case 3: //query list of discuss
-			int nowPage = Integer.parseInt(request.getParameter("nowPage"));
-			String orderBy = request.getParameter("orderBy");
-			int isAsc = Integer.parseInt(request.getParameter("isAsc"));
+			int nowPage = Integer.parseInt(StrUtil.tranISOToUTF(request.getParameter("nowPage")));
+			String orderBy = StrUtil.tranISOToUTF(request.getParameter("orderBy"));
+			int isAsc = Integer.parseInt(StrUtil.tranISOToUTF(request.getParameter("isAsc")));
 			ArrayList<DisObjBean> listDis = null;
 			if (isAsc == 1) {
 				listDis = disObjDao.queryObj(nowPage, 1, orderBy, true);

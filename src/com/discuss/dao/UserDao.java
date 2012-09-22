@@ -68,7 +68,7 @@ public class UserDao {
 		}
 		
 		//delete the user's Object
-		String delObjSql = "delete from " + SecDisBean.SecDisTable + " where " 
+		String delObjSql = "delete from " + DisObjBean.DisTableName + " where " 
 				+ DisObjBean.DisObjUserID + " = '" + userId + "';";
 		System.out.println(delObjSql);
 		if(sqlCtrl.update(delObjSql) == -1){

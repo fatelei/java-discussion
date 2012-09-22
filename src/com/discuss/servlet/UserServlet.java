@@ -17,6 +17,7 @@ import com.discuss.bean.SysConfBean;
 import com.discuss.bean.UserBean;
 import com.discuss.dao.UserDao;
 import com.discuss.util.JsonUtil;
+import com.discuss.util.StrUtil;
 
 public class UserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -31,24 +32,24 @@ public class UserServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		//function flags
-		//System.out.println(request.getParameter("userFunFlag"));
-		Integer userFunFlag = Integer.valueOf(request.getParameter("userFunFlag"));
+		//System.out.println(StrUtil.tranISOToUTF(request.getParameter("userFunFlag"));
+		Integer userFunFlag = Integer.valueOf(StrUtil.tranISOToUTF(request.getParameter("userFunFlag")));
 		//session
 		HttpSession session = request.getSession(true);
 		
 		//directed to un login page
-		String path = request.getParameter("path");
+		String path = StrUtil.tranISOToUTF(request.getParameter("path"));
 		
 		//parameter	values
-		String userName = request.getParameter("username");
-		String userPassword = request.getParameter("password");
-		String userResPassword = request.getParameter("repassword");
-		String userId = request.getParameter("userid");
+		String userName = StrUtil.tranISOToUTF(request.getParameter("username"));
+		String userPassword = StrUtil.tranISOToUTF(request.getParameter("password"));
+		String userResPassword = StrUtil.tranISOToUTF(request.getParameter("repassword"));
+		String userId = StrUtil.tranISOToUTF(request.getParameter("userid"));
 		
-		String userRank = request.getParameter("userrank");
+		String userRank = StrUtil.tranISOToUTF(request.getParameter("userrank"));
 		
 		//split page values
-		String	nowPage = request.getParameter("nowPage");
+		String	nowPage = StrUtil.tranISOToUTF(request.getParameter("nowPage"));
 		
 		//Json
 		JSONObject json = null;

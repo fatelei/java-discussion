@@ -41,8 +41,8 @@ public class SecDiscussDao {
 	}
 	
 	//count all
-	public int countSecDisc(){
-		String countSql = "select count(*) from " + SecDisBean.SecDisTable + " ;";
+	public int countSecDisc(int postId){
+		String countSql = "select count(*) from " + SecDisBean.SecDisTable + " where " + SecDisBean.SecDisObjectId + "='" + postId + "';";
 		return sqlCtrl.getOneInt(countSql);
 	}
 	
@@ -94,7 +94,6 @@ public class SecDiscussDao {
 				secDis.setSecDisUserId(res.getInt(SecDisBean.SecDisUserId));
 				secDis.setSecDisRelTime(TimeUtil.formatTime(res.getTimestamp(SecDisBean.SecDisRelTime).toString()));
 				secDis.setSecDisUser(userDao.findUserById(res.getInt(SecDisBean.SecDisUserId)));
-				System.out.println(secDis.getSecDisUser().getUserName());
 				secDisList.add(secDis);			
 			}
 		} catch (SQLException e) {

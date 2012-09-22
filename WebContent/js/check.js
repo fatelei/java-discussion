@@ -151,6 +151,19 @@ function check_delete_dis(postId) {
 }
 
 /*
+ * 检测附议内容
+ */
+function check_addition() {
+	var additionObj = document.getElementsByName("additionContent");
+	if (additionObj[0].value.length == 0) {
+		alert("附议内容不能为空!");
+	} else {
+		post_addition();
+	}
+	return false;
+}
+
+/*
  * 检测回复内容
  */
 function check_reply() {

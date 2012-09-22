@@ -51,12 +51,14 @@ public class RplObjServlet extends HttpServlet {
 		int postId = Integer.parseInt(request.getParameter("postId"));
 		int nowPage = -1;
 		int userId = -1;
+		int secId = -1;
 		if (request.getParameter("nowPage") != null) {
 			nowPage = Integer.parseInt(request.getParameter("nowPage"));
 		}
 		DisObjectDao disObjDao = new DisObjectDao();
 		JSONObject json = null;
 		DisObjBean disObj = null;
+		SecDiscussDao secDisDao = null;
 		switch (rplFunFlag) {
 		case 1:	//获得回复
 			disObj = disObjDao.queryObjByDetail(postId, nowPage, 10);
@@ -92,7 +94,7 @@ public class RplObjServlet extends HttpServlet {
 				json.put("adcSta", "false");
 			} else {
 				userId = (Integer)session.getAttribute(SesVaBean.UserId);
-				SecDiscussDao secDisDao = new SecDiscussDao();
+				secDisDao = new SecDiscussDao();
 				String addComment = request.getParameter("additionContent");
 				SecDisBean secDisBean = new SecDisBean(addComment, userId, postId);
 				if (secDisDao.addSecDisc(secDisBean)) {
@@ -109,7 +111,7 @@ public class RplObjServlet extends HttpServlet {
 			disObj = disObjDao.queryObjByDetail(postId, nowPage, 1);
 			json = new JSONObject();
 			JSONArray sdList = new JSONArray();
-			SecDiscussDao secDisDao = new SecDiscussDao();
+			secDisDao = new SecDiscussDao();
 			int totalPages = secDisDao.countSecDisc(postId);
 			for (SecDisBean sd: disObj.getSecDisList()) {
 				JSONObject tmp = new JSONObject();
@@ -124,6 +126,28 @@ public class RplObjServlet extends HttpServlet {
 			json.put("secList", sdList.toString());
 			json.put("nowPage", nowPage);
 			json.put("totalPages", totalPages);
+			JsonUtil.sendJson(response, json.toString());
+			break;
+		case 6: //更新支持
+			secId = Integer.parseInt(request.getParameter("secId"));
+			secDisDao = new SecDiscussDao();
+			json = new JSONObject();
+			if (secDisDao.updateTheSuptNum(secId, 1)) {
+				json.put("upSta", "true");
+			} else {
+				json.put("upSta", "false");
+			}
+			JsonUtil.sendJson(response, json.toString());
+			break;
+		case 7: //更新反对
+			secId = Integer.parseInt(request.getParameter("secId"));
+			secDisDao = new SecDiscussDao();
+			json = new JSONObject();
+			if (secDisDao.updateTheOppNum(secId, 1)) {
+				json.put("upSta", "true");
+			} else {
+				json.put("upSta", "false");
+			}
 			JsonUtil.sendJson(response, json.toString());
 			break;
 		}

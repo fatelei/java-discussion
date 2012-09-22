@@ -102,6 +102,12 @@ function direct_to_page(page) {
 				"postId": postId
 			  };
 		break;
+	case "user":
+		obj = {
+				"userFunFlag": funcFlag,
+				"nowPage": page,
+			  };
+		break;
 	};
 	$.get(url, obj,
 		function (data) {
@@ -114,6 +120,9 @@ function direct_to_page(page) {
 				break;
 			case "rplobj":
 				$("#additionComments").html(build_additional_comments(data.secList));
+				break;
+			case "user":
+				$("#usertable tbody").html(generate_userlist(data.users));
 				break;
 			};
 			$("#page").html(make_page(cursor, nowPage, totalPages));

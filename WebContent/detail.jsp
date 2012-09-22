@@ -177,7 +177,6 @@
 			var range = [0, 0];
 			var url = "rplobj";
 			var funcFlag = "5";
-			var obj = "additionComments";
 			$(document).ready(function(){
 				$.get("disobj",
 					{

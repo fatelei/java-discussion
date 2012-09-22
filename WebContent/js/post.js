@@ -76,10 +76,10 @@ function build_additional_comments(data) {
 		html += '<tbody><tr><td width="10" valign="top"></td>';
 		html += '<td width="auto" valign="top" align="left">';
 		html += '<div class="fr">';
-		html += '<a href="#"><i class="icon-thumbs-up"></i></a>' + data[i].secAprNum;
-		html += '<a href="#"><i class="icon-thumbs-down"></i></a>' + data[i].secOppNum + '</div>';
+		html += '<a href="#" onclick=\'update_so(' + data[i].secId + ', 0);\'><i class="icon-thumbs-up"></i></a><i id="apr' + data[i].secId + '">' + data[i].secAprNum + '</i>';
+		html += '<a href="#" onclick=\'update_so(' + data[i].secId + ', 1);\'><i class="icon-thumbs-down"></i></a><i id="opt' + data[i].secId + '">' + data[i].secOppNum + '</i></div>';
 		html += '<div class="sep3"></div>';
-		html += '<span class="badge badge-inverse">' + i + '</span><strong>' + data[i].secUser + '</strong> 回复:<span class="small">' + data[i].secTime + '</span>';
+		html += '<strong>' + data[i].secUser + '</strong> 回复:<span class="small">' + data[i].secTime + '</span>';
 		html += '<div class="sep5"></div>';
 		html += '<div class="reply_content">' + data[i].secContent + '</div></td></tr></tbody></table></div>';
 	}
@@ -95,8 +95,40 @@ function build_additional_comments(data) {
 /*
  *
  */
-function get_discuss(page, orderBy, isAsc) {
-	
+function update_so(secId, flag) {
+	switch (flag) {
+	case 0:
+		$.post('rplobj', {
+			   'rplFunFlag': "6",
+			   'secId': secId
+			}, function (data) {
+				data = $.evalJSON(data);
+				if (data.upSta == "true") {
+					alert("支持成功!");
+					$('#apr' + secId)[0].innerText = data.num;
+				} else {
+					alert("支持失败!");
+				}
+			}
+		);
+		break;
+	case 1:
+		$.post('rplobj', {
+			   'rplFunFlag': "7",
+			   'secId': secId
+			}, function (data) {
+				data = $.evalJSON(data);
+				if (data.upSta == "true") {
+					alert("反对成功!");
+					$('#opt' + secId)[0].innerText = data.num;
+				} else {
+					alert("反对失败!");
+				}
+			}
+		);
+		break;
+	}
+	return false;
 }
 
 /*

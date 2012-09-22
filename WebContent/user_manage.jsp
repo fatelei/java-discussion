@@ -79,6 +79,10 @@
 			        </tbody>
 			    </table>
 			</div>
+			<div class="row">
+				<div id="page" class="pagination pull-right">
+				</div>
+			</div>
 			<hr>
 			<footer>
 				&copy;Web诉讼系统 2012
@@ -87,15 +91,25 @@
 		<script type="text/javascript" src="js/jquery-1.8.1.min.js"></script>
 		<script type="text/javascript" src="js/jquery.json-2.3.min.js"></script>
 		<script type="text/javascript" src="js/check.js"></script>
+		<script type="text/javascript" src="js/page.js"></script>
 		<script type="text/javascript" src="js/generate.js"></script>
 		<script type="text/javascript">
+			var nowPage;
+			var totalPages;
+			var cursor;
+			var range = [0, 0];
+			var url = "user";
+			var funcFlag = "6";
 			$(document).ready(function(){
 				$.post("user",
 					{"userFunFlag": "6",
 					 "nowPage": "1"},
 					function(data) {
 						data = $.evalJSON(data);
+						nowPage = data.nowPage;
+						totalPages = data.totalPages;
 						$("#usertable tbody").html(generate_userlist(data.users));
+						$("#page").html(make_page(cursor, nowPage, totalPages));
 					 }
 				);
 			});

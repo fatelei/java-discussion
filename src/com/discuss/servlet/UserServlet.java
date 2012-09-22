@@ -103,11 +103,11 @@ public class UserServlet extends HttpServlet {
 			break;
 		case 6:					//query
 			int totalUser = userDao.countUser();
-			int totalPage = 0;
+			int totalPages = 0;
 			if(totalUser % SysConfBean.UserListPageNum == 0){
-				totalPage = totalUser / SysConfBean.UserListPageNum;
+				totalPages = totalUser / SysConfBean.UserListPageNum;
 			} else {
-				totalPage = totalUser / SysConfBean.UserListPageNum + 1;
+				totalPages = totalUser / SysConfBean.UserListPageNum + 1;
 			}
 			
 			ArrayList<UserBean> users = userDao.queryUser(Integer.valueOf(nowPage), SysConfBean.UserListPageNum);
@@ -121,8 +121,9 @@ public class UserServlet extends HttpServlet {
 	        	oneTemp.put("id", oneUser.getUserId());   
 	        	oneTemp.put("name", oneUser.getUserName());   
 	        	useArray.add(oneTemp); 
-	        }     
-	        json.put("totalPage", totalPage);   
+	        }
+	        json.put("nowPage", nowPage);
+	        json.put("totalPages", totalPages);   
 	        json.put("users", useArray); 
 	        
 	        //System.out.println(json);	        

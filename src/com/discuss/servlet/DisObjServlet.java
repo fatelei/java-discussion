@@ -35,7 +35,7 @@ public class DisObjServlet extends HttpServlet {
 		String postId = request.getParameter("postId");
 		DisObjectDao disObjDao = new DisObjectDao();
 		JSONObject json = null;
-		
+		//System.out.println(new String(request.getParameter("title").getBytes("ISO8859-1"),"UTF-8"));
 		switch(funFlag){
 		case 1: //post a new discuss object
 			int userId = (Integer)session.getAttribute(SesVaBean.UserId);

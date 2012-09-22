@@ -124,7 +124,6 @@ public class RplObjServlet extends HttpServlet {
 			json.put("secList", sdList.toString());
 			json.put("nowPage", nowPage);
 			json.put("totalPages", totalPages);
-			response.setCharacterEncoding("UTF-8");
 			JsonUtil.sendJson(response, json.toString());
 			break;
 		}

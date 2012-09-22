@@ -30,7 +30,10 @@ public class RplObjServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int rplFunFlag = Integer.parseInt(StrUtil.tranISOToUTF(request.getParameter("rplFunFlag")));
 		HttpSession session = request.getSession();
-		int postId = Integer.parseInt(StrUtil.tranISOToUTF(request.getParameter("postId")));
+		int postId = -1;
+		if (StrUtil.tranISOToUTF(request.getParameter("postId")) != null) {
+			postId = Integer.parseInt(StrUtil.tranISOToUTF(request.getParameter("postId")));
+		}
 		int nowPage = -1;
 		int userId = -1;
 		int secId = -1;

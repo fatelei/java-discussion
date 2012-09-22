@@ -1,6 +1,5 @@
 package com.discuss.test;
 
-import com.discuss.bean.SecDisBean;
 import com.discuss.dao.SecDiscussDao;
 
 public class SecDiscussDaoTest {
@@ -21,8 +20,10 @@ public class SecDiscussDaoTest {
 		
 		//query test
 		//System.out.println(secDis.querySecDisc(1, 10, SecDisBean.SecDisId, true).get(0).getSecDisContent());
-		System.out.println(secDis.querySecDiscByObj(1, 10, 2, SecDisBean.SecDisId, true).get(1).getSecDisContent());
+		//System.out.println(secDis.querySecDiscByObj(1, 10, 2, SecDisBean.SecDisId, true).get(1).getSecDisContent());
 		
+		System.out.println("更新反对人数：" + secDis.updateTheOppNum(1, 100));
+		System.out.println("支持人数" + secDis.updateTheSuptNum(2, 100));
 		
 	}
 }

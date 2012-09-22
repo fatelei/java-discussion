@@ -104,5 +104,37 @@ public class SecDiscussDao {
 		return secDisList;
 	}
 
-	//add secDiscuss sp
+	//update the support num
+	public boolean updateTheSuptNum(int secDisId, int oneSum){
+		String findOldSql = "select " + SecDisBean.SecDisSupNum + " from " + SecDisBean.SecDisTable + 
+					" where " + SecDisBean.SecDisId + " = " + secDisId + " ;";
+		System.out.println(findOldSql);
+		int num = sqlCtrl.getOneInt(findOldSql);
+		num += oneSum;
+		String updateSql = "update " + SecDisBean.SecDisTable + " set " + SecDisBean.SecDisSupNum + " = "
+											+ " '" + num +"' where " + SecDisBean.SecDisId + " = '" + secDisId +"';";
+//		System.out.println(updateSql);
+		if(sqlCtrl.update(updateSql) == -1){
+			//sql error
+			return false;
+		}
+		return true;
+	}
+	
+	//update the opposite num
+	public boolean updateTheOppNum(int secDisId, int oneSum){
+		String findOldSql = "select " + SecDisBean.SecDisOppNum + " from " + SecDisBean.SecDisTable + 
+					" where " + SecDisBean.SecDisId + " = " + secDisId + " ;";
+		System.out.println(findOldSql);
+		int num = sqlCtrl.getOneInt(findOldSql);
+		num += oneSum;
+		String updateSql = "update " + SecDisBean.SecDisTable + " set " + SecDisBean.SecDisOppNum + " = "
+											+ " '" + num +"' where " + SecDisBean.SecDisId + " = '" + secDisId +"';";
+//		System.out.println(updateSql);
+		if(sqlCtrl.update(updateSql) == -1){
+			//sql error
+			return false;
+		}
+		return true;
+	}
 }

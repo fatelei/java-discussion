@@ -145,4 +145,20 @@ public class DisObjectDao {
 		return false;
 	}
 
+	//update this object looknum
+	public boolean updateTheLookNum(int objId, int oneSum){
+		String findOldSql = "select " + DisObjBean.DisObjLookNum + " from " + DisObjBean.DisTableName + 
+					" where " + DisObjBean.DisObjID + " = " + objId + " ;";
+//		System.out.println(findOldSql);
+		int num = sqlCtrl.getOneInt(findOldSql);
+		num += oneSum;
+		String updateSql = "update " + DisObjBean.DisTableName + " set " + DisObjBean.DisObjLookNum + " = "
+											+ " '" + num +"' where " + DisObjBean.DisObjID + " = '" + objId +"';";
+//		System.out.println(updateSql);
+		if(sqlCtrl.update(updateSql) == -1){
+			//sql error
+			return false;
+		}
+		return true;
+	}
 }

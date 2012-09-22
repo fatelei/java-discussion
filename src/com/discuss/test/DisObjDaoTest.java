@@ -1,6 +1,5 @@
 package com.discuss.test;
 
-import com.discuss.bean.DisObjBean;
 import com.discuss.dao.DisObjectDao;
 
 public class DisObjDaoTest {
@@ -8,8 +7,8 @@ public class DisObjDaoTest {
 		DisObjectDao disObjDao = new DisObjectDao();
 		
 		//add test
-		DisObjBean disObj = new DisObjBean("Fuck Japanese", "hdfjiajeofjfojdi", 12);
-		System.out.println(disObjDao.addObject(disObj));
+//		DisObjBean disObj = new DisObjBean("Fuck Japanese", "hdfjiajeofjfojdi", 12);
+//		System.out.println(disObjDao.addObject(disObj));
 		
 		//delete test
 		//disObjDao.delObject(1);
@@ -28,5 +27,7 @@ public class DisObjDaoTest {
 //		System.out.println(dis.getDisObjContent());
 //		System.out.println(dis.getAns().getAnsContent());
 //		System.out.println(dis.getSecDisList().size());
+		
+		System.out.println(disObjDao.updateTheLookNum(2, 100));
 	}
 }

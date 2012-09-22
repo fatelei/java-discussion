@@ -108,23 +108,26 @@
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				<h3>发表诉讼</h3>
 			</div>
-			<div class="modal-body">
-				<div class="control-group">
-					<label class="control-label">标题:</label>
-					<div class="controls">
-						<input type="text" name="title" class="input-xlarge"/>
+			<form class="form-horizontal" method="POST" action="disobj">
+				<input type="hidden" name="disFunFlag" value="1"/>
+				<div class="modal-body">
+					<div class="control-group">
+						<label class="control-label">标题:</label>
+						<div class="controls">
+							<input type="text" name="title" class="input-xlarge"/>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">诉讼内容:</label>
+						<div class="controls">
+							<textarea name="content" style="width:300px;" rows="5"></textarea>
+						</div>
 					</div>
 				</div>
-				<div class="control-group">
-					<label class="control-label">诉讼内容:</label>
-					<div class="controls">
-						<textarea name="content" style="width:300px;" rows="5"></textarea>
-					</div>
+				<div class="modal-footer">
+					<input type="submit" class="btn" onclick="check_post();" value="发表"/>
 				</div>
-			</div>
-			<div class="modal-footer">
-				<input type="button" class="btn" onclick="check_post();" value="发表"/>
-			</div>
+			</form>
 		</div>
 		<div id="reply-modal" class="modal fade hide">
 			<div class="modal-header">
@@ -193,6 +196,7 @@
 						"nowPage": 1
 					},
 					function(data) {
+						console.log(data);
 						data = $.evalJSON(data);
 						$("#reply").html(build_reply(data.ans));
 					}

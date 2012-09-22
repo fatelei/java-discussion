@@ -67,8 +67,8 @@ public class RplObjServlet extends HttpServlet {
 				ansJson.put("rplUser", disObj.getAns().getAnsUser().getUserName());
 				ansJson.put("rplTime", disObj.getAns().getAnsObjRelTime());
 				ansJson.put("rplContent", disObj.getAns().getAnsContent());
+				tmpAry.add(ansJson);
 			}
-			tmpAry.add(ansJson);
 			json.put("ans", tmpAry.toString());
 			JsonUtil.sendJson(response, json.toString());
 			break;

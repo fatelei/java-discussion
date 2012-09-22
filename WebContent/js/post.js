@@ -45,6 +45,7 @@ function build_topic(data) {
  */
 function build_reply(data) {
 	var html = "";
+	console.log(data.length);
 	for (var i = 0; i < data.length; i++) {
 		html += '<div class="cell replycolor">';
 		html += '<table cellpadding="0" cellspacing="0" border="0" width="100%">';

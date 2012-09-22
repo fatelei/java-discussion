@@ -20,7 +20,7 @@ import com.discuss.util.JsonUtil;
 
 public class DisObjServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		this.doPost(request, response);
@@ -29,13 +29,10 @@ public class DisObjServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		int funFlag = Integer.valueOf(request.getParameter("disFunFlag"));  
-		
 		HttpSession session = request.getSession();
-		
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		String postId = request.getParameter("postId");
-		
 		DisObjectDao disObjDao = new DisObjectDao();
 		JSONObject json = null;
 		

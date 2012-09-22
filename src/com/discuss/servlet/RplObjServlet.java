@@ -1,6 +1,7 @@
 package com.discuss.servlet;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,42 +19,24 @@ import com.discuss.dao.AnswerDao;
 import com.discuss.dao.DisObjectDao;
 import com.discuss.dao.SecDiscussDao;
 import com.discuss.util.JsonUtil;
-
-/**
- * Servlet implementation class RplObjServlet
- */
+import com.discuss.util.StrUtil;
 public class RplObjServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public RplObjServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		this.doPost(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		int rplFunFlag = Integer.parseInt(request.getParameter("rplFunFlag"));
+		int rplFunFlag = Integer.parseInt(StrUtil.tranISOToUTF(request.getParameter("rplFunFlag")));
 		HttpSession session = request.getSession();
-		int postId = Integer.parseInt(request.getParameter("postId"));
+		int postId = Integer.parseInt(StrUtil.tranISOToUTF(request.getParameter("postId")));
 		int nowPage = -1;
 		int userId = -1;
 		int secId = -1;
-		if (request.getParameter("nowPage") != null) {
-			nowPage = Integer.parseInt(request.getParameter("nowPage"));
+		int total = 0;
+		if (StrUtil.tranISOToUTF(request.getParameter("nowPage")) != null) {
+			nowPage = Integer.parseInt(StrUtil.tranISOToUTF(request.getParameter("nowPage")));
 		}
 		DisObjectDao disObjDao = new DisObjectDao();
 		JSONObject json = null;
@@ -77,7 +60,7 @@ public class RplObjServlet extends HttpServlet {
 		case 2: //发表回复
 			userId = (Integer)session.getAttribute(SesVaBean.UserId);
 			AnswerDao ansDao = new AnswerDao();
-			String rplCnt = request.getParameter("replyContent");
+			String rplCnt = StrUtil.tranISOToUTF(request.getParameter("replyContent"));
 			AnswerBean ansBean = new AnswerBean(rplCnt, userId, postId);
 			json = new JSONObject();
 			if (ansDao.addAns(ansBean)) {
@@ -95,7 +78,8 @@ public class RplObjServlet extends HttpServlet {
 			} else {
 				userId = (Integer)session.getAttribute(SesVaBean.UserId);
 				secDisDao = new SecDiscussDao();
-				String addComment = request.getParameter("additionContent");
+				String addComment = StrUtil.tranISOToUTF(request.getParameter("additionContent"));
+
 				SecDisBean secDisBean = new SecDisBean(addComment, userId, postId);
 				if (secDisDao.addSecDisc(secDisBean)) {
 					json.put("adcSta", "true");
@@ -132,8 +116,10 @@ public class RplObjServlet extends HttpServlet {
 			secId = Integer.parseInt(request.getParameter("secId"));
 			secDisDao = new SecDiscussDao();
 			json = new JSONObject();
-			if (secDisDao.updateTheSuptNum(secId, 1)) {
+			total = secDisDao.updateTheSuptNum(secId, 1);
+			if (total != -1) {
 				json.put("upSta", "true");
+				json.put("upNum", total);
 			} else {
 				json.put("upSta", "false");
 			}
@@ -143,8 +129,10 @@ public class RplObjServlet extends HttpServlet {
 			secId = Integer.parseInt(request.getParameter("secId"));
 			secDisDao = new SecDiscussDao();
 			json = new JSONObject();
-			if (secDisDao.updateTheOppNum(secId, 1)) {
+			total = secDisDao.updateTheOppNum(secId, 1);
+			if (total != -1) {
 				json.put("upSta", "true");
+				json.put("opNum", total);
 			} else {
 				json.put("upSta", "false");
 			}

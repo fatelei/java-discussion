@@ -105,7 +105,7 @@ function update_so(secId, flag) {
 				data = $.evalJSON(data);
 				if (data.upSta == "true") {
 					alert("支持成功!");
-					$('#apr' + secId)[0].innerText = data.num;
+					$('#apr' + secId)[0].innerText = data.upNum;
 				} else {
 					alert("支持失败!");
 				}
@@ -120,7 +120,7 @@ function update_so(secId, flag) {
 				data = $.evalJSON(data);
 				if (data.upSta == "true") {
 					alert("反对成功!");
-					$('#opt' + secId)[0].innerText = data.num;
+					$('#opt' + secId)[0].innerText = data.opNum;
 				} else {
 					alert("反对失败!");
 				}

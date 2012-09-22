@@ -107,4 +107,14 @@ public class DisObjBean {
 	public void setSecDisList(ArrayList<SecDisBean> secDisList) {
 		this.secDisList = secDisList;
 	}
+	
+	public void showInfo(){
+		System.out.println("**************************DisObjBean**************************");
+		System.out.println("\t" + DisObjBean.DisObjID + "\t" + this.disObjID);
+		System.out.println("\t" + DisObjBean.DisObjTopic + "\t" + this.disObjTopic);
+		System.out.println("\t" + DisObjBean.DisObjContent + "\t" + this.disObjContent);
+		System.out.println("\t" + DisObjBean.DisObjLookNum + "\t" + this.disObjLookNum);
+		System.out.println("\t" + DisObjBean.DisObjRelTime + "\t" + this.disObjRelTime);
+		System.out.println("\t" + DisObjBean.DisObjUserID + "\t" + this.disObjUserID);
+	}
 }

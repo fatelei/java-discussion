@@ -157,7 +157,6 @@ public class UserServlet extends HttpServlet {
 			 //set login statue	in session
 			 session.setAttribute(SesVaBean.LoginState, SesVaBean.LoginStateLogin);
 			 
-			 
 			 switch(user.getUserRank()){
 			 case 1: 
 				 session.setAttribute(SesVaBean.UserRank, SesVaBean.UserRankAdmin);	

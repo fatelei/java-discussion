@@ -94,6 +94,7 @@ public class SecDiscussDao {
 				secDis.setSecDisUserId(res.getInt(SecDisBean.SecDisUserId));
 				secDis.setSecDisRelTime(TimeUtil.formatTime(res.getTimestamp(SecDisBean.SecDisRelTime).toString()));
 				secDis.setSecDisUser(userDao.findUserById(res.getInt(SecDisBean.SecDisUserId)));
+				//System.out.println("id:\t"+ secDis.getSecDisId() +"\r\t\t回复内容是：\t" + secDis.getSecDisContent());
 				secDisList.add(secDis);			
 			}
 		} catch (SQLException e) {

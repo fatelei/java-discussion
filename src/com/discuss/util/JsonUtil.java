@@ -19,6 +19,7 @@ public class JsonUtil {
 	//send json
 	public static void sendJson(HttpServletResponse response, String json){
         PrintWriter out = null;
+        response.setCharacterEncoding("utf-8");
 		try {
 			out = response.getWriter();
 			out.print(json);

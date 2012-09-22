@@ -9,7 +9,7 @@ ul {
 }
 
 .box {
-	background-color: rgb(238, 238, 238);
+	background-color: #FFF962;
 	border-radius: 10px;
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
@@ -57,7 +57,6 @@ ul {
 }
 
 .cell {
-	background-color: rgb(238, 238, 238);
     padding: 10px;
     font-size: 12px;
     line-height: 120%;
@@ -66,6 +65,14 @@ ul {
     border-radius: 10px;
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
+}
+
+.replycolor {
+	background-color: #FFFFFF;
+}
+
+.additioncolor {
+	background-color: #DDFDF8;
 }
 
 .transparent {

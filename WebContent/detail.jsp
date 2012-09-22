@@ -74,12 +74,12 @@
 						String level = (String)session.getAttribute("userRank");
 						if (level != null && Integer.parseInt(level) == 2) {
 				%>
-				<span><input type="button" class="btn" onclick="" value="发表回复"/></span>
+				<span><input type="button" class="btn" onclick="show_reply_modal();" value="发表回复"/></span>
 				<%
 						}
 					}
 				%>
-				<span><input type="button" class="btn" onclick="show_reply_modal();" value="附议"/></span>
+				<span><input type="button" class="btn" onclick="show_addition_modal();" value="附议"/></span>
 			</div>
 			<div class="sep5"></div>
 			<div class="row">
@@ -96,6 +96,10 @@
 					<span class="label label-success">附议列表:</span>
 				</div>
 				<div id="additionComments">
+				</div>
+			</div>
+			<div class="row">
+				<div id="page" class="pagination pull-right">
 				</div>
 			</div>
 		</div>
@@ -119,7 +123,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<input type="button" class="btn" onclick="return check_post();" value="发表"/>
+				<input type="button" class="btn" onclick="check_post();" value="发表"/>
 			</div>
 		</div>
 		<div id="reply-modal" class="modal fade hide">
@@ -136,7 +140,24 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<input type="button" class="btn" onclick="return check_reply();" value="发表"/>
+				<input type="button" class="btn" onclick="check_reply();" value="回复"/>
+			</div>
+		</div>
+		<div id="addition-modal" class="modal fade hide">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h3>附议诉讼</h3>
+			</div>
+			<div class="modal-body">
+				<div class="control-group">
+					<label class="control-label">附议内容:</label>
+					<div class="controls">
+						<textarea name="additionContent" style="width:300px;" rows="5"></textarea>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<input type="button" class="btn" onclick="check_addition();" value="附议"/>
 			</div>
 		</div>
 		<script type="text/javascript" src="js/jquery-1.8.1.min.js"></script>
@@ -144,6 +165,7 @@
 		<script type="text/javascript" src="js/jquery.json-2.3.min.js"></script>
 		<script type="text/javascript" src="js/check.js"></script>
 		<script type="text/javascript" src="js/post.js"></script>
+		<script type="text/javascript" src="js/page.js"></script>
 		<script type="text/javascript">
 			var postId = <%=request.getParameter("postId")%>;
 			$(document).ready(function(){
@@ -165,7 +187,17 @@
 					},
 					function(data) {
 						data = $.evalJSON(data);
-						console.log(data);
+						$("#reply").html(build_reply(data.ans));
+					}
+				);
+				$.get("rplobj",
+					{
+						"rplFunFlag": "5",
+						"postId": postId,
+						"nowPage": 1
+					},
+					function(data) {
+						data = $.evalJSON(data);
 						$("#additionComments").html(build_additional_comments(data.secList));
 					}
 				);

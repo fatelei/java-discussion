@@ -112,12 +112,13 @@ function post_addition() {
 			},
 			function(data) {
 				data = $.evalJSON(data);
-				console.log(data);
+				//console.log(data);
 				if (data.adcSta == 'false') {
 					alert("附议失败!");
 				} else {
 					alert("附议成功!");
 					$("#addition-modal").modal("hide");
+					direct_to_page(nowPage);
 				}
 			}
 	);
@@ -142,6 +143,7 @@ function post_reply() {
 				} else {
 					alert("回复成功!");
 					$("#reply-modal").modal("hide");
+					direct_to_page(nowPage);
 				}
 			}
 	);

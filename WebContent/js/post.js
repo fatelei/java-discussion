@@ -45,6 +45,7 @@ function build_topic(data) {
  */
 function build_reply(data) {
 	var html = "";
+	console.log(data.length);
 	for (var i = 0; i < data.length; i++) {
 		html += '<div class="cell replycolor">';
 		html += '<table cellpadding="0" cellspacing="0" border="0" width="100%">';
@@ -112,12 +113,13 @@ function post_addition() {
 			},
 			function(data) {
 				data = $.evalJSON(data);
-				console.log(data);
+				//console.log(data);
 				if (data.adcSta == 'false') {
 					alert("附议失败!");
 				} else {
 					alert("附议成功!");
 					$("#addition-modal").modal("hide");
+					direct_to_page(nowPage);
 				}
 			}
 	);
@@ -142,6 +144,7 @@ function post_reply() {
 				} else {
 					alert("回复成功!");
 					$("#reply-modal").modal("hide");
+					direct_to_page(nowPage);
 				}
 			}
 	);

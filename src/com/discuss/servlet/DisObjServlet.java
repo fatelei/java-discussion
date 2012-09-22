@@ -21,7 +21,7 @@ import com.discuss.util.StrUtil;
 
 public class DisObjServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		this.doPost(request, response);
@@ -36,7 +36,7 @@ public class DisObjServlet extends HttpServlet {
 		String title = StrUtil.tranISOToUTF(request.getParameter("title"));
 		String content = StrUtil.tranISOToUTF( request.getParameter("content"));
 		String postId =  StrUtil.tranISOToUTF(request.getParameter("postId"));
-		
+
 		DisObjectDao disObjDao = new DisObjectDao();
 		JSONObject json = null;
 		

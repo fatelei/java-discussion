@@ -21,7 +21,6 @@
 					<div class="nav-collapse collapse">
 						<ul class="nav">
 							<li class="active"><a href="#">首页</a></li>
-							<!--If not login-->
 							<%
 							    String authed = (String)session.getAttribute("loginState");
 								if (authed == null || authed.equals("false")) {
@@ -65,8 +64,8 @@
 						<tr>
 							<th>编号</th>
 							<th>主题</th>
-							<th><a href="#">发布时间</a></th>
-							<th><a href="#">访问次数</a></th>
+							<th><a href="#" onclick="sortBy(0);">发布时间</a></th>
+							<th><a href="#" onclick="sortBy(1);">访问次数</a></th>
 							<% 
 								if (authed != null && authed.equals("true")) {
 									if (Integer.parseInt((String)session.getAttribute("userRank")) == 1) {
@@ -102,6 +101,7 @@
 			var nowPage;
 			var totalPages;
 			var orderBy = ["disobj_reltime", "disobj_looknum"];
+			var orderByIndex = -1;
 			var isAsc = 1;
 			var range = [0, 0];
 			var cursor;
@@ -115,7 +115,6 @@
 						"isAsc": isAsc
 					},
 					function(data) {
-						console.log(data);
 						data = $.evalJSON(data);
 						nowPage = data.nowPage;
 						totalPages = data.totalPages;

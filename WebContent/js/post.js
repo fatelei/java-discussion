@@ -40,7 +40,7 @@ function build_topic(data) {
  * 获得回复内容
  */
 function build_reply(data) {
-	var html = "";
+	
 }
 
 /*
@@ -49,6 +49,7 @@ function build_reply(data) {
 function build_additional_comments(data) {
 	var html = "";
 	for (var i = 0; i < data.length; i++) {
+		console.log(data[i].secUser);
 		html += '<div class="cell">';
 		html += '<table cellpadding="0" cellspacing="0" border="0" width="100%">';
 		html += '<tbody><tr><td width="10" valign="top"></td>';
@@ -56,11 +57,12 @@ function build_additional_comments(data) {
 		html += '<div class="fr"><span class="badge">' + i + '</span>';
 		html += '<a href="#"><i class="icon-thumbs-up"></i></a>' + data[i].secAprNum;
 		html += '<a href="#"><i class="icon-thumbs-down"></i></a>' + data[i].secOppNum + '</div>';
-		html += '<div class="sep3></div>';
+		html += '<div class="sep3"></div>';
 		html += '<strong>' + data[i].secUser + '</strong> 回复:<span class="small">' + data[i].secTime + '</span>';
 		html += '<div class="sep5"></div>';
 		html += '<div class="reply_content">' + data[i].secContent + '</div></td></tr></tbody></table></div>';
 	}
+	console.log(html);
 	return html;
 }
 
@@ -69,4 +71,28 @@ function build_additional_comments(data) {
  */
 function get_discuss(page, orderBy, isAsc) {
 	
+}
+
+/*
+ * 发表回复
+ */
+function post_reply() {
+	var rplCnt = document.getElementsByName("replyContent");
+	$.post("rplobj",
+			{
+				"rplFunFlag": "3",
+				"postId": postId,
+				"replyContent": rplCnt[0].value
+			},
+			function(data) {
+				data = $.evalJSON(data);
+				if (data.rplSta == 'false') {
+					alert("回复失败!");
+				} else {
+					alert("回复成功!");
+					$("#reply-modal").modal("hide");
+				}
+			}
+	);
+	return false;
 }

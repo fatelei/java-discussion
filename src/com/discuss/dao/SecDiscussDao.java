@@ -82,6 +82,7 @@ public class SecDiscussDao {
 	public ArrayList<SecDisBean> findSecDiscList(String sql){
 		ArrayList<SecDisBean> secDisList = new ArrayList<SecDisBean>();
 		res = sqlCtrl.queryResultSet(sql);
+		userDao = new UserDao();
 		try {
 			while(res.next()){
 				SecDisBean secDis = new SecDisBean();
@@ -92,8 +93,8 @@ public class SecDiscussDao {
 				secDis.setSecDisObjectId(res.getInt(SecDisBean.SecDisObjectId));
 				secDis.setSecDisUserId(res.getInt(SecDisBean.SecDisUserId));
 				secDis.setSecDisRelTime(TimeUtil.formatTime(res.getTimestamp(SecDisBean.SecDisRelTime).toString()));
-
 				secDis.setSecDisUser(userDao.findUserById(res.getInt(SecDisBean.SecDisUserId)));
+				System.out.println(secDis.getSecDisUser().getUserName());
 				secDisList.add(secDis);			
 			}
 		} catch (SQLException e) {

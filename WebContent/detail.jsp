@@ -86,9 +86,15 @@
 				<div class="box" id="topic">
 				</div>
 				<div class="sep20"></div>
+				<div class="sep20">
+					<span class="label label-success">回复列表:</span>
+				</div>
 				<div id="reply">
 				</div>
 				<div class="sep20"></div>
+				<div class="sep20">
+					<span class="label label-success">附议列表:</span>
+				</div>
 				<div id="additionComments">
 				</div>
 			</div>
@@ -98,47 +104,40 @@
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				<h3>发表诉讼</h3>
 			</div>
-			<form method="POST" action="disobj" class="form-horizontal">
-				<input type="hidden" name="disFunFlag" value="1"/>
-				<div class="modal-body">
-					<div class="control-group">
-						<label class="control-label">标题:</label>
-						<div class="controls">
-							<input type="text" name="title" class="input-xlarge"/>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label">诉讼内容:</label>
-						<div class="controls">
-							<textarea name="content" style="width:300px;" rows="5"></textarea>
-						</div>
+			<div class="modal-body">
+				<div class="control-group">
+					<label class="control-label">标题:</label>
+					<div class="controls">
+						<input type="text" name="title" class="input-xlarge"/>
 					</div>
 				</div>
-				<div class="modal-footer">
-					<input type="reset" class="btn" value="重置"/>
-					<input type="submit" class="btn btn-primary" onclick="return check_post();" value="发表"/>
+				<div class="control-group">
+					<label class="control-label">诉讼内容:</label>
+					<div class="controls">
+						<textarea name="content" style="width:300px;" rows="5"></textarea>
+					</div>
 				</div>
-			</form>
+			</div>
+			<div class="modal-footer">
+				<input type="button" class="btn" onclick="return check_post();" value="发表"/>
+			</div>
 		</div>
 		<div id="reply-modal" class="modal fade hide">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				<h3>回复诉讼</h3>
 			</div>
-			<form method="POST" action="" class="form-horizontal">
-				<div class="modal-body">
-					<div class="control-group">
-						<label class="control-label">回复内容:</label>
-						<div class="controls">
-							<textarea name="replyContent" style="width:300px;" rows="5"></textarea>
-						</div>
+			<div class="modal-body">
+				<div class="control-group">
+					<label class="control-label">回复内容:</label>
+					<div class="controls">
+						<textarea name="replyContent" style="width:300px;" rows="5"></textarea>
 					</div>
 				</div>
-				<div class="modal-footer">
-					<input type="reset" class="btn" value="重置"/>
-					<input type="submit" class="btn btn-primary" onclick="return check_reply();" value="发表"/>
-				</div>
-			</form>
+			</div>
+			<div class="modal-footer">
+				<input type="button" class="btn" onclick="return check_reply();" value="发表"/>
+			</div>
 		</div>
 		<script type="text/javascript" src="js/jquery-1.8.1.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
@@ -166,7 +165,8 @@
 					},
 					function(data) {
 						data = $.evalJSON(data);
-						$("#additionComments").html(data.secList);
+						console.log(data);
+						$("#additionComments").html(build_additional_comments(data.secList));
 					}
 				);
 			});

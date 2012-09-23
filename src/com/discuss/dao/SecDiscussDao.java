@@ -5,13 +5,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.discuss.bean.SecDisBean;
+import com.discuss.bean.SecVoteIpBean;
 import com.discuss.util.SqlControl;
 import com.discuss.util.TimeUtil;
 
 public class SecDiscussDao {
 	private SqlControl sqlCtrl = new SqlControl();
 	private ResultSet res = null;
-	private UserDao userDao = null;
+	private UserDao userDao = new UserDao();
+	private SecVoteIpDao svid = new SecVoteIpDao();; 
 	
 	//add new	SecDiscuss
 	//include	the content of seconded discuss , userId , ObjId and now time 
@@ -82,7 +84,6 @@ public class SecDiscussDao {
 	public ArrayList<SecDisBean> findSecDiscList(String sql){
 		ArrayList<SecDisBean> secDisList = new ArrayList<SecDisBean>();
 		res = sqlCtrl.queryResultSet(sql);
-		userDao = new UserDao();
 		try {
 			while(res.next()){
 				SecDisBean secDis = new SecDisBean();
@@ -106,7 +107,12 @@ public class SecDiscussDao {
 	}
 
 	//update the support num
-	public int updateTheSuptNum(int secDisId, int oneSum){
+	public int updateTheSuptNum(int secDisId, int oneSum, String ip, int userId, int secId){
+		//look had yet voted
+		if(svid.isAreadyVoted(ip, secId)){
+			return -1;
+		}
+		
 		String findOldSql = "select " + SecDisBean.SecDisSupNum + " from " + SecDisBean.SecDisTable + 
 					" where " + SecDisBean.SecDisId + " = " + secDisId + " ;";
 		System.out.println(findOldSql);
@@ -119,11 +125,22 @@ public class SecDiscussDao {
 			//sql error
 			return -1;
 		}
+		
+		//put the suporter's ip in database
+		svid.addIpAdd(new SecVoteIpBean(ip, userId, secId));
+		
 		return sqlCtrl.getOneInt(findOldSql);
 	}
 	
 	//update the opposite num
-	public int updateTheOppNum(int secDisId, int oneSum){
+	public int updateTheOppNum(int secDisId, int oneSum, String ip, int userId, int secId){
+		
+		//look had yet voted
+		if(svid.isAreadyVoted(ip, secId)){
+			return -1;
+		}
+		
+		
 		String findOldSql = "select " + SecDisBean.SecDisOppNum + " from " + SecDisBean.SecDisTable + 
 					" where " + SecDisBean.SecDisId + " = " + secDisId + " ;";
 		System.out.println(findOldSql);
@@ -134,6 +151,10 @@ public class SecDiscussDao {
 		if(sqlCtrl.update(updateSql) == -1){
 			return -1;
 		}
+		
+		//put the suporter's ip in database
+		svid.addIpAdd(new SecVoteIpBean(ip, userId, secId));
+		
 		return sqlCtrl.getOneInt(findOldSql);
 	}
 }

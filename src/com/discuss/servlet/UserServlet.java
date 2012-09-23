@@ -80,7 +80,8 @@ public class UserServlet extends HttpServlet {
 			UserBean newUser = new UserBean(Integer.valueOf(userId), userName, userPassword, Integer.valueOf(userRank));
 			if(userDao.modifyUser(newUser)){
 				//modify ok
-				if ((String)session.getAttribute(UserBean.UserID) == userId) {
+				System.out.println(session.getAttribute(SesVaBean.UserId));
+				if ((Integer)session.getAttribute(SesVaBean.UserId) == Integer.parseInt(userId)) {
 					session.invalidate();
 					response.sendRedirect("login.jsp");
 				} else {

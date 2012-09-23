@@ -169,8 +169,7 @@ function post_addition() {
 					$("#addition-modal").modal("hide");
 				} else {
 					alert("附议成功!");
-					$("#addition-modal").modal("hide");
-					direct_to_page(nowPage);
+					window.location.reload();
 				}
 			}
 	);
@@ -199,7 +198,6 @@ function post_reply() {
 					$("#reply-modal").modal("hide");
 				} else {
 					alert("回复成功!");
-					$("#reply-modal").modal("hide");
 					window.location.reload();
 				}
 			}

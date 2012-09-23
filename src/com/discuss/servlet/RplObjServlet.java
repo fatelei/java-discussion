@@ -119,9 +119,14 @@ public class RplObjServlet extends HttpServlet {
 			break;
 		case 6: //更新支持
 			secId = Integer.parseInt(request.getParameter("secId"));
+			userId = (Integer)session.getAttribute(SesVaBean.UserId);
+			
 			secDisDao = new SecDiscussDao();
 			json = new JSONObject();
-			total = secDisDao.updateTheSuptNum(secId, 1);
+			
+			//get ip add
+			String ipAdd = request.getRemoteAddr(); 
+			total = secDisDao.updateTheSuptNum(secId, 1, ipAdd, userId, secId);
 			if (total != -1) {
 				json.put("upSta", "true");
 				json.put("upNum", total);
@@ -132,9 +137,14 @@ public class RplObjServlet extends HttpServlet {
 			break;
 		case 7: //更新反对
 			secId = Integer.parseInt(request.getParameter("secId"));
+			userId = (Integer)session.getAttribute(SesVaBean.UserId);
+			
 			secDisDao = new SecDiscussDao();
 			json = new JSONObject();
-			total = secDisDao.updateTheOppNum(secId, 1);
+			//get ip add
+			String ipAddr = request.getRemoteAddr(); 
+			
+			total = secDisDao.updateTheOppNum(secId, 1, ipAddr, userId, secId);
 			if (total != -1) {
 				json.put("upSta", "true");
 				json.put("opNum", total);

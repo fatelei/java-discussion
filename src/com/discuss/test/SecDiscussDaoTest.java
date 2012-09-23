@@ -22,8 +22,8 @@ public class SecDiscussDaoTest {
 		//System.out.println(secDis.querySecDisc(1, 10, SecDisBean.SecDisId, true).get(0).getSecDisContent());
 		//System.out.println(secDis.querySecDiscByObj(1, 10, 2, SecDisBean.SecDisId, true).get(1).getSecDisContent());
 		
-		System.out.println("更新反对人数：" + secDis.updateTheOppNum(1, 100));
-		System.out.println("支持人数" + secDis.updateTheSuptNum(1, 100));
+		System.out.println("更新反对人数：" + secDis.updateTheOppNum(1, 100, "127.0.0.2", 13, 1));
+		System.out.println("支持人数" + secDis.updateTheSuptNum(1, 100, "127.0.0.2", 13, 1));
 		
 	}
 }

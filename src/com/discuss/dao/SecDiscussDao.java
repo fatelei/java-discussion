@@ -110,7 +110,7 @@ public class SecDiscussDao {
 	public int updateTheSuptNum(int secDisId, int oneSum, String ip, int userId, int secId){
 		//look had yet voted
 		if(svid.isAreadyVoted(ip, secId)){
-			return -1;
+			return -2;
 		}
 		
 		String findOldSql = "select " + SecDisBean.SecDisSupNum + " from " + SecDisBean.SecDisTable + 
@@ -137,7 +137,7 @@ public class SecDiscussDao {
 		
 		//look had yet voted
 		if(svid.isAreadyVoted(ip, secId)){
-			return -1;
+			return -2;
 		}
 		
 		

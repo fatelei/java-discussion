@@ -63,7 +63,7 @@ public class RplObjServlet extends HttpServlet {
 		case 2: //发表回复
 			userId = (Integer)session.getAttribute(SesVaBean.UserId);
 			AnswerDao ansDao = new AnswerDao();
-			String rplCnt = StrUtil.tranISOToUTF(request.getParameter("replyContent"));
+			String rplCnt = request.getParameter("replyContent");
 			AnswerBean ansBean = new AnswerBean(rplCnt, userId, postId);
 			json = new JSONObject();
 			if (ansDao.addAns(ansBean)) {
@@ -83,7 +83,7 @@ public class RplObjServlet extends HttpServlet {
 			} else {
 				userId = (Integer)session.getAttribute(SesVaBean.UserId);
 				secDisDao = new SecDiscussDao();
-				String addComment = StrUtil.tranISOToUTF(request.getParameter("additionContent"));
+				String addComment = request.getParameter("additionContent");
 				System.out.println(addComment);
 				SecDisBean secDisBean = new SecDisBean(addComment, userId, postId);
 				if (secDisDao.addSecDisc(secDisBean)) {

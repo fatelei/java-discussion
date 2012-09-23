@@ -75,6 +75,10 @@ ul {
 	background-color: #DDFDF8;
 }
 
+.quote {
+	background-color: #FFFFFF;
+}
+
 .transparent {
     background-color: transparent;
     border: 2px dashed rgba(0, 0, 0, 0.1);

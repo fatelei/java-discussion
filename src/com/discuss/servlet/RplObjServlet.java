@@ -68,6 +68,7 @@ public class RplObjServlet extends HttpServlet {
 			json = new JSONObject();
 			if (ansDao.addAns(ansBean)) {
 				json.put("rplSta", "true");
+				json.put("errmsg", "请先登录");
 			} else {
 				json.put("rplSta", "false");
 			}
@@ -78,11 +79,12 @@ public class RplObjServlet extends HttpServlet {
 			json = new JSONObject();
 			if (t == null) {
 				json.put("adcSta", "false");
+				json.put("errmsg", "请先登录");
 			} else {
 				userId = (Integer)session.getAttribute(SesVaBean.UserId);
 				secDisDao = new SecDiscussDao();
 				String addComment = StrUtil.tranISOToUTF(request.getParameter("additionContent"));
-
+				System.out.println(addComment);
 				SecDisBean secDisBean = new SecDisBean(addComment, userId, postId);
 				if (secDisDao.addSecDisc(secDisBean)) {
 					json.put("adcSta", "true");

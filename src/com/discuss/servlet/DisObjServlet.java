@@ -72,9 +72,9 @@ public class DisObjServlet extends HttpServlet {
 			int isAsc = Integer.parseInt(StrUtil.tranISOToUTF(request.getParameter("isAsc")));
 			ArrayList<DisObjBean> listDis = null;
 			if (isAsc == 1) {
-				listDis = disObjDao.queryObj(nowPage, 1, orderBy, true);
+				listDis = disObjDao.queryObj(nowPage, SysConfBean.DisListPageNum, orderBy, true);
 			} else {
-				listDis = disObjDao.queryObj(nowPage, 1, orderBy, false);
+				listDis = disObjDao.queryObj(nowPage, SysConfBean.DisListPageNum, orderBy, false);
 			}
 			int totalPages = 0;
 			int totalDises = disObjDao.countObj();

@@ -80,8 +80,34 @@ function build_additional_comments(data) {
 		html += '<a href="#" onclick=\'update_so(' + data[i].secId + ', 1);\'><i class="icon-thumbs-down"></i></a><i id="opt' + data[i].secId + '">' + data[i].secOppNum + '</i></div>';
 		html += '<div class="sep3"></div>';
 		html += '<strong>' + data[i].secUser + '</strong> 回复:<span class="small">' + data[i].secTime + '</span>';
+		html += '<span class="span10"><i class="icon-comment"></i><a href="#" onclick="quote_addition_comments(this);">引用</a></span>';
 		html += '<div class="sep5"></div>';
-		html += '<div class="reply_content">' + data[i].secContent + '</div></td></tr></tbody></table></div>';
+		html += '<div class="reply_content">';
+		if (data[i].secContent.match("quote") != null) {
+			var target = data[i].secContent;
+			var authorPattern = /<author>.*<\/author>/;
+			var timePattern = /<time>.*<\/time>/;
+			var contentPattern = /<content>.*<\/content>/;
+			console.log(target);
+			var author = authorPattern.exec(target)[0];
+			author = author.replace(/<[^>]*>/g, "");
+			var time = timePattern.exec(target)[0];
+			time = time.replace(/<[^>]*>/g, "");
+			var content = contentPattern.exec(target)[0];
+			content = content.replace(/<[^>]*>/g, "");
+			html += '<div class="cell additioncolor">';
+			html += '<table cellpadding="0" cellspacing="0" border="0" width="100%">';
+			html += '<tbody><tr><td width="10" valign="top"></td>';
+			html += '<td width="auto" valign="top" align="left">';
+			html += '<div class="sep3"></div>';
+			html += '<strong>' + author + '</strong> 回复:<span class="small">' + time + '</span>';
+			html += '<div class="sep5"></div>';
+			html += '<div class="reply_content">' + content + '</div></td></tr></tbody></table></div>';
+			html += target.replace(/<quote>.*<\/quote>/g, "");
+		} else {
+			html += data[i].secContent;
+		}
+		html += '</div></td></tr></tbody></table></div>';
 	}
 	if (html.length == 0) {
 		html += '<div class="cell additioncolor">';
@@ -181,5 +207,23 @@ function post_reply() {
 				}
 			}
 	);
+	return false;
+}
+
+/*
+ * 引用附议
+ */
+function quote_addition_comments(ele) {
+	var parent = $(ele).parent().parent();
+	var author = $(parent).find("strong")[0].innerText;
+	var postTime = $(parent).find(".small")[0].innerText;
+	var context = $(parent).find(".reply_content")[0].innerText;
+	var addCmtObj = document.getElementsByName("additionContent");
+	var quote_msg = "";
+	quote_msg += '<quote><author>' + author + '</author>';
+	quote_msg += '<time>' + postTime + '</time>';
+	quote_msg += '<content>' + context + '</content></quote>';
+	addCmtObj[0].value = quote_msg;
+	show_addition_modal();
 	return false;
 }

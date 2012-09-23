@@ -171,6 +171,7 @@
 		<script type="text/javascript" src="js/page.js"></script>
 		<script type="text/javascript">
 			var postId = <%=request.getParameter("postId")%>;
+			var identify = <%=session.getAttribute("userRank")%>;
 			var nowPage;
 			var totalPages;
 			var cursor;

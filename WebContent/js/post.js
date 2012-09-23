@@ -54,7 +54,14 @@ function build_reply(data) {
 		html += '<div class="sep3"></div>';
 		html += '<strong>' + data[i].rplUser + '</strong> 回复:<span class="small">' + data[i].rplTime + '</span>';
 		html += '<div class="sep5"></div>';
-		html += '<div class="reply_content">' + data[i].rplContent + '</div></td></tr></tbody></table></div>';
+		html += '<div class="reply_content">';
+		if (data[i].rplContent.match("quote") != null) {
+			html += generate_quote(data[i].rplContent);
+		} else {
+			html += data[i].rplContent;
+		}
+		html += '</div></td></tr></tbody></table></div>';
+		
 	}
 	if (html.length == 0) {
 		html += '<div class="cell replycolor">';
@@ -80,8 +87,15 @@ function build_additional_comments(data) {
 		html += '<a href="#" onclick=\'update_so(' + data[i].secId + ', 1);\'><i class="icon-thumbs-down"></i></a><i id="opt' + data[i].secId + '">' + data[i].secOppNum + '</i></div>';
 		html += '<div class="sep3"></div>';
 		html += '<strong>' + data[i].secUser + '</strong> 回复:<span class="small">' + data[i].secTime + '</span>';
+		html += '<span class="span10"><i class="icon-comment"></i><a href="#" onclick="quote_addition_comments(this);">引用</a></span>';
 		html += '<div class="sep5"></div>';
-		html += '<div class="reply_content">' + data[i].secContent + '</div></td></tr></tbody></table></div>';
+		html += '<div class="reply_content">';
+		if (data[i].secContent.match("quote") != null) {
+			html += generate_quote(data[i].secContent);
+		} else {
+			html += data[i].secContent;
+		}
+		html += '</div></td></tr></tbody></table></div>';
 	}
 	if (html.length == 0) {
 		html += '<div class="cell additioncolor">';
@@ -137,7 +151,6 @@ function update_so(secId, flag) {
  */
 function post_addition() {
 	var addCnt = document.getElementsByName("additionContent");
-	console.log("post addition");
 	$.post("rplobj",
 			{
 				"rplFunFlag": "3",
@@ -148,7 +161,12 @@ function post_addition() {
 				data = $.evalJSON(data);
 				//console.log(data);
 				if (data.adcSta == 'false') {
-					alert("附议失败!");
+					if ("errmsg" in data) {
+						alert(data.errmsg);
+					} else {
+						alert("附议失败!");
+					}
+					$("#addition-modal").modal("hide");
 				} else {
 					alert("附议成功!");
 					$("#addition-modal").modal("hide");
@@ -173,13 +191,72 @@ function post_reply() {
 			function(data) {
 				data = $.evalJSON(data);
 				if (data.rplSta == 'false') {
-					alert("回复失败!");
+					if ("errmsg" in data) {
+						alert(data.errmsg);
+					} else {
+						alert("回复失败!");
+					}
+					$("#reply-modal").modal("hide");
 				} else {
 					alert("回复成功!");
 					$("#reply-modal").modal("hide");
-					direct_to_page(nowPage);
+					window.location.reload();
 				}
 			}
 	);
 	return false;
+}
+
+/*
+ * 引用附议
+ */
+function quote_addition_comments(ele) {
+	var parent = $(ele).parent().parent();
+	var author = $(parent).find("strong")[0].innerText;
+	var postTime = $(parent).find(".small")[0].innerText;
+	var context = $(parent).find(".reply_content")[0].innerText;
+	var quote_msg = "";
+	quote_msg += '<quote><author>' + author + '</author>';
+	quote_msg += '<time>' + postTime + '</time>';
+	quote_msg += '<content>' + context + '</content></quote>';
+	switch (identify) {
+	case 2:
+		var rplObj = document.getElementsByName("replyContent");
+		rplObj[0].value = quote_msg;
+		show_reply_modal();
+		break;
+	case 3:
+		var addCmtObj = document.getElementsByName("additionContent");
+		addCmtObj[0].value = quote_msg;
+		show_addition_modal();
+		break;
+	}
+	return false;
+}
+
+/*
+ * 生成引用内容
+ */
+function generate_quote(data) {
+	var html = "";
+	var authorPattern = /<author>.*<\/author>/;
+	var timePattern = /<time>.*<\/time>/;
+	var contentPattern = /<content>.*<\/content>/;
+	//console.log(target);
+	var author = authorPattern.exec(data)[0];
+	author = author.replace(/<[^>]*>/g, "");
+	var time = timePattern.exec(data)[0];
+	time = time.replace(/<[^>]*>/g, "");
+	var content = contentPattern.exec(data)[0];
+	content = content.replace(/<[^>]*>/g, "");
+	html += '<div class="cell quote">';
+	html += '<table cellpadding="0" cellspacing="0" border="0" width="100%">';
+	html += '<tbody><tr><td width="10" valign="top"></td>';
+	html += '<td width="auto" valign="top" align="left">';
+	html += '<div class="sep3"></div>';
+	html += '<strong>' + author + '</strong> 回复:<span class="small">' + time + '</span>';
+	html += '<div class="sep5"></div>';
+	html += '<div class="reply_content">' + content + '</div></td></tr></tbody></table></div>';
+	html += data.replace(/<quote>.*<\/quote>/g, "");
+	return html;
 }

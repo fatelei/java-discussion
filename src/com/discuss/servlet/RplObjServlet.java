@@ -127,7 +127,7 @@ public class RplObjServlet extends HttpServlet {
 			//get ip add
 			String ipAdd = request.getRemoteAddr(); 
 			total = secDisDao.updateTheSuptNum(secId, 1, ipAdd, userId, secId);
-			if (total != -1) {
+			if (total > 0) {
 				json.put("upSta", "true");
 				json.put("upNum", total);
 			} else if (total == -2) {

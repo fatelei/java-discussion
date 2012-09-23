@@ -107,7 +107,7 @@ function build_additional_comments(data) {
 }
 
 /*
- *
+ * 更新支持或者反对
  */
 function update_so(secId, flag) {
 	switch (flag) {
@@ -117,9 +117,9 @@ function update_so(secId, flag) {
 			   'secId': secId
 			}, function (data) {
 				data = $.evalJSON(data);
+				console.log(data);
 				if (data.upSta == "true") {
 					alert("支持成功!");
-					console.log(data);
 					$('#apr' + secId)[0].innerText = data.upNum;
 				} else {
 					if ("errmsg" in data) {

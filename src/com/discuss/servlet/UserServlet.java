@@ -78,11 +78,15 @@ public class UserServlet extends HttpServlet {
 			break;
 		case 3:					//modify
 			UserBean newUser = new UserBean(Integer.valueOf(userId), userName, userPassword, Integer.valueOf(userRank));
-			
 			if(userDao.modifyUser(newUser)){
 				//modify ok
-				session.setAttribute("modifySta", "true");
-				response.sendRedirect("user_manage.jsp");
+				if ((String)session.getAttribute(UserBean.UserID) == userId) {
+					session.invalidate();
+					response.sendRedirect("login.jsp");
+				} else {
+					session.setAttribute("modifySta", "true");
+					response.sendRedirect("user_manage.jsp");
+				}
 			}else{
 				//name already in the database
 				session.setAttribute("modifySta", "false");

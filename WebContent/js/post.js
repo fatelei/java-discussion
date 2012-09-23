@@ -122,7 +122,11 @@ function update_so(secId, flag) {
 					console.log(data);
 					$('#apr' + secId)[0].innerText = data.upNum;
 				} else {
-					alert("支持失败!");
+					if ("errmsg" in data) {
+						alert(data.errmsg);
+					} else {
+						alert("支持失败!");
+					}
 				}
 			}
 		);

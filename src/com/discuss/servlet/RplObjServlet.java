@@ -130,6 +130,9 @@ public class RplObjServlet extends HttpServlet {
 			if (total != -1) {
 				json.put("upSta", "true");
 				json.put("upNum", total);
+			} else if (total == -2) {
+				json.put("upSta", "false");
+				json.put("errmsg", "您已经投过票了!");
 			} else {
 				json.put("upSta", "false");
 			}

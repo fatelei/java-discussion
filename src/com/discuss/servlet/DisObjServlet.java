@@ -56,6 +56,8 @@ public class DisObjServlet extends HttpServlet {
 			break;
 		case 2: //query a specific discuss
 			DisObjBean curDis = disObjDao.queryObjById(Integer.parseInt(postId));
+				//add look number
+			disObjDao.updateTheLookNum(curDis.getDisObjID(), 1);
 			json = new JSONObject();
 			json.put("id", curDis.getDisObjID());
 			json.put("title", curDis.getDisObjTopic());

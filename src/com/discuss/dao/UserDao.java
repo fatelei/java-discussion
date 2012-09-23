@@ -7,6 +7,7 @@ import com.discuss.bean.AnswerBean;
 import com.discuss.bean.DisObjBean;
 import com.discuss.bean.SecDisBean;
 import com.discuss.bean.UserBean;
+import com.discuss.util.MD5Util;
 import com.discuss.util.SqlControl;
 
 public class UserDao {
@@ -19,7 +20,7 @@ public class UserDao {
 										" where " + UserBean.UserName +" = '" + userName + "';";
 		ArrayList<UserBean> userList = findUserList(findUserSql);
 		if(userList.size() != 0){
-			if(userList.get(0).getUserPassword().equals(password)){
+			if(MD5Util.checkPWD(password, userList.get(0).getUserPassword())){
 				return userList.get(0);
 			}else{
 				return null;
@@ -39,6 +40,9 @@ public class UserDao {
 			return false;
 		}else{
 			//no	add
+			String typPas = MD5Util.ecodeByMD5(user.getUserPassword());
+			user.setUserPassword(typPas);
+			
 			String addUserSql = "insert into  " + UserBean.UserTable + " (" + UserBean.UserName +", " + UserBean.UserPassword + ", " + UserBean.UserRank + ") " +
 					"values ('" + user.getUserName()+"', '" + user.getUserPassword() +"', '" + String.valueOf(user.getUserRank()) + "')";
 			System.out.println(addUserSql);

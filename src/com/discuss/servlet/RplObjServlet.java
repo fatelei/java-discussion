@@ -29,6 +29,7 @@ public class RplObjServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int rplFunFlag = Integer.parseInt(StrUtil.tranISOToUTF(request.getParameter("rplFunFlag")));
+		System.out.println(rplFunFlag);
 		HttpSession session = request.getSession();
 		int postId = -1;
 		if (StrUtil.tranISOToUTF(request.getParameter("postId")) != null) {
@@ -119,41 +120,56 @@ public class RplObjServlet extends HttpServlet {
 			break;
 		case 6: //更新支持
 			secId = Integer.parseInt(request.getParameter("secId"));
-			userId = (Integer)session.getAttribute(SesVaBean.UserId);
-			
-			secDisDao = new SecDiscussDao();
 			json = new JSONObject();
-			
-			//get ip add
-			String ipAdd = request.getRemoteAddr(); 
-			total = secDisDao.updateTheSuptNum(secId, 1, ipAdd, userId, secId);
-			if (total > 0) {
-				json.put("upSta", "true");
-				json.put("upNum", total);
-			} else if (total == -2) {
-				json.put("upSta", "false");
-				json.put("errmsg", "您已经投过票了!");
+			if (session.getAttribute(SesVaBean.UserId) != null) {
+				userId = (Integer)session.getAttribute(SesVaBean.UserId);
+				secDisDao = new SecDiscussDao();
+				
+				//get ip add
+				String ipAdd = request.getRemoteAddr(); 
+				total = secDisDao.updateTheSuptNum(secId, 1, ipAdd, userId, secId);
+				if (total > 0) {
+					json.put("upSta", "true");
+					json.put("upNum", total);
+				} else if (total == -2) {
+					json.put("upSta", "false");
+					json.put("errmsg", "您已经投过票了!");
+				} else {
+					json.put("upSta", "false");
+					json.put("errmsg", "投票出错了!");
+				}
 			} else {
 				json.put("upSta", "false");
+				json.put("errmsg", "请先登录");
 			}
 			JsonUtil.sendJson(response, json.toString());
 			break;
 		case 7: //更新反对
 			secId = Integer.parseInt(request.getParameter("secId"));
-			userId = (Integer)session.getAttribute(SesVaBean.UserId);
-			
-			secDisDao = new SecDiscussDao();
 			json = new JSONObject();
-			//get ip add
-			String ipAddr = request.getRemoteAddr(); 
-			
-			total = secDisDao.updateTheOppNum(secId, 1, ipAddr, userId, secId);
-			if (total != -1) {
-				json.put("upSta", "true");
-				json.put("opNum", total);
+			if (session.getAttribute(SesVaBean.UserId) != null) {
+				userId = (Integer)session.getAttribute(SesVaBean.UserId);
+				secDisDao = new SecDiscussDao();
+				
+				//get ip add
+				String ipAddr = request.getRemoteAddr(); 
+				
+				total = secDisDao.updateTheOppNum(secId, 1, ipAddr, userId, secId);
+				if (total > 0) {
+					json.put("upSta", "true");
+					json.put("opNum", total);
+				} else if (total == -2) {
+					json.put("upSta", "false");
+					json.put("errmsg", "您已经投过票了!");
+				} else {
+					json.put("upSta", "false");
+					json.put("errmsg", "投票出错了!");
+				}
 			} else {
 				json.put("upSta", "false");
+				json.put("errmsg", "请先登录");
 			}
+			
 			JsonUtil.sendJson(response, json.toString());
 			break;
 		}

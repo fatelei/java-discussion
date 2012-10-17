@@ -141,7 +141,11 @@ function update_so(secId, flag) {
 					alert("反对成功!");
 					$('#opt' + secId)[0].innerText = data.opNum;
 				} else {
-					alert("反对失败!");
+					if ("errmsg" in data) {
+						alert(data.errmsg);
+					} else {
+						alert("反对失败!");
+					}
 				}
 			}
 		);
